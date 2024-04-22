@@ -8,6 +8,6 @@ namespace App.Domain.Core.CategoryEntity
         public int Id { get; set; }
         [MaxLength(50)]
         public string Title { get; set; }
-        public List<Service> Services { get; set; } = new List<Service>();
+        public List<Service>? Services { get; set; } = new List<Service>();
     }
 }

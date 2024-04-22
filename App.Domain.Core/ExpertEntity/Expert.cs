@@ -1,5 +1,6 @@
 ﻿using App.Domain.Core.CommentEntity;
 using App.Domain.Core.Enums;
+using App.Domain.Core.ServiceEntity;
 using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.ExpertEntity
@@ -29,7 +30,8 @@ namespace App.Domain.Core.ExpertEntity
         [MaxLength(11)]
         public string PhoneNumberBackUp { get; set; }
         public decimal Score { get; set; }
-        public List<Comment>? comments { get; set; } = new List<Comment>();
+        public List<Comment>? Comments { get; set; } = new List<Comment>();
+        public List<Service>? Services { get; set; } = new List<Service>();
         public long CardNumber { get; set; }
         public DateTime RegisteredAt { get; set; }
         public DateTime CreatedAt { get; set; }
