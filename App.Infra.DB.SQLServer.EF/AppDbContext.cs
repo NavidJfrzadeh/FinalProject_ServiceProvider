@@ -7,6 +7,7 @@ using App.Domain.Core.CustomerEntity;
 using App.Domain.Core.ExpertEntity;
 using App.Domain.Core.RequestEntity;
 using App.Domain.Core.ServiceEntity;
+using App.Infra.DB.SQLServer.EF.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DB.SQLServer.EF
@@ -21,7 +22,12 @@ namespace App.Infra.DB.SQLServer.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.
+            modelBuilder.ApplyConfiguration(new AdminEntityConfig());
+            modelBuilder.ApplyConfiguration(new CategoryEntityConfig());
+            modelBuilder.ApplyConfiguration(new CustomerEntityConfig());
+            modelBuilder.ApplyConfiguration(new ExpertEntityConfig());
+            modelBuilder.ApplyConfiguration(new RequestEntityConfig());
+            modelBuilder.ApplyConfiguration(new ServiceEntityConfig());
         }
 
         public DbSet<Address> Addresses { get; set; }
@@ -33,8 +39,5 @@ namespace App.Infra.DB.SQLServer.EF
         public DbSet<Expert> Experts { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<Service> Services { get; set; }
-        //gender
-        //status
-        //Status Values attrib
     }
 }

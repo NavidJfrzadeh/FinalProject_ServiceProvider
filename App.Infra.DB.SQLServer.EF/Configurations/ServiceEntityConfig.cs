@@ -1,11 +1,10 @@
-﻿using App.Domain.Core.RequestEntity;
-using App.Domain.Core.ServiceEntity;
+﻿using App.Domain.Core.ServiceEntity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace App.Infra.DB.SQLServer.EF.Configurations
 {
-    public class ServiceEntityConfigs : IEntityTypeConfiguration<Service>
+    public class ServiceEntityConfig : IEntityTypeConfiguration<Service>
     {
         public void Configure(EntityTypeBuilder<Service> builder)
         {

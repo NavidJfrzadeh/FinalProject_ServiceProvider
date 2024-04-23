@@ -1,4 +1,5 @@
 ﻿using App.Domain.Core.ExpertEntity;
+using App.Domain.Core.RequestEntity;
 using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.BidEntity
@@ -11,6 +12,8 @@ namespace App.Domain.Core.BidEntity
         [Required]
         [MaxLength(1000)]
         public string Description { get; set; }
+        public int RequestId { get; set; }
+        public Request Request { get; set; }
         public int ExpertId { get; set; }
         public Expert Expert { get; set; }
     }
