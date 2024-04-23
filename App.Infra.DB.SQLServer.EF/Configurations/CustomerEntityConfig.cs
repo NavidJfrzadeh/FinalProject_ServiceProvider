@@ -16,6 +16,9 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
             builder.HasMany(cu => cu.Comments)
                 .WithOne(co => co.Customer)
                 .HasForeignKey(co => co.CustomerId);
+            builder.HasMany(cu=>cu.Addresses)
+                .WithOne(a => a.Customer)
+                .HasForeignKey(a=>a.CustomerId);
         }
     }
 }

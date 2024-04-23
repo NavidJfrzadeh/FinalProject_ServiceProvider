@@ -1,4 +1,5 @@
-﻿using App.Domain.Core._0_BaseEntity;
+﻿using App.Domain.Core._0_BaseEntities;
+using App.Domain.Core._0_BaseEntity;
 using App.Domain.Core.AdminEntity;
 using App.Domain.Core.BidEntity;
 using App.Domain.Core.CategoryEntity;
@@ -31,6 +32,7 @@ namespace App.Infra.DB.SQLServer.EF
         }
 
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<City> Cities { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Bid> Bids { get; set; }
         public DbSet<Category> Categories { get; set; }
