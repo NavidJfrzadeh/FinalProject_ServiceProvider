@@ -16,6 +16,8 @@ namespace App.Domain.Core.CustomerEntity
         [Required]
         [Key]
         public int Id { get; set; }
+        [MaxLength(500)]
+        public string? ProfilePhoto { get; set; }
         [MaxLength(100)]
         public string FirstName { get; set; }
         [MaxLength(100)]

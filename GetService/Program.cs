@@ -1,3 +1,8 @@
+using App.Domain.Core.AdminEntity.Contracts;
+using App.Domain.Core.CustomerEntity.Contracts;
+using App.Domain.Core.ExpertEntity.Contracts;
+using App.Domain.Core.ServiceEntity.Contracts;
+using App.Infra.DataAccess.Repo.EF;
 using App.Infra.DB.SQLServer.EF;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +21,18 @@ var configuration = new ConfigurationBuilder()
 builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlServer(configuration.GetSection("ConnectionStrings:AppConnectionString").Value)
     );
+
+//Admin Services
+builder.Services.AddScoped<IAdminRepository, AdminRepository > ();
+
+//Customer Services
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository > ();
+
+//Expert Services
+builder.Services.AddScoped<IExpertRepository, ExpertRepository > ();
+
+//Services
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 
 var app = builder.Build();

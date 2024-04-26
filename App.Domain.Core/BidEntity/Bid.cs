@@ -9,6 +9,7 @@ namespace App.Domain.Core.BidEntity
         [Key]
         public int Id { get; set; }
         public decimal Price { get; set; }
+        public DateOnly StartAt { get; set; }
         [Required]
         [MaxLength(1000)]
         public string Description { get; set; }

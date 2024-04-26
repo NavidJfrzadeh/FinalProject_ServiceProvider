@@ -29,6 +29,7 @@ namespace App.Infra.DB.SQLServer.EF
             modelBuilder.ApplyConfiguration(new ExpertEntityConfig());
             modelBuilder.ApplyConfiguration(new RequestEntityConfig());
             modelBuilder.ApplyConfiguration(new ServiceEntityConfig());
+            modelBuilder.ApplyConfiguration(new CityEntityConfig());
         }
 
         public DbSet<Address> Addresses { get; set; }

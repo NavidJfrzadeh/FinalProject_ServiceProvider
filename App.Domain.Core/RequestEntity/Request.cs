@@ -1,4 +1,5 @@
-﻿using App.Domain.Core._0_BaseEntities.Enums;
+﻿using App.Domain.Core._0_BaseEntities;
+using App.Domain.Core._0_BaseEntities.Enums;
 using App.Domain.Core.BidEntity;
 using App.Domain.Core.CustomerEntity;
 using App.Domain.Core.ServiceEntity;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.RequestEntity
 {
-    public class Request
+    public class Request : SharedFields
     {
         public Request()
         {
@@ -22,7 +23,7 @@ namespace App.Domain.Core.RequestEntity
         public Service Service { get; set; }
         public List<Bid>? Bids { get; set; } = new List<Bid>();
         public Status Status { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public bool IsDeleted { get; set; } = false;
+        //public DateTime CreatedAt { get; set; }
+        //public bool IsDeleted { get; set; } = false;
     }
 }

@@ -13,7 +13,7 @@ namespace App.Domain.Core.ServiceEntity
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public List<Expert>? Experts { get; set; } = new List<Expert>();
-        public List<Request> Requests { get; set; } = new List<Request>();
+        public List<Request>? Requests { get; set; } = new List<Request>();
         public bool IsDeleted { get; set; } = false;
     }
 }

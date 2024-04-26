@@ -15,6 +15,8 @@ namespace App.Domain.Core.ExpertEntity
         [Required]
         [Key]
         public int Id { get; set; }
+        [MaxLength(500)]
+        public string? ProfilePhoto { get; set; }
         [MaxLength(100)]
         public string FirstName { get; set; }
         [MaxLength(100)]
@@ -29,7 +31,7 @@ namespace App.Domain.Core.ExpertEntity
         public string PhoneNumber { get; set; }
         [MaxLength(11)]
         public string PhoneNumberBackUp { get; set; }
-        public decimal Score { get; set; }
+        public decimal Score { get; set; } = 0; // can cause more load to application
         public List<Comment>? Comments { get; set; } = new List<Comment>();
         public List<Service>? Services { get; set; } = new List<Service>();
         public long CardNumber { get; set; }

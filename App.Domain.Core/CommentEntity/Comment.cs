@@ -17,7 +17,7 @@ namespace App.Domain.Core.CommentEntity
         public string Title { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
-        public decimal Score { get; set; }
+        public decimal? Score { get; set; } = 0;
         public int ExpertId { get; set; }
         public Expert Expert { get; set; }
         [MaxLength(500)]

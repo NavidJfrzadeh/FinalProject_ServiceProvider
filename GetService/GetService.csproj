@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\App.Infra.DataAccess.Repo.EF\App.Infra.DataAccess.Repo.EF.csproj" />
     <ProjectReference Include="..\App.Infra.DB.SQLServer.EF\App.Infra.DB.SQLServer.EF.csproj" />
   </ItemGroup>
 
