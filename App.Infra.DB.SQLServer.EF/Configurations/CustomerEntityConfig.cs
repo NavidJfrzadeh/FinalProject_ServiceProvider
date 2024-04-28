@@ -12,13 +12,18 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
             builder.HasKey(c => c.Id);
             builder.HasMany(c => c.Requests)
                 .WithOne(r => r.Customer)
-                .HasForeignKey(r => r.CustomerId);
+                .HasForeignKey(r => r.CustomerId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasMany(cu => cu.Comments)
                 .WithOne(co => co.Customer)
-                .HasForeignKey(co => co.CustomerId);
+                .HasForeignKey(co => co.CustomerId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasMany(cu=>cu.Addresses)
                 .WithOne(a => a.Customer)
-                .HasForeignKey(a=>a.CustomerId);
+                .HasForeignKey(a=>a.CustomerId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -12,7 +12,16 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
             builder.HasKey(x => x.Id);
             builder.HasMany(e => e.Comments)
                 .WithOne(c => c.Expert)
-                .HasForeignKey(c => c.ExpertId);
+                .HasForeignKey(c => c.ExpertId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasMany(e => e.Services)
+                .WithMany(s => s.Experts);
+
+            builder.HasMany(e=>e.Bids)
+                .WithOne(b=>b.Expert)
+                .HasForeignKey(b=>b.ExpertId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -13,12 +13,16 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
             builder.Property(s => s.Title).IsRequired().HasMaxLength(50);
             builder.HasOne(s => s.Category)
                 .WithMany(c => c.Services)
-                .HasForeignKey(s => s.CategoryId);
+                .HasForeignKey(s => s.CategoryId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasMany(s => s.Experts)
                 .WithMany(e => e.Services);
+
             builder.HasMany(s => s.Requests)
                 .WithOne(r => r.Service)
-                .HasForeignKey(r => r.ServiceId);
+                .HasForeignKey(r => r.ServiceId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

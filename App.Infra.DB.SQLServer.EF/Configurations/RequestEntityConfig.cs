@@ -11,7 +11,8 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
             builder.HasKey(r => r.Id);
             builder.HasMany(r => r.Bids)
                 .WithOne(b => b.Request)
-                .HasForeignKey(b => b.RequestId);
+                .HasForeignKey(b => b.RequestId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

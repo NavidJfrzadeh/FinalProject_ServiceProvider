@@ -12,6 +12,8 @@ namespace App.Domain.Core.RequestEntity
         public Request()
         {
             CreatedAt = DateTime.Now;
+            IsDeleted = false;
+            IsAccepted = false;
             Status = Status.level1;
         }
 
@@ -23,7 +25,6 @@ namespace App.Domain.Core.RequestEntity
         public Service Service { get; set; }
         public List<Bid>? Bids { get; set; } = new List<Bid>();
         public Status Status { get; set; }
-        //public DateTime CreatedAt { get; set; }
-        //public bool IsDeleted { get; set; } = false;
+        public bool IsAccepted {  get; set; }
     }
 }

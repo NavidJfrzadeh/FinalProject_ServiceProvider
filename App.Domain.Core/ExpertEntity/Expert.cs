@@ -1,4 +1,5 @@
-﻿using App.Domain.Core.CommentEntity;
+﻿using App.Domain.Core.BidEntity;
+using App.Domain.Core.CommentEntity;
 using App.Domain.Core.Enums;
 using App.Domain.Core.ServiceEntity;
 using System.ComponentModel.DataAnnotations;
@@ -34,6 +35,7 @@ namespace App.Domain.Core.ExpertEntity
         public decimal Score { get; set; } = 0; // can cause more load to application
         public List<Comment>? Comments { get; set; } = new List<Comment>();
         public List<Service>? Services { get; set; } = new List<Service>();
+        public List<Bid> Bids { get; set; } = new List<Bid>();
         public long CardNumber { get; set; }
         public DateTime RegisteredAt { get; set; }
         public DateTime CreatedAt { get; set; }
