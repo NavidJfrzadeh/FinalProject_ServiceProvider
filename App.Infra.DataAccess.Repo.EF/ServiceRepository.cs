@@ -16,7 +16,9 @@ namespace App.Infra.DataAccess.Repo.EF
 
         public bool Create(Service newService)
         {
-            throw new NotImplementedException();
+            _context.Services.Add(newService);
+            _context.SaveChanges();
+            return true;
         }
 
         public bool Delete(int id)
@@ -24,7 +26,7 @@ namespace App.Infra.DataAccess.Repo.EF
             var service = GetByID(id);
             if (service != null)
             {
-                _context.Services.Remove(service);
+                service.IsDeleted = true;
                 _context.SaveChanges();
                 return true;
             }
@@ -51,9 +53,19 @@ namespace App.Infra.DataAccess.Repo.EF
             return services;
         }
 
-        public bool Update(Service serviceModel)
+        public bool Update(ServiceForUpdateDto serviceModel)
         {
-            throw new NotImplementedException();
+            var service = GetByID(serviceModel.ServiceId);
+            if (service != null)
+            {
+                service.Title = serviceModel.Title;
+                service.IsDeleted= serviceModel.IsDeleted;
+                service.CategoryId = serviceModel.CategoryId;
+                _context.Update(service);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

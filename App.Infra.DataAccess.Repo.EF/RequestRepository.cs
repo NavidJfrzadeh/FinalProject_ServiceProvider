@@ -46,5 +46,11 @@ namespace App.Infra.DataAccess.Repo.EF
         public List<Request> GetAll() => _context.Requests.ToList();
 
         public Request GetById(int id) => _context.Requests.FirstOrDefault(r => r.Id == id);
+
+        public List<Request> GetForService(int serviceId)
+        {
+            var requests = _context.Requests.Where(r=>r.ServiceId == serviceId).ToList();
+            return requests;
+        }
     }
 }

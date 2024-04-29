@@ -9,6 +9,6 @@ namespace App.Domain.Core.ServiceEntity.Contracts
         public List<ServiceInCategoryDto> GetCategoryServices(int id);
         public bool Create(Service newService);
         public bool Delete(int id);
-        public bool Update(Service serviceModel);
+        public bool Update(ServiceForUpdateDto serviceModel);
     }
 }

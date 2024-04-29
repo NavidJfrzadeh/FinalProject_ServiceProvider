@@ -11,6 +11,7 @@ namespace App.Domain.Core.CustomerEntity
         public Customer()
         {
             CreatedAt = DateTime.Now;
+            FullName = string.Format("{0} {1}",FirstName,LastName);
         }
 
         [Required]
@@ -18,10 +19,12 @@ namespace App.Domain.Core.CustomerEntity
         public int Id { get; set; }
         [MaxLength(500)]
         public string? ProfilePhoto { get; set; }
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string FirstName { get; set; }
         [MaxLength(100)]
         public string LastName { get; set; }
+        [MaxLength (150)]
+        public string FullName { get; set; }
         [MaxLength(100)]
         public string Password { get; set; }
         [MaxLength(100)]
