@@ -1,4 +1,5 @@
-﻿using App.Domain.Core.BidEntity;
+﻿using App.Domain.Core._0_BaseEntities;
+using App.Domain.Core.BidEntity;
 using App.Domain.Core.CommentEntity;
 using App.Domain.Core.Enums;
 using App.Domain.Core.ServiceEntity;
@@ -6,18 +7,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.ExpertEntity
 {
-    public class Expert
+    public class Expert : SharedFields
     {
         public Expert()
         {
-            CreatedAt = DateTime.Now; 
+            CreatedAt = DateTime.Now;
+            IsDeleted = false;
         }
 
         [Required]
         [Key]
         public int Id { get; set; }
         [MaxLength(500)]
-        public string? ProfilePhoto { get; set; }
+        public string? ProfileImageUrl { get; set; }
         [MaxLength(100)]
         public string FirstName { get; set; }
         [MaxLength(100)]
@@ -32,12 +34,10 @@ namespace App.Domain.Core.ExpertEntity
         public string PhoneNumber { get; set; }
         [MaxLength(11)]
         public string PhoneNumberBackUp { get; set; }
-        public decimal Score { get; set; } = 0; // can cause more load to application
+        public decimal Score { get; set; } = 0; //cause more load to application
         public List<Comment>? Comments { get; set; } = new List<Comment>();
         public List<Service>? Services { get; set; } = new List<Service>();
         public List<Bid> Bids { get; set; } = new List<Bid>();
         public long CardNumber { get; set; }
-        public DateTime RegisteredAt { get; set; }
-        public DateTime CreatedAt { get; set; }
     }
 }

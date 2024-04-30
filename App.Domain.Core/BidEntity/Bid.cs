@@ -1,14 +1,16 @@
-﻿using App.Domain.Core.ExpertEntity;
+﻿using App.Domain.Core._0_BaseEntities;
+using App.Domain.Core.ExpertEntity;
 using App.Domain.Core.RequestEntity;
 using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.BidEntity
 {
-    public class Bid
+    public class Bid : SharedFields
     {
         public Bid()
         {
             IsAccepted = false;
+            IsDeleted = false;
             CreatedAt = DateTime.Now;
         }
 
@@ -24,6 +26,5 @@ namespace App.Domain.Core.BidEntity
         public int ExpertId { get; set; }
         public Expert Expert { get; set; }
         public bool IsAccepted { get; set; }
-        public DateTime CreatedAt { get; set; }
     }
 }

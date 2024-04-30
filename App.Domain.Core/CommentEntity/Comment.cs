@@ -1,14 +1,17 @@
-﻿using App.Domain.Core.CustomerEntity;
+﻿using App.Domain.Core._0_BaseEntities;
+using App.Domain.Core.CustomerEntity;
 using App.Domain.Core.ExpertEntity;
 using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.CommentEntity
 {
-    public class Comment
+    public class Comment : SharedFields
     {
         public Comment()
         {
             CreatedAt = DateTime.Now;
+            IsDeleted = false;
+            IsAccepted = false;
         }
 
         [Key]
@@ -22,6 +25,6 @@ namespace App.Domain.Core.CommentEntity
         public Expert Expert { get; set; }
         [MaxLength(500)]
         public string Description { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public bool IsAccepted { get; set; }
     }
 }
