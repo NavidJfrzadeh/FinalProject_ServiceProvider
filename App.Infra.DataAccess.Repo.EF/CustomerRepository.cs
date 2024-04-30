@@ -1,6 +1,7 @@
 ﻿using App.Domain.Core.CustomerEntity;
 using App.Domain.Core.CustomerEntity.Contracts;
 using App.Infra.DB.SQLServer.EF;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.EF
 {
@@ -14,7 +15,7 @@ namespace App.Infra.DataAccess.Repo.EF
         }
         public List<Customer> GetAll()
         {
-            var customers = _context.Customers.ToList();
+            var customers = _context.Customers.AsNoTracking().ToList();
             if (customers.Any())
             {
                 return customers;
@@ -22,7 +23,7 @@ namespace App.Infra.DataAccess.Repo.EF
             return null;
         }
 
-        public Customer GetById(int id) => _context.Customers.FirstOrDefault(x => x.Id == id);
+        public Customer GetById(int id) => _context.Customers.AsNoTracking().FirstOrDefault(x => x.Id == id);
 
         public bool Register(Customer customer)
         {

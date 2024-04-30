@@ -22,7 +22,6 @@ namespace App.Infra.DB.SQLServer.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new AdminEntityConfig());
             modelBuilder.ApplyConfiguration(new CategoryEntityConfig());
             modelBuilder.ApplyConfiguration(new CustomerEntityConfig());
@@ -30,6 +29,7 @@ namespace App.Infra.DB.SQLServer.EF
             modelBuilder.ApplyConfiguration(new RequestEntityConfig());
             modelBuilder.ApplyConfiguration(new ServiceEntityConfig());
             modelBuilder.ApplyConfiguration(new CityEntityConfig());
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Address> Addresses { get; set; }

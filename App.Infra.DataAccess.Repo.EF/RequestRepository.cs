@@ -1,6 +1,7 @@
 ﻿using App.Domain.Core.RequestEntity;
 using App.Domain.Core.RequestEntity.Contracts;
 using App.Infra.DB.SQLServer.EF;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.EF
 {
@@ -43,13 +44,13 @@ namespace App.Infra.DataAccess.Repo.EF
             return false;
         }
 
-        public List<Request> GetAll() => _context.Requests.ToList();
+        public List<Request> GetAll() => _context.Requests.AsNoTracking().ToList();
 
-        public Request GetById(int id) => _context.Requests.FirstOrDefault(r => r.Id == id);
+        public Request GetById(int id) => _context.Requests.AsNoTracking().FirstOrDefault(r => r.Id == id);
 
         public List<Request> GetForService(int serviceId)
         {
-            var requests = _context.Requests.Where(r=>r.ServiceId == serviceId).ToList();
+            var requests = _context.Requests.AsNoTracking().Where(r=>r.ServiceId == serviceId).ToList();
             return requests;
         }
     }

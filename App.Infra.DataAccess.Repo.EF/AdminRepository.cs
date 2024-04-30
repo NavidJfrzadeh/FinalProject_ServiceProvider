@@ -1,6 +1,7 @@
 ﻿using App.Domain.Core.AdminEntity;
 using App.Domain.Core.AdminEntity.Contracts;
 using App.Infra.DB.SQLServer.EF;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.EF
 {
@@ -12,6 +13,6 @@ namespace App.Infra.DataAccess.Repo.EF
         {
             _context = context;
         }
-        public Admin GetById(int id) => _context.Admins.FirstOrDefault(a=>a.Id == id);
+        public Admin GetById(int id) => _context.Admins.AsNoTracking().FirstOrDefault(a=>a.Id == id);
     }
 }

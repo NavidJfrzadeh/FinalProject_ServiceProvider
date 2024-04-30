@@ -1,6 +1,10 @@
 using App.Domain.Core.AdminEntity.Contracts;
+using App.Domain.Core.BidEntity.Contracts;
+using App.Domain.Core.CategoryEntity.Contracts;
+using App.Domain.Core.CommentEntity.Contracts;
 using App.Domain.Core.CustomerEntity.Contracts;
 using App.Domain.Core.ExpertEntity.Contracts;
+using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.ServiceEntity.Contracts;
 using App.Infra.DataAccess.Repo.EF;
 using App.Infra.DB.SQLServer.EF;
@@ -22,8 +26,18 @@ builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlServer(configuration.GetSection("ConnectionStrings:AppConnectionString").Value)
     );
 
+
 //Admin Services
 builder.Services.AddScoped<IAdminRepository, AdminRepository > ();
+
+//Bid Services
+builder.Services.AddScoped<IBidRepository, BidRepository> ();
+
+//Category Services
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository> ();
+
+//Comment Services
+builder.Services.AddScoped<ICommentRepository,  CommentRepository> ();
 
 //Customer Services
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository > ();
@@ -31,7 +45,10 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository > ();
 //Expert Services
 builder.Services.AddScoped<IExpertRepository, ExpertRepository > ();
 
-//Services
+//Request Services
+builder.Services.AddScoped<IRequestRepository, RequestRepository> ();
+
+//Home Services
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 

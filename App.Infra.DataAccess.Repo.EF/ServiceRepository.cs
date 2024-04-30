@@ -2,6 +2,7 @@
 using App.Domain.Core.ServiceEntity.Contracts;
 using App.Domain.Core.ServiceEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.EF
 {
@@ -35,15 +36,15 @@ namespace App.Infra.DataAccess.Repo.EF
 
         public List<Service> GetAll()
         {
-            var services = _context.Services.ToList();
+            var services = _context.Services.AsNoTracking().ToList();
             return services;
         }
 
-        public Service GetByID(int id) => _context.Services.FirstOrDefault(s => s.Id == id);
+        public Service GetByID(int id) => _context.Services.AsNoTracking().FirstOrDefault(s => s.Id == id);
 
         public List<ServiceInCategoryDto> GetCategoryServices(int id)
         {
-            var services = _context.Services.Where(s => s.CategoryId == id)
+            var services = _context.Services.AsNoTracking().Where(s => s.CategoryId == id)
                 .Select(s => new ServiceInCategoryDto
                 {
                     Id = s.Id,

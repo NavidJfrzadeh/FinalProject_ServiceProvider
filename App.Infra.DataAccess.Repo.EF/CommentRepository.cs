@@ -2,6 +2,7 @@
 using App.Domain.Core.CommentEntity.Contracts;
 using App.Domain.Core.CommentEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.EF
 {
@@ -22,7 +23,7 @@ namespace App.Infra.DataAccess.Repo.EF
 
         public List<ExpertCommentDto> GetForExpert(int expertId)
         {
-            var comments = context.Comments.Where(c => c.ExpertId == expertId)
+            var comments = context.Comments.AsNoTracking().Where(c => c.ExpertId == expertId)
                 .Select(c => new ExpertCommentDto
                 {
                     Id = c.Id,

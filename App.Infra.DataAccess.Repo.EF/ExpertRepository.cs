@@ -1,6 +1,7 @@
 ﻿using App.Domain.Core.ExpertEntity;
 using App.Domain.Core.ExpertEntity.Contracts;
 using App.Infra.DB.SQLServer.EF;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.EF
 {
@@ -14,7 +15,7 @@ namespace App.Infra.DataAccess.Repo.EF
         }
         public List<Expert> GetAll()
         {
-            var Experts = _context.Experts.ToList();
+            var Experts = _context.Experts.AsNoTracking().ToList();
             if (Experts.Any())
             {
                 return Experts;
@@ -22,7 +23,7 @@ namespace App.Infra.DataAccess.Repo.EF
             return null;
         }
 
-        public Expert GetById(int id) => _context.Experts.FirstOrDefault(x => x.Id == id);
+        public Expert GetById(int id) => _context.Experts.AsNoTracking().FirstOrDefault(x => x.Id == id);
 
         public bool Register(Expert newExpert)
         {

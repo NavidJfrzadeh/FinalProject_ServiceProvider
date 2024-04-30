@@ -2,6 +2,7 @@
 using App.Domain.Core.CategoryEntity.Contracts;
 using App.Domain.Core.CategoryEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.EF
 {
@@ -15,7 +16,7 @@ namespace App.Infra.DataAccess.Repo.EF
         }
         public List<GetAllCategoryForMainPageDto> GetAll()
         {
-            var Categories = _context.Categories.Select(c=> new GetAllCategoryForMainPageDto
+            var Categories = _context.Categories.AsNoTracking().Select(c=> new GetAllCategoryForMainPageDto
             {
                 Id = c.Id,
                 title = c.Title,

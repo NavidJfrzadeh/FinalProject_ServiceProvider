@@ -1,6 +1,7 @@
 ﻿using App.Domain.Core.BidEntity;
 using App.Domain.Core.BidEntity.Contracts;
 using App.Infra.DB.SQLServer.EF;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.EF
 {
@@ -20,11 +21,11 @@ namespace App.Infra.DataAccess.Repo.EF
             return true;
         }
 
-        public Bid GetById(int id) => context.Bids.FirstOrDefault(b => b.Id == id);
+        public Bid GetById(int id) => context.Bids.AsNoTracking().FirstOrDefault(b => b.Id == id);
 
         public List<Bid> GetForRequest(int RequestId)
         {
-            var bids = context.Bids.Where(b => b.RequestId == RequestId).ToList();
+            var bids = context.Bids.AsNoTracking().Where(b => b.RequestId == RequestId).ToList();
             return bids;
         }
 
