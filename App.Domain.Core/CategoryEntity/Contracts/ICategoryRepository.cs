@@ -4,6 +4,6 @@ namespace App.Domain.Core.CategoryEntity.Contracts
 {
     public interface ICategoryRepository
     {
-        public List<GetAllCategoryForMainPageDto> GetAll();
+        public Task<List<GetAllCategoryForMainPageDto>> GetAll(CancellationToken cancellationToken);
     }
 }

@@ -7,29 +7,56 @@ namespace App.Infra.DataAccess.Repo.EF
 {
     public class CustomerRepository : ICustomerRepository
     {
+        #region Fields
         private readonly AppDbContext _context;
+        #endregion
 
+        #region ctors
         public CustomerRepository(AppDbContext context)
         {
             _context = context;
         }
-        public List<Customer> GetAll()
+        #endregion
+
+        #region Implementations
+        public async Task<List<Customer>> GetAll(CancellationToken cancellationToken)
         {
-            var customers = _context.Customers.AsNoTracking().ToList();
+            var customers = await _context.Customers.AsNoTracking().ToListAsync(cancellationToken);
             if (customers.Any())
             {
                 return customers;
             }
-            return null;
+            return new List<Customer>();
         }
 
-        public Customer GetById(int id) => _context.Customers.AsNoTracking().FirstOrDefault(x => x.Id == id);
-
-        public bool Register(Customer customer)
+        public async Task<Customer> GetById(int id, CancellationToken cancellationToken)
         {
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
+            var customer = await _context.Customers.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+            if (customer != null)
+            {
+                return customer;
+            }
+            return new Customer();
+        }
+
+        public async Task<bool> Register(Customer customer, CancellationToken cancellationToken)
+        {
+            await _context.Customers.AddAsync(customer, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
             return true;
         }
+        #endregion
+
+        #region Private Fields
+        public async Task<Customer> FindById(int id, CancellationToken cancellationToken)
+        {
+            var customer = await _context.Customers.FindAsync(id, cancellationToken);
+            if (customer != null)
+            {
+                return customer;
+            }
+            throw new Exception($"Customer with Id {id} not found");
+        }
+        #endregion
     }
 }

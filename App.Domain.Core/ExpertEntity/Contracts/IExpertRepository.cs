@@ -2,8 +2,8 @@
 {
     public interface IExpertRepository
     {
-        public Expert GetById(int id);
-        public List<Expert> GetAll();
-        public bool Register(Expert newExpert);
+        public Task<Expert> GetById(int id, CancellationToken cancellationToken);
+        public Task<List<Expert>> GetAll(CancellationToken cancellationToken);
+        public Task<bool> Register(Expert newExpert, CancellationToken cancellationToken);
     }
 }

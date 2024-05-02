@@ -2,8 +2,8 @@
 {
     public interface ICustomerRepository
     {
-        public Customer GetById(int id);
-        public List<Customer> GetAll();
-        public bool Register(Customer customer);
+        public Task<Customer> GetById(int id, CancellationToken cancellationToken);
+        public Task<List<Customer>> GetAll(CancellationToken cancellationToken);
+        public Task<bool> Register(Customer customer, CancellationToken cancellationToken);
     }
 }

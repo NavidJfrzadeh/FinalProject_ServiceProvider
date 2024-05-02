@@ -8,65 +8,91 @@ namespace App.Infra.DataAccess.Repo.EF
 {
     public class ServiceRepository : IServiceRepository
     {
+        #region Fields
         private readonly AppDbContext _context;
+        #endregion
 
+        #region ctors
         public ServiceRepository(AppDbContext context)
         {
             _context = context;
         }
+        #endregion
 
-        public bool Create(Service newService)
+        #region Implementations
+        public async Task<bool> Create(Service newService, CancellationToken cancellationToken)
         {
-            _context.Services.Add(newService);
-            _context.SaveChanges();
+            await _context.Services.AddAsync(newService, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
             return true;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id, CancellationToken cancellationToken)
         {
-            var service = GetByID(id);
+            var service = await FindById(id, cancellationToken);
             if (service != null)
             {
                 service.IsDeleted = true;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync(cancellationToken);
                 return true;
             }
             return false;
         }
 
-        public List<Service> GetAll()
+        public async Task<List<Service>> GetAll(CancellationToken cancellationToken)
         {
-            var services = _context.Services.AsNoTracking().ToList();
+            var services = await _context.Services.AsNoTracking().ToListAsync(cancellationToken);
             return services;
         }
 
-        public Service GetByID(int id) => _context.Services.AsNoTracking().FirstOrDefault(s => s.Id == id);
-
-        public List<ServiceInCategoryDto> GetCategoryServices(int id)
+        public async Task<Service> GetById(int id, CancellationToken cancellationToken)
         {
-            var services = _context.Services.AsNoTracking().Where(s => s.CategoryId == id)
+            var service = await _context.Services.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+            if (service != null)
+            {
+                return service;
+            }
+            return new Service();
+        }
+
+        public async Task<List<ServiceInCategoryDto>> GetCategoryServices(int id, CancellationToken cancellationToken)
+        {
+            var services = await _context.Services.AsNoTracking().AsNoTracking().Where(s => s.CategoryId == id)
                 .Select(s => new ServiceInCategoryDto
                 {
                     Id = s.Id,
                     Title = s.Title,
                     Category = s.Category.Title
-                }).ToList();
+                }).ToListAsync(cancellationToken);
             return services;
         }
 
-        public bool Update(ServiceForUpdateDto serviceModel)
+        public async Task<bool> Update(ServiceForUpdateDto serviceModel, CancellationToken cancellationToken)
         {
-            var service = GetByID(serviceModel.ServiceId);
+            var service = await FindById(serviceModel.ServiceId, cancellationToken);
             if (service != null)
             {
                 service.Title = serviceModel.Title;
-                service.IsDeleted= serviceModel.IsDeleted;
+                service.IsDeleted = serviceModel.IsDeleted;
                 service.CategoryId = serviceModel.CategoryId;
                 _context.Update(service);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync(cancellationToken);
                 return true;
             }
             return false;
         }
+        #endregion
+
+        #region Private Methods
+        private async Task<Service> FindById(int id, CancellationToken cancellationToken)
+        {
+            var service = await _context.Services.FindAsync(id, cancellationToken);
+            if (service != null)
+            {
+                return service;
+            }
+            throw new Exception($"Service with Id {id} not found");
+        }
+        #endregion
     }
 }

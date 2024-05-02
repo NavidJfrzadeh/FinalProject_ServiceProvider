@@ -2,28 +2,35 @@
 using App.Domain.Core.CommentEntity.Contracts;
 using App.Domain.Core.CommentEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
+using Azure;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.EF
 {
     public class CommentRepository : ICommentRepository
     {
+        #region Fields
         private readonly AppDbContext context;
+        #endregion
 
+        #region ctors
         public CommentRepository(AppDbContext Context)
         {
             context = Context;
         }
-        public bool Create(Comment newComment)
+        #endregion
+
+        #region Implementations
+        public async Task<bool> Create(Comment newComment, CancellationToken cancellationToken)
         {
-            context.Comments.Add(newComment);
+            await context.Comments.AddAsync(newComment, cancellationToken);
             context.SaveChanges();
             return true;
         }
 
-        public List<ExpertCommentDto> GetForExpert(int expertId)
+        public async Task<List<ExpertCommentDto>> GetForExpert(int expertId, CancellationToken cancellationToken)
         {
-            var comments = context.Comments.AsNoTracking().Where(c => c.ExpertId == expertId)
+            var comments = await context.Comments.AsNoTracking().Where(c => c.ExpertId == expertId)
                 .Select(c => new ExpertCommentDto
                 {
                     Id = c.Id,
@@ -32,8 +39,21 @@ namespace App.Infra.DataAccess.Repo.EF
                     CreatedAt = c.CreatedAt,
                     CustomerFullName = c.Customer.FullName,
                     Description = c.Description
-                }).ToList();
+                }).ToListAsync(cancellationToken);
             return comments;
         }
+        #endregion
+
+        #region Private Methods\
+        private async Task<Comment> FindById(int id, CancellationToken cancellationToken)
+        {
+            var comment = await context.Comments.FindAsync(id, cancellationToken);
+            if (comment != null)
+            {
+                return comment;
+            }
+            throw new Exception($"Comment with Id {id} not found");
+        }
+        #endregion
     }
 }
