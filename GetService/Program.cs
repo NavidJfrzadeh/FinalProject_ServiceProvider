@@ -10,6 +10,7 @@ using App.Domain.Core.ServiceEntity.Contracts;
 using App.Infra.DataAccess.Repo.EF;
 using App.Infra.DB.SQLServer.EF;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,14 +52,34 @@ var siteSettings = configuration.GetSection(nameof(SiteSettings)).Get<SiteSettin
 builder.Services.AddSingleton(siteSettings);
 
 
-//Add Seq Configurations
-
-
-
 //Add Sql Connection String
 builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlServer(siteSettings.SqlConfigurations.ConnectionString)
     );
+
+
+//Seq Configurations
+builder.Logging.ClearProviders();
+builder.Services.AddLogging(LoggingBuilder =>
+{
+    LoggingBuilder.ClearProviders();
+    LoggingBuilder.AddSeq(siteSettings.SeqConfigurations.UrlAddress, siteSettings.SeqConfigurations.ApiToken);
+});
+
+
+//Serilog Configurations
+//builder.Logging.ClearProviders();
+//builder.Host.ConfigureLogging(LoggingBuilder =>
+//{
+//    LoggingBuilder.ClearProviders();
+
+//}).UseSerilog((context, config) =>
+//{
+//    config.WriteTo.Seq(siteSettings.SeqConfigurations.UrlAddress
+//        , Serilog.Events.LogEventLevel.Warning
+//        , apiKey: siteSettings.SeqConfigurations.ApiToken
+//        );
+//});
 
 
 var app = builder.Build();
