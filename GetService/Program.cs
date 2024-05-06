@@ -1,3 +1,4 @@
+using App.Domain.Core._2_Configs;
 using App.Domain.Core.AdminEntity.Contracts;
 using App.Domain.Core.BidEntity.Contracts;
 using App.Domain.Core.CategoryEntity.Contracts;
@@ -15,41 +16,49 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//Admin Services
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+
+//Bid Services
+builder.Services.AddScoped<IBidRepository, BidRepository>();
+
+//Category Services
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+//Comment Services
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+
+//Customer Services
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+//Expert Services
+builder.Services.AddScoped<IExpertRepository, ExpertRepository>();
+
+//Request Services
+builder.Services.AddScoped<IRequestRepository, RequestRepository>();
+
+//Home Services
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+
 
 //Add appsettings.json
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();
 
-//Add Connection String
+//Map SiteSetting Section in AppSettings.json to SiteSetting Class
+var siteSettings = configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
+builder.Services.AddSingleton(siteSettings);
+
+
+//Add Seq Configurations
+
+
+
+//Add Sql Connection String
 builder.Services.AddDbContext<AppDbContext>(
-    options => options.UseSqlServer(configuration.GetSection("ConnectionStrings:AppConnectionString").Value)
+    options => options.UseSqlServer(siteSettings.SqlConfigurations.ConnectionString)
     );
-
-
-//Admin Services
-builder.Services.AddScoped<IAdminRepository, AdminRepository > ();
-
-//Bid Services
-builder.Services.AddScoped<IBidRepository, BidRepository> ();
-
-//Category Services
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository> ();
-
-//Comment Services
-builder.Services.AddScoped<ICommentRepository,  CommentRepository> ();
-
-//Customer Services
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository > ();
-
-//Expert Services
-builder.Services.AddScoped<IExpertRepository, ExpertRepository > ();
-
-//Request Services
-builder.Services.AddScoped<IRequestRepository, RequestRepository> ();
-
-//Home Services
-builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 
 var app = builder.Build();
