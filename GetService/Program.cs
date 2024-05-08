@@ -11,6 +11,7 @@ using App.Infra.DataAccess.Repo.EF;
 using App.Infra.DB.SQLServer.EF;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,25 +60,23 @@ builder.Services.AddDbContext<AppDbContext>(
 
 
 //Seq Configurations
-builder.Logging.ClearProviders();
 builder.Services.AddLogging(LoggingBuilder =>
 {
     LoggingBuilder.ClearProviders();
-    LoggingBuilder.AddSeq(siteSettings.SeqConfigurations.UrlAddress, siteSettings.SeqConfigurations.ApiToken);
+    LoggingBuilder.AddSeq(configuration.GetSection("SiteSettings:Seq"));
 });
 
 
 //Serilog Configurations
-//builder.Logging.ClearProviders();
 //builder.Host.ConfigureLogging(LoggingBuilder =>
 //{
 //    LoggingBuilder.ClearProviders();
 
 //}).UseSerilog((context, config) =>
 //{
-//    config.WriteTo.Seq(siteSettings.SeqConfigurations.UrlAddress
-//        , Serilog.Events.LogEventLevel.Warning
-//        , apiKey: siteSettings.SeqConfigurations.ApiToken
+//    config.WriteTo.Seq(siteSettings.SeqConfigurations.UrlAddress,
+//        LogEventLevel.Warning,
+//        apiKey: siteSettings.SeqConfigurations.ApiToken
 //        );
 //});
 
