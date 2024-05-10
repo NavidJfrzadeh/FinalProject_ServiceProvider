@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\" />
+    <Folder Include="Areas\Customer\" />
     <Folder Include="Infrastructure\" />
   </ItemGroup>
 
