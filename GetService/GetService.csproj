@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -27,12 +27,99 @@
   <ItemGroup>
     <ProjectReference Include="..\App.Infra.DataAccess.Repo.EF\App.Infra.DataAccess.Repo.EF.csproj" />
     <ProjectReference Include="..\App.Infra.DB.SQLServer.EF\App.Infra.DB.SQLServer.EF.csproj" />
+    <ProjectReference Include="..\Framework\Framework.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Infrastructrue\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\js\core.js" />
+    <None Include="wwwroot\assets\js\pages\ammap.js" />
+    <None Include="wwwroot\assets\js\pages\bar-chart.js" />
+    <None Include="wwwroot\assets\js\pages\calendar-kama.js" />
+    <None Include="wwwroot\assets\js\pages\calendar-ui.js" />
+    <None Include="wwwroot\assets\js\pages\calendar.js" />
+    <None Include="wwwroot\assets\js\pages\change-password.js" />
+    <None Include="wwwroot\assets\js\pages\ckeditor.js" />
+    <None Include="wwwroot\assets\js\pages\clock.js" />
+    <None Include="wwwroot\assets\js\pages\cropper.js" />
+    <None Include="wwwroot\assets\js\pages\dashboard1.js" />
+    <None Include="wwwroot\assets\js\pages\dashboard2.js" />
+    <None Include="wwwroot\assets\js\pages\datatable.js" />
+    <None Include="wwwroot\assets\js\pages\edit-profile.js" />
+    <None Include="wwwroot\assets\js\pages\forget.js" />
+    <None Include="wwwroot\assets\js\pages\googlemap.js" />
+    <None Include="wwwroot\assets\js\pages\icons.js" />
+    <None Include="wwwroot\assets\js\pages\knob.js" />
+    <None Include="wwwroot\assets\js\pages\ladda.js" />
+    <None Include="wwwroot\assets\js\pages\leaflet.js" />
+    <None Include="wwwroot\assets\js\pages\line-chart.js" />
+    <None Include="wwwroot\assets\js\pages\login.js" />
+    <None Include="wwwroot\assets\js\pages\nestable.js" />
+    <None Include="wwwroot\assets\js\pages\noty.js" />
+    <None Include="wwwroot\assets\js\pages\pie-chart.js" />
+    <None Include="wwwroot\assets\js\pages\realtime-chart.js" />
+    <None Include="wwwroot\assets\js\pages\register.js" />
+    <None Include="wwwroot\assets\js\pages\select2.js" />
+    <None Include="wwwroot\assets\js\pages\summernote.js" />
+    <None Include="wwwroot\assets\js\pages\swal.js" />
+    <None Include="wwwroot\assets\js\pages\under_construction.js" />
+    <None Include="wwwroot\assets\js\pages\validation.js" />
+    <None Include="wwwroot\assets\js\pages\wizard.js" />
+    <None Include="wwwroot\assets\plugins\ammap3\ammap\ammap.js" />
+    <None Include="wwwroot\assets\plugins\ammap3\ammap\lang\fa.js" />
+    <None Include="wwwroot\assets\plugins\ammap3\ammap\maps\js\iranHighFa.js" />
+    <None Include="wwwroot\assets\plugins\ammap3\ammap\maps\js\worldLow.js" />
+    <None Include="wwwroot\assets\plugins\bootstrap\bootstrap5\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\assets\plugins\chart.js\dist\Chart.bundle.min.js" />
+    <None Include="wwwroot\assets\plugins\ckeditor-full\ckeditor.js" />
+    <None Include="wwwroot\assets\plugins\clockpicker\dist\jquery-clockpicker.min.js" />
+    <None Include="wwwroot\assets\plugins\cropper\js\cropper.min.js" />
+    <None Include="wwwroot\assets\plugins\data-table\js\jquery.dataTables.min.js" />
+    <None Include="wwwroot\assets\plugins\datepicker\calendar.js" />
+    <None Include="wwwroot\assets\plugins\datepicker\jquery-ui-1.10.1.custom.min.js" />
+    <None Include="wwwroot\assets\plugins\datepicker\jquery.ui.datepicker-cc-fa.js" />
+    <None Include="wwwroot\assets\plugins\datepicker\jquery.ui.datepicker-cc.js" />
+    <None Include="wwwroot\assets\plugins\font-awesome\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\assets\plugins\font-awesome\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\assets\plugins\font-awesome\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\assets\plugins\font-awesome\webfonts\fa-v4compatibility.woff2" />
+    <None Include="wwwroot\assets\plugins\iCheck\icheck.min.js" />
+    <None Include="wwwroot\assets\plugins\jquery-incremental-counter\jquery.incremental-counter.min.js" />
+    <None Include="wwwroot\assets\plugins\jquery-knob\dist\jquery.knob.min.js" />
+    <None Include="wwwroot\assets\plugins\jquery-mask\jquery.mask.min.js" />
+    <None Include="wwwroot\assets\plugins\jquery-migrate\jquery-migrate-1.2.1.min.js" />
+    <None Include="wwwroot\assets\plugins\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\assets\plugins\jquery-validation\src\localization\messages_fa.js" />
+    <None Include="wwwroot\assets\plugins\jquery.countdown\dist\jquery.countdown.min.js" />
+    <None Include="wwwroot\assets\plugins\jquery\dist\jquery-3.6.1.min.js" />
+    <None Include="wwwroot\assets\plugins\kamadatepicker\kamadatepicker.min.js" />
+    <None Include="wwwroot\assets\plugins\ladda\dist\ladda.min.js" />
+    <None Include="wwwroot\assets\plugins\ladda\dist\spin.min.js" />
+    <None Include="wwwroot\assets\plugins\leaflet\leaflet.js" />
+    <None Include="wwwroot\assets\plugins\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.concat.min.js" />
+    <None Include="wwwroot\assets\plugins\metisMenu\dist\metisMenu.min.js" />
+    <None Include="wwwroot\assets\plugins\morris.js\morris.min.js" />
+    <None Include="wwwroot\assets\plugins\nestable\jquery.nestable.js" />
+    <None Include="wwwroot\assets\plugins\noty\js\noty\packaged\jquery.noty.packaged.min.js" />
+    <None Include="wwwroot\assets\plugins\paper-ripple\dist\PaperRipple.min.js" />
+    <None Include="wwwroot\assets\plugins\persian-datepicker\js\persian-datepicker.min.js" />
+    <None Include="wwwroot\assets\plugins\persian-date\persian-date.min.js" />
+    <None Include="wwwroot\assets\plugins\raphael\raphael.min.js" />
+    <None Include="wwwroot\assets\plugins\screenfull\dist\screenfull.min.js" />
+    <None Include="wwwroot\assets\plugins\select2\dist\js\i18n\fa.js" />
+    <None Include="wwwroot\assets\plugins\select2\dist\js\select2.full.min.js" />
+    <None Include="wwwroot\assets\plugins\simple-line-icons\fonts\Simple-Line-Iconsb26c.svg" />
+    <None Include="wwwroot\assets\plugins\simple-line-icons\fonts\Simple-Line-Iconsb26c.woff2" />
+    <None Include="wwwroot\assets\plugins\stepy\lib\jquery.stepy.min.js" />
+    <None Include="wwwroot\assets\plugins\summernote\dist\font\summernote.woff2" />
+    <None Include="wwwroot\assets\plugins\summernote\dist\summernote.min.js" />
+    <None Include="wwwroot\assets\plugins\sweetalert2\dist\sweetalert2.min.js" />
+    <None Include="wwwroot\assets\plugins\switchery\dist\switchery.js" />
   </ItemGroup>
 
 </Project>
