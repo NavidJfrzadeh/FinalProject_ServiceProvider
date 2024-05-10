@@ -157,17 +157,17 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 6,
                             Title = "خدمان اداری"
                         },
                         new
                         {
-                            Id = 8,
-                            Title = "بهداشت و نظافت"
+                            Id = 7,
+                            Title = "خانه تکانی"
                         },
                         new
                         {
-                            Id = 9,
+                            Id = 8,
                             Title = "دیجیتال و نرم افزار"
                         });
                 });
@@ -405,6 +405,208 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Services", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2558),
+                            IsDeleted = false,
+                            Title = "بنایی و ساختمان"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2559),
+                            IsDeleted = false,
+                            Title = "گچ کاری کاری"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2561),
+                            IsDeleted = false,
+                            Title = "شیشه بری"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2562),
+                            IsDeleted = false,
+                            Title = "کولر آبی"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2563),
+                            IsDeleted = false,
+                            Title = "کولر گازی"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2564),
+                            IsDeleted = false,
+                            Title = "آب گرم کن"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2566),
+                            IsDeleted = false,
+                            Title = "لوله باز کنی"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2567),
+                            IsDeleted = false,
+                            Title = "برق کاری ساختمان"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2568),
+                            IsDeleted = false,
+                            Title = "تعویض روغن"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2569),
+                            IsDeleted = false,
+                            Title = "نقاشی و صافکاری"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2570),
+                            IsDeleted = false,
+                            Title = "تعمیر خودرو"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2571),
+                            IsDeleted = false,
+                            Title = "اسباب کشی"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CategoryId = 4,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2573),
+                            IsDeleted = false,
+                            Title = "حمل بار جزعی"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CategoryId = 5,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2574),
+                            IsDeleted = false,
+                            Title = "یخچال و فریزر"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CategoryId = 5,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2575),
+                            IsDeleted = false,
+                            Title = "سینما خانگی"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CategoryId = 5,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2576),
+                            IsDeleted = false,
+                            Title = "ماشین لباس شویی"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CategoryId = 6,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2577),
+                            IsDeleted = false,
+                            Title = "فوتو کپی"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CategoryId = 6,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2578),
+                            IsDeleted = false,
+                            Title = "فکس"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CategoryId = 6,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2579),
+                            IsDeleted = false,
+                            Title = "پارتیشن"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CategoryId = 7,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2581),
+                            IsDeleted = false,
+                            Title = "نظافت منزل"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CategoryId = 7,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2582),
+                            IsDeleted = false,
+                            Title = "نظافت اداره و شرکت"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CategoryId = 8,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2583),
+                            IsDeleted = false,
+                            Title = "لپ تاپ و نوت بوک"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CategoryId = 8,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2584),
+                            IsDeleted = false,
+                            Title = "موبایل و تبلت"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CategoryId = 8,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2585),
+                            IsDeleted = false,
+                            Title = "ارتقای سخت افزاری"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CategoryId = 8,
+                            CreatedAt = new DateTime(2024, 5, 10, 15, 49, 48, 507, DateTimeKind.Local).AddTicks(2586),
+                            IsDeleted = false,
+                            Title = "شبکه کامپیوتری"
+                        });
                 });
 
             modelBuilder.Entity("App.Domain.Core._0_BaseEntities.City", b =>
