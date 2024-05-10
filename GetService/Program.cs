@@ -9,6 +9,7 @@ using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.ServiceEntity.Contracts;
 using App.Infra.DataAccess.Repo.EF;
 using App.Infra.DB.SQLServer.EF;
+using GetService.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
@@ -82,6 +83,9 @@ builder.Services.AddLogging(LoggingBuilder =>
 
 
 var app = builder.Build();
+
+
+app.UseCustomException();
 
 
 // Configure the HTTP request pipeline.

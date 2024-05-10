@@ -21,8 +21,4 @@
     <ProjectReference Include="..\App.Infra.DB.SQLServer.EF\App.Infra.DB.SQLServer.EF.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infrastructure\" />
-  </ItemGroup>
-
 </Project>
