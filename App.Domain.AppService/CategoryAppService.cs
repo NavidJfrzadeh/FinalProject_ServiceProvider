@@ -19,8 +19,8 @@ public class CategoryAppService : ICategoryAppService
     public async Task Create(string CategoryTitle, string CategoryPicture, CancellationToken cancellationToken)
         => await _categoryService.Create(CategoryTitle, CategoryPicture, cancellationToken);
 
-    public async Task Delete(int CategoriesId, CancellationToken cancellationToken)
-         => await _categoryService.Delete(CategoriesId, cancellationToken);
+    public async Task Delete(int CategoryId, CancellationToken cancellationToken)
+         => await _categoryService.Delete(CategoryId, cancellationToken);
 
     public async Task<List<GetAllCategoryForMainPageDto>> GetAll(CancellationToken cancellationToken)
         => await _categoryService.GetAll(cancellationToken);

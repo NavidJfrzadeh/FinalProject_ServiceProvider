@@ -6,6 +6,6 @@ namespace App.Domain.Core.CategoryEntity.Contracts
     {
         public Task<List<GetAllCategoryForMainPageDto>> GetAll(CancellationToken cancellationToken);
         public Task Create(string CategoryTitle, string CategoryPicture, CancellationToken cancellationToken);
-        public Task Delete(int CategoriesId, CancellationToken cancellationToken);
+        public Task Delete(int CategoryId, CancellationToken cancellationToken);
     }
 }

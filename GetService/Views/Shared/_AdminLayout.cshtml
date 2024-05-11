@@ -378,18 +378,6 @@
                                     <span>پیشخوان دو</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="parastoo.html" class="">
-                                    <i class="icon-home"></i>
-                                    <span>پیشخوان با فونت پرستو</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="yekan.html" class="">
-                                    <i class="icon-home"></i>
-                                    <span>پیشخوان با فونت یکان</span>
-                                </a>
-                            </li>
                         </ul>
                     </li>
                     <li>
@@ -399,32 +387,26 @@
                         </a>
                         <ul>
                             <li>
-                                <a href="forms.html" class="">
-                                    <i class="icon-frame"></i>
-                                    <span>فرم ها</span>
-                                </a>
-                            </li>
-                            <li>
                                 <a href="#" class="dropdown-toggle">
                                     <i class="icon-list fa-flip-horizontal"></i>
                                     <span>جدول ها</span>
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="tables.html" class="">
+                                        <a class="nav-link text-white" asp-area="Admin" asp-controller="Admin" asp-action="CategoryList">
                                             <i class="icon-screen-tablet"></i>
-                                            <span>جدول ریسپانسیو</span>
+                                            <span>دسته بندی ها</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="datatable.html" class="">
+                                        <a class="nav-link text-white" asp-area="Admin" asp-controller="Admin" asp-action="CustomerList">
                                             <i class="fas fa-grip"></i>
-                                            <span>پلاگین Data Table</span>
+                                            <span>مشتریان</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="open active conditional-bg">
+                            <li @* class="open active conditional-bg" *@>
                                 <a href="#" class="dropdown-toggle">
                                     <i class="icon-layers"></i>
                                     <span>صفحات</span>
@@ -458,7 +440,7 @@
                             <ul class="breadcrumb">
                                 <li><a href="dashboard.html">پیشخوان</a></li>
                                 <li><a href="#">صفحات</a></li>
-                                <li class="active">صفحه خام</li>
+                                <li class="active">صفحه اصلی</li>
                             </ul>
                             <div class="breadcrumb-left">
                                 @DateTime.Now

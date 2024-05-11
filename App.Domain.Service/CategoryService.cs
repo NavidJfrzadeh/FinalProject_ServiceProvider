@@ -20,8 +20,8 @@ namespace App.Domain.Service
         public async Task Create(string CategoryTitle, string CategoryPicture, CancellationToken cancellationToken)
             => await _categoryRepository.Create(CategoryTitle, CategoryPicture, cancellationToken);
 
-        public async Task Delete(int CategoriesId, CancellationToken cancellationToken)
-            => await _categoryRepository.Delete(CategoriesId, cancellationToken);
+        public async Task Delete(int CategoryId, CancellationToken cancellationToken)
+            => await _categoryRepository.Delete(CategoryId, cancellationToken);
 
         public async Task<List<GetAllCategoryForMainPageDto>> GetAll(CancellationToken cancellationToken)
             => await _categoryRepository.GetAll(cancellationToken);

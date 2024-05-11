@@ -1,3 +1,4 @@
+using App.Domain.AppService;
 using App.Domain.Core._2_Configs;
 using App.Domain.Core.AdminEntity.Contracts;
 using App.Domain.Core.BidEntity.Contracts;
@@ -7,6 +8,7 @@ using App.Domain.Core.CustomerEntity.Contracts;
 using App.Domain.Core.ExpertEntity.Contracts;
 using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.ServiceEntity.Contracts;
+using App.Domain.Service;
 using App.Infra.DataAccess.Repo.EF;
 using App.Infra.DB.SQLServer.EF;
 using GetService.Infrastructure;
@@ -19,6 +21,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddRazorPages()
+    .AddRazorRuntimeCompilation();
+
+
 //Admin Services
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
@@ -27,6 +33,8 @@ builder.Services.AddScoped<IBidRepository, BidRepository>();
 
 //Category Services
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService , CategoryService>();
+builder.Services.AddScoped<ICategoryAppService , CategoryAppService>();
 
 //Comment Services
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
