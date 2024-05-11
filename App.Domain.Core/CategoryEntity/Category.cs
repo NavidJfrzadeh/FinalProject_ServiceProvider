@@ -1,10 +1,16 @@
-﻿using App.Domain.Core.ServiceEntity;
+﻿using App.Domain.Core._0_BaseEntities;
+using App.Domain.Core.ServiceEntity;
 using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.CategoryEntity
 {
-    public class Category
+    public class Category : SharedFields
     {
+        public Category()
+        {
+            IsDeleted = false;
+            CreatedAt = DateTime.Now;
+        }
         public int Id { get; set; }
         [MaxLength(500)]
         public string? PictureLocation { get; set; }

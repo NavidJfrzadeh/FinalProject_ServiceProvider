@@ -20,9 +20,9 @@ namespace App.Infra.DataAccess.Repo.EF
         #endregion
 
         #region Implementations
-        public async Task< List<GetAllCategoryForMainPageDto>> GetAll(CancellationToken cancellationToken)
+        public async Task<List<GetAllCategoryForMainPageDto>> GetAll(CancellationToken cancellationToken)
         {
-            var Categories = await  _context.Categories.AsNoTracking().Select(c => new GetAllCategoryForMainPageDto
+            var Categories = await _context.Categories.AsNoTracking().Select(c => new GetAllCategoryForMainPageDto
             {
                 Id = c.Id,
                 title = c.Title,
@@ -30,6 +30,27 @@ namespace App.Infra.DataAccess.Repo.EF
             }).ToListAsync(cancellationToken);
 
             return Categories;
+        }
+
+        public async Task Create(string CategoryTitle, string CategoryPicture, CancellationToken cancellationToken)
+        {
+            var newCategory = new Category
+            {
+                Title = CategoryTitle,
+                PictureLocation = CategoryPicture
+            };
+            await _context.Categories.AddAsync(newCategory, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task Delete(int CategoriesId, CancellationToken cancellationToken)
+        {
+            var targetCat = await FindCategory(CategoriesId, cancellationToken);
+            if (targetCat != null)
+            {
+                targetCat.IsDeleted = true;
+                await _context.SaveChangesAsync(cancellationToken);
+            }
         }
         #endregion
 
