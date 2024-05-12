@@ -1,35 +1,76 @@
 ﻿@using App.Domain.Core.CategoryEntity.DTOs
 @model List<GetAllCategoryForMainPageDto>
 @{
-    ViewData["Title"] = "Category Page";
+    ViewData["Title"] = "مدیریت دسته بندی‌ها";
     Layout = "_AdminLayout";
 }
 
-<div class="table-responsive">
-    <a asp-action="" class="btn btn-primary round">افزودن</a>
-    <table class="table table-bordered table-hover table-striped" id="data-table">
-        <thead>
-            <tr>
-                <th><input type="checkbox" id="btn-check-all-toggle"></th>
-                <th>آیدی</th>
-                <th>عنوان</th>
-                <th>تعداد خدمات</th>
-                <td>عملیات</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>@item.Id</td>
-                    <td>@item.title</td>
-                    <td>@item.CountService</td>
-                    <td>
-                        <a asp-action="DeleteCategory" class="btn btn-danger" asp-route-id="@item.Id">حذف</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<button class="btn btn-success round m-3" data-bs-toggle="modal" data-bs-target="#CreateModal">ایجاد دسته‌بندی جدید</button>
+<div id="CreateModal" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <form asp-action="CreateCategory" method="post" class="modal-content">
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">اطلاعات را وارد کنید</h4>
+            </div>
+            <div class="modal-body">
+                <input class="form-control mb-2" name="CategoryTitle" id="CategoryTitle" type="text" placeholder="عنوان را بنویسید" data-sb-validataions="required" />
+                <input class="form-control" name="CategoryPicture" id="CategoryPicture" type="text" placeholder="آیکون را وارد کنید" />
+            </div>
+            <div class="modal-footer">
+                <p class="text-right">
+                    <button type="submit" class="btn btn-success btn-round">ذخیره و ارسال</button>
+                    <button type="button" class="btn btn-danger btn-round" data-bs-dismiss="modal">بازگشت</button>
+                </p>
+            </div>
+        </form>
+    </div>
 </div>
+<table class="table table-bordered table-hover table-striped" id="data-table">
+    <thead>
+        <tr>
+            <th><input type="checkbox" id="btn-check-all-toggle"></th>
+            <th>آیدی</th>
+            <th>عنوان</th>
+            <th>تعداد خدمات</th>
+            <td>عملیات</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>@item.CountService</td>
+                <td>
+                    <button class="btn btn-warning rounded" data-bs-toggle="modal" data-bs-target="#EditModal">ویرایش</button>
+                    <div id="EditModal" class="modal fade" role="dialog" tabindex="-1">
+                        <div class="modal-dialog">
+                            <form asp-action="UpdateCategory" method="post" class="modal-content">
+                                <div class="text-danger" asp-validation-summary="All"></div>
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">اطلاعات را وارد کنید</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input id="Id" name="Id" type="hidden" data-sb-validataions="required" value="@item.Id" />
+                                    <input id="Title" name="Title" class="form-control" type="text" value="@item.Title" placeholder="عنوان را وارد کنید" />
+                                </div>
+                                <div class="modal-footer">
+                                    <p class="text-right">
+                                        <button type="submit" class="btn btn-success btn-round">ذخیره و ارسال</button>
+                                        <button type="button" class="btn btn-danger btn-round" data-bs-dismiss="modal">بازگشت</button>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <a asp-action="DeleteCategory" class="btn btn-danger rounded" onclick="return confirm('تایید حذف دسته بندی')" asp-route-id="@item.Id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

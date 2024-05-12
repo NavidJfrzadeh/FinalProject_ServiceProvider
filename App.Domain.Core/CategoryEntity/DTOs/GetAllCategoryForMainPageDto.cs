@@ -3,7 +3,7 @@
     public class GetAllCategoryForMainPageDto
     {
         public int Id { get; set; }
-        public string title { get; set; }
+        public string Title { get; set; }
         public int CountService { get; set; }
     }
 }

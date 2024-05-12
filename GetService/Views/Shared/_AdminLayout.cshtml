@@ -321,7 +321,7 @@
                         <img src="~/assets/images/user/128.png" alt="عکس پروفایل" class="img-circle img-responsive">
                     </a>
                     <div class="user-details">
-                        <h4>حمید آفرینش فر</h4>
+                        <h4>نوید جعفرزاده</h4>
                         <p class="role">مدیر فنی</p>
                         <div class="dropdown user-login">
                             <button class="btn btn-xs btn-status dropdown-toggle btn-round" type="button" data-bs-toggle="dropdown" data-hover="dropdown">
@@ -382,51 +382,42 @@
                     </li>
                     <li>
                         <a href="#" class="dropdown-toggle">
-                            <i class="icon-frame"></i>
-                            <span>فرم ها</span>
+                            <i class="icon-list fa-flip-horizontal"></i>
+                            <span>جدول ها</span>
                         </a>
                         <ul>
                             <li>
-                                <a href="#" class="dropdown-toggle">
-                                    <i class="icon-list fa-flip-horizontal"></i>
-                                    <span>جدول ها</span>
+                                <a class="nav-link text-white" asp-area="Admin" asp-controller="Admin" asp-action="CategoryList">
+                                    <i class="icon-screen-tablet"></i>
+                                    <span>دسته بندی‌ها</span>
                                 </a>
-                                <ul>
-                                    <li>
-                                        <a class="nav-link text-white" asp-area="Admin" asp-controller="Admin" asp-action="CategoryList">
-                                            <i class="icon-screen-tablet"></i>
-                                            <span>دسته بندی ها</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-white" asp-area="Admin" asp-controller="Admin" asp-action="CustomerList">
-                                            <i class="fas fa-grip"></i>
-                                            <span>مشتریان</span>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
-                            <li @* class="open active conditional-bg" *@>
-                                <a href="#" class="dropdown-toggle">
-                                    <i class="icon-layers"></i>
-                                    <span>صفحات</span>
+                            <li>
+                                <a class="nav-link text-white" asp-area="Admin" asp-controller="Admin" asp-action="CustomerList">
+                                    <i class="fas fa-grip"></i>
+                                    <span>مشتریان</span>
                                 </a>
-                                <ul>
-                                    <li>
-                                        <a href="orders.html" class="">
-                                            <i class="icon-basket-loaded fa-flip-horizontal"></i>
-                                            <span>سفارشات</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="chat.html" class="">
-                                            <i class="icon-bubble"></i>
-                                            <span>گفت و گو ، چت</span>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
-                        </ul><!-- /#side-menu -->
+                            <li>
+                                <a class="nav-link text-white" asp-area="Admin" asp-controller="Admin" asp-action="ExpertList">
+                                    <i class="fas fa-grip"></i>
+                                    <span>کارشناسان</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="orders.html" class="">
+                            <i class="icon-basket-loaded fa-flip-horizontal"></i>
+                            <span>آگهی ها</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="chat.html" class="">
+                            <i class="icon-bubble"></i>
+                            <span>گفت و گو‌ها</span>
+                        </a>
+                    </li>
             </div><!-- /.side-menu-container -->
         </div><!-- /#sidebar -->
         <!-- END SIDEBAR -->
@@ -443,7 +434,7 @@
                                 <li class="active">صفحه اصلی</li>
                             </ul>
                             <div class="breadcrumb-left">
-                                @DateTime.Now
+                                @DateOnly.FromDateTime(DateTime.Now)
                                 <i class="icon-calendar"></i>
                             </div><!-- /.breadcrumb-left -->
                         </div><!-- /.breadcrumb-box -->
@@ -456,7 +447,7 @@
                                 <div class="portlet-title">
                                     <h3 class="title">
                                         <i class="icon-note"></i>
-                                        تیتر صفحه
+                                        @ViewData["Title"]
                                     </h3>
                                 </div><!-- /.portlet-title -->
                                 <div class="buttons-box">

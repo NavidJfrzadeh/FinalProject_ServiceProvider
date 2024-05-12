@@ -32,6 +32,24 @@ namespace GetService.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory(string CategoryTitle, string CategoryPicture,CancellationToken cancellationToken)
+        {
+            ModelState.Remove(nameof(CategoryPicture));
+            if(ModelState.IsValid)
+            {
+                await _categoryAppService.Create(CategoryTitle, CategoryPicture, cancellationToken);
+                return RedirectToAction("CategoryList");
+            }
+            return RedirectToAction("CategoryList");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateCategory(int Id,string Title, CancellationToken cancellationToken)
+        {
+            //await _categoryAppService.Update(int id,cancellationToken);
+            return RedirectToAction("CategoryList");
+        }
         public async Task<IActionResult> DeleteCategory(int id, CancellationToken cancellationToken)
         {
             await _categoryAppService.Delete(id, cancellationToken);
