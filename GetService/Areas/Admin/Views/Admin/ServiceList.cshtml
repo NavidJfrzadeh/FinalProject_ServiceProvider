@@ -1,0 +1,83 @@
+﻿@using App.Domain.Core.ServiceEntity
+@using App.Domain.Core.ServiceEntity.Contracts
+@using App.Domain.Core.ServiceEntity.DTOs
+@inject IServicesAppService ServicesAppService
+@model List<ServiceListDto>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "صفحه مدیریت خدمات";
+}
+
+@* <div class="text-center">
+    @if
+</div> *@
+
+<a asp-action="ServiceCreate" class="btn btn-success rounded-3 mb-3">افزودن خدمت</a>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped" id="data-table">
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="btn-check-all-toggle"></th>
+                <th>آیدی</th>
+                <th>عنوان</th>
+                <th>دسته‌بندی</th>
+                <th>تعداد کارشناسان</th>
+                <th>تعداد درخواست ها</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.Category</td>
+                    <td>@item.ExpertCount</td>
+                    <td>@item.RequestCount</td>
+                    <td>
+                        <a href="#" class="btn btn-info">مشاهده بیشتر</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    var tableMain = $('#data-table').DataTable({
+        "columnDefs": [{
+            "targets": [0, 5],
+            "orderable": false
+        }],
+        "pageLength": 25,
+        "drawCallback": function () {
+            var topestStatus = $("#btn-check-all-toggle").prop("checked");
+            $("table td input[type='checkbox']").each(function () {
+                currentStatus = $(this).prop("checked");
+                if (topestStatus != currentStatus) {
+                    console.log("Reversed");
+                    $("#btn-check-all-toggle").prop("checked", currentStatus);
+                }
+            });
+
+            Modiran.initiCkeck();
+        },
+    });
+
+    $(window).on('resize', function () {
+        $('#data-table').css("width", "100%");
+    });
+
+    //Checkboxes
+    $(document).on('ifChanged', 'input#btn-check-all-toggle', function (event) {
+        var isChecked = $("#btn-check-all-toggle").prop("checked");
+        if (isChecked) {
+            $("table td input[type='checkbox']").iCheck("check").iCheck("update");
+        } else {
+            $("table td input[type='checkbox']").iCheck("uncheck").iCheck("update");
+        }
+    });
+</script>

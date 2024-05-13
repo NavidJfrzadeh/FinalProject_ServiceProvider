@@ -33,7 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{0B004D9E-F54
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0-Framework", "0-Framework", "{6B716BF7-41BF-409F-87CF-1098282544D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "Framework\Framework.csproj", "{F50C96C4-65E8-4413-B054-FF493DDD4B3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework", "Framework\Framework.csproj", "{F50C96C4-65E8-4413-B054-FF493DDD4B3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

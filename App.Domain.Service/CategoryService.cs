@@ -20,6 +20,9 @@ namespace App.Domain.Service
         public async Task Create(string CategoryTitle, string CategoryPicture, CancellationToken cancellationToken)
             => await _categoryRepository.Create(CategoryTitle, CategoryPicture, cancellationToken);
 
+        public Task Update(int id, string Title, CancellationToken cancellationToken)
+            => _categoryRepository.Update(id, Title, cancellationToken);
+
         public async Task Delete(int CategoryId, CancellationToken cancellationToken)
             => await _categoryRepository.Delete(CategoryId, cancellationToken);
 

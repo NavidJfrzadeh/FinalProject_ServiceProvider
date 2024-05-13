@@ -50,6 +50,8 @@ builder.Services.AddScoped<IRequestRepository, RequestRepository>();
 
 //Home Services
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IServicesAppService, ServicesAppService>();
+builder.Services.AddScoped<IServicesService, ServicesService>();
 
 
 //Add appsettings.json

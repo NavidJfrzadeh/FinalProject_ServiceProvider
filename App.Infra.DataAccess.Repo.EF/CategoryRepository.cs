@@ -41,7 +41,7 @@ namespace App.Infra.DataAccess.Repo.EF
                     }).ToListAsync(cancellationToken);
                     _memoryCache.Set("Categories", Categories, new MemoryCacheEntryOptions()
                     {
-                        SlidingExpiration = TimeSpan.FromHours(1)
+                        SlidingExpiration = TimeSpan.FromMinutes(10)
                     });
                 }
                 return Categories;
@@ -69,6 +69,21 @@ namespace App.Infra.DataAccess.Repo.EF
             catch (Exception ex)
             {
                 throw new Exception("ساخت دسته بندی جدید ناموفق بود" + ex.Message);
+            }
+        }
+
+        public async Task Update(int id, string Title, CancellationToken cancellationToken)
+        {
+            var category = await FindCategory(id, cancellationToken);
+            if (category != null)
+            {
+                category.Title = Title;
+                await _context.SaveChangesAsync(cancellationToken);
+                _logger.LogInformation("دسته بندی ویرایش شد");
+            }
+            else
+            {
+                throw new Exception($"دسته بندی با آیدی {id} یافت نشد");
             }
         }
 

@@ -6,5 +6,7 @@
         public string Title { get; set; }
         public int CategoryId { get; set; }
         public bool IsDeleted { get; set; }
+        public int BasePrice { get; set; }
+        public string Description { get; set; }
     }
 }

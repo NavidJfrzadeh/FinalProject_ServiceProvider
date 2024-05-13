@@ -19,7 +19,7 @@ public class ExceptionMiddleware
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex.Message);
+            //_logger.LogError(ex.Message);
             await context.Response.WriteAsync(ex.Message);
         }
     }
