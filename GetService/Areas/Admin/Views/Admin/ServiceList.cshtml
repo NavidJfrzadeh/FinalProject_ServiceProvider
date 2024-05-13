@@ -37,7 +37,7 @@
                     <td>@item.ExpertCount</td>
                     <td>@item.RequestCount</td>
                     <td>
-                        <a href="#" class="btn btn-info">مشاهده بیشتر</a>
+                        <a asp-action="ServiceDetails" asp-route-id="@item.Id" class="btn btn-info">مشاهده بیشتر</a>
                     </td>
                 </tr>
             }

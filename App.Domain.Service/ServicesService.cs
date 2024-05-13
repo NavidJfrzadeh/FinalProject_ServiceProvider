@@ -29,6 +29,9 @@ namespace App.Domain.Service
         public async Task<Core.ServiceEntity.Service> GetById(int id, CancellationToken cancellationToken)
             => await _serviceRepository.GetById(id, cancellationToken);
 
+        public async Task<ServiceForUpdateDto> GetServiceForUpdate(int id, CancellationToken cancellationToken)
+            => await _serviceRepository.GetServiceForUpdate(id, cancellationToken);
+
         public async Task<List<ServiceListDto>> GetCategoryServices(int id, CancellationToken cancellationToken)
             => await _serviceRepository.GetCategoryServices(id, cancellationToken);
 

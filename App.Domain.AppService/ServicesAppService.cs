@@ -30,6 +30,9 @@ namespace App.Domain.AppService
         public async Task<Service> GetById(int id, CancellationToken cancellationToken)
             => await _servicesService.GetById(id, cancellationToken);
 
+        public async Task<ServiceForUpdateDto> GetServiceForUpdate(int id, CancellationToken cancellationToken)
+            => await _servicesService.GetServiceForUpdate(id, cancellationToken);
+
         public async Task<List<ServiceListDto>> GetCategoryServices(int id, CancellationToken cancellationToken)
             => await _servicesService.GetCategoryServices(id, cancellationToken);
 

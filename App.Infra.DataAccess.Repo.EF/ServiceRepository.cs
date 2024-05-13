@@ -84,25 +84,37 @@ namespace App.Infra.DataAccess.Repo.EF
             return new Service();
         }
 
+        public async Task<ServiceForUpdateDto> GetServiceForUpdate(int id, CancellationToken cancellationToken)
+        {
+            var service = await _context.Services.AsNoTracking().Where(s => s.Id == id)
+                .Select(s => new ServiceForUpdateDto
+                {
+                    ServiceId = s.Id,
+                    Title = s.Title,
+                    BasePrice = s.BasePrice,
+                    CategoryId = s.CategoryId,
+                    Description = s.Description,
+                    IsDeleted = s.IsDeleted,
+                    ImageSrc = s.ImageSrc,
+                }).FirstOrDefaultAsync(cancellationToken);
+
+            return service ?? throw new Exception($"خدمت با آیدی{id} پیدا نشد");
+        }
+
         public async Task<List<ServiceListDto>> GetCategoryServices(int id, CancellationToken cancellationToken)
         {
-            try
+
+            var services = await _context.Services.AsNoTracking().Where(s => s.CategoryId == id)
+            .Select(s => new ServiceListDto
             {
-                var services = await _context.Services.AsNoTracking().AsNoTracking().Where(s => s.CategoryId == id)
-                .Select(s => new ServiceListDto
-                {
-                    Id = s.Id,
-                    Title = s.Title,
-                    Category = s.Category.Title,
-                    ExpertCount = s.Experts.Count(),
-                    RequestCount = s.Requests.Count()
-                }).ToListAsync(cancellationToken);
-                return services;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("سرویسی یافت نشد" + ex.Message);
-            }
+                Id = s.Id,
+                Title = s.Title,
+                Category = s.Category.Title,
+                ExpertCount = s.Experts.Count(),
+                RequestCount = s.Requests.Count()
+            }).ToListAsync(cancellationToken);
+
+            return services ?? throw new Exception("سرویسی یافت نشد");
         }
 
         public async Task<bool> Update(ServiceForUpdateDto serviceModel, CancellationToken cancellationToken)
@@ -113,6 +125,9 @@ namespace App.Infra.DataAccess.Repo.EF
                 service.Title = serviceModel.Title;
                 service.IsDeleted = serviceModel.IsDeleted;
                 service.CategoryId = serviceModel.CategoryId;
+                service.BasePrice = serviceModel.BasePrice;
+                service.Description = serviceModel.Description;
+                serviceModel.ImageSrc = serviceModel.ImageSrc;
                 _context.Update(service);
                 await _context.SaveChangesAsync(cancellationToken);
                 return true;
@@ -125,11 +140,7 @@ namespace App.Infra.DataAccess.Repo.EF
         private async Task<Service> FindById(int id, CancellationToken cancellationToken)
         {
             var service = await _context.Services.FindAsync(id, cancellationToken);
-            if (service != null)
-            {
-                return service;
-            }
-            throw new Exception($"Service with Id {id} not found");
+            return service ?? throw new Exception($"Service with Id {id} not found");
         }
         #endregion
     }

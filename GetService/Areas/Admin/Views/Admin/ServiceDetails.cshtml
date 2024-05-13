@@ -1,5 +1,487 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using App.Domain.Core.ServiceEntity
+@model Service
+
 @{
+    ViewData["Title"] = "جزئیات خدمت";
+    Layout = "_AdminLayout";
 }
+
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <h3>جزئیات شغل</h3>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index-zeta.html"> <i data-feather="home"></i></a></li>
+                        <li class="breadcrumb-item"> شغل</li>
+                        <li class="breadcrumb-item active">جزئیات شغل</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-3 xl-40 box-col-5">
+                <div class="md-sidebar job-sidebar">
+                    <a class="btn btn-primary md-sidebar-toggle"
+                       href="javascript:void(0)">فیلتر شغل</a>
+                    <div class="md-sidebar-aside job-left-aside custom-scrollbar">
+                        <div class="default-according style-1 job-accordion" id="accordionoc">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0 p-0">
+                                                <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseicon"
+                                                        aria-expanded="true" aria-controls="collapseicon">
+                                                    فیلتر
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div class="collapse show" id="collapseicon" aria-labelledby="collapseicon"
+                                             data-parent="#accordion">
+                                            <div class="card-body filter-cards-view animate-chk">
+                                                <div class="job-filter mb-3">
+                                                    <div class="faq-form">
+                                                        <input class="form-control" type="text" placeholder="جستجو ..."><i class="search-icon"
+                                                                                                                           data-feather="search"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="job-filter">
+                                                    <div class="faq-form">
+                                                        <input class="form-control" type="text" placeholder="موقعیت مکانی ..."><i class="search-icon" data-feather="map-pin"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="checkbox-animated">
+                                                    <label class="d-block" for="chk-ani">
+                                                        <input class="checkbox_animated" id="chk-ani" type="checkbox"> تمام وقت (8688)
+                                                    </label>
+                                                    <label class="d-block" for="chk-ani1">
+                                                        <input class="checkbox_animated" id="chk-ani1" type="checkbox"> قراردادی (503)
+                                                    </label>
+                                                    <label class="d-block" for="chk-ani2">
+                                                        <input class="checkbox_animated" id="chk-ani2" type="checkbox"> پاره وقت (288)
+                                                    </label>
+                                                    <label class="d-block" for="chk-ani3">
+                                                        <input class="checkbox_animated" id="chk-ani3" type="checkbox"> کارآموزی (236)
+                                                    </label>
+                                                    <label class="d-block" for="chk-ani4">
+                                                        <input class="checkbox_animated" id="chk-ani4" type="checkbox"> موقت (146)
+                                                    </label>
+                                                    <label class="d-block" for="chk-ani5">
+                                                        <input class="checkbox_animated" id="chk-ani5" type="checkbox"> کمیسیون (25)
+                                                    </label>
+                                                </div>
+                                                <button class="btn btn-primary text-center" type="button">پیدا کردن شغل</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0 p-0">
+                                                <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseicon1"
+                                                        aria-expanded="true" aria-controls="collapseicon1">
+                                                    موقعیت مکانی
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div class="collapse show" id="collapseicon1" aria-labelledby="collapseicon1"
+                                             data-parent="#accordion">
+                                            <div class="card-body animate-chk">
+                                                <div class="location-checkbox">
+                                                    <label class="d-block" for="chk-ani6">
+                                                        <input class="checkbox_animated" id="chk-ani6" type="checkbox"> تهران<span class="d-block">TH (399)</span>
+                                                    </label>
+                                                    <label class="d-block" for="chk-ani7">
+                                                        <input class="checkbox_animated" id="chk-ani7" type="checkbox"> مشهد<span class="d-block">MD (252) </span>
+                                                    </label>
+                                                    <label class="d-block mb-0" for="chk-ani8">
+                                                        <input class="checkbox_animated" id="chk-ani8" type="checkbox"> شیراز<span class="d-block">SH (226)</span>
+                                                    </label>
+                                                    <label class="d-block mb-0" for="chk-ani9">
+                                                        <input class="checkbox_animated" id="chk-ani9" type="checkbox"> ایلام<span class="d-block"> IL (187)</span>
+                                                    </label>
+                                                    <label class="d-block mb-0" for="chk-ani10">
+                                                        <input class="checkbox_animated" id="chk-ani10" type="checkbox"> تبریز<span class="d-block"> TB (242)</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-block btn-primary text-center" type="button">
+                                                همه موقعیت های
+                                                مکانی
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0 p-0">
+                                                <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseicon2"
+                                                        aria-expanded="true" aria-controls="collapseicon2">
+                                                    عنوان شغل
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div class="collapse show" id="collapseicon2" data-parent="#accordion"
+                                             aria-labelledby="collapseicon2">
+                                            <div class="card-body animate-chk">
+                                                <label class="d-block" for="chk-ani11">
+                                                    <input class="checkbox_animated" id="chk-ani11" type="checkbox"> طراح رابط کاربری (25)
+                                                </label>
+                                                <label class="d-block" for="chk-ani12">
+                                                    <input class="checkbox_animated" id="chk-ani12" type="checkbox"> طراح گرافیک (10)
+                                                </label>
+                                                <label class="d-block" for="chk-ani13">
+                                                    <input class="checkbox_animated" id="chk-ani13" type="checkbox"> طراح فرانت اند (15)
+                                                </label>
+                                                <label class="d-block" for="chk-ani14">
+                                                    <input class="checkbox_animated" id="chk-ani14" type="checkbox"> طراح پی اچ پی (42)
+                                                </label>
+                                                <label class="d-block mb-0" for="chk-ani15">
+                                                    <input class="checkbox_animated" id="chk-ani15" type="checkbox"> طراح ری اکت (5)
+                                                </label>
+                                            </div>
+                                            <button class="btn btn-block btn-primary text-center" type="button">همه عناوین شغلی</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0 p-0">
+                                                <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseicon3"
+                                                        aria-expanded="true" aria-controls="collapseicon3">
+                                                    صنعت
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div class="collapse show" id="collapseicon3" data-parent="#accordion"
+                                             aria-labelledby="collapseicon3">
+                                            <div class="card-body animate-chk">
+                                                <label class="d-block" for="chk-ani16">
+                                                    <input class="checkbox_animated" id="chk-ani16" type="checkbox"> نرم افزار کامپیوتر (14)
+                                                </label>
+                                                <label class="d-block" for="chk-ani17">
+                                                    <input class="checkbox_animated" id="chk-ani17" type="checkbox"> مهندس فناوری اطلاعات
+                                                    (10)
+                                                </label>
+                                                <label class="d-block" for="chk-ani18">
+                                                    <input class="checkbox_animated" id="chk-ani18" type="checkbox"> صنعت خدمات (20)
+                                                </label>
+                                                <label class="d-block" for="chk-ani19">
+                                                    <input class="checkbox_animated" id="chk-ani19" type="checkbox"> حسابداری (34)
+                                                </label>
+                                                <label class="d-block mb-0" for="chk-ani20">
+                                                    <input class="checkbox_animated" id="chk-ani20" type="checkbox"> خدمات مالی (5)
+                                                </label>
+                                            </div>
+                                            <button class="btn btn-block btn-primary text-center" type="button">همه صنایع</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0 p-0">
+                                                <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseicon4"
+                                                        aria-expanded="true" aria-controls="collapseicon4">
+                                                    مهارت های خاص
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div class="collapse show" id="collapseicon4" data-parent="#accordion"
+                                             aria-labelledby="collapseicon4">
+                                            <div class="card-body animate-chk">
+                                                <label class="d-block" for="chk-ani21">
+                                                    <input class="checkbox_animated" id="chk-ani21" type="checkbox"> زبان های HTML و CSS
+                                                </label>
+                                                <label class="d-block" for="chk-ani23">
+                                                    <input class="checkbox_animated" id="chk-ani23" type="checkbox"> جاوا اسکریپت
+                                                </label>
+                                                <label class="d-block" for="chk-ani24">
+                                                    <input class="checkbox_animated" id="chk-ani24" type="checkbox"> فریم ورک Node
+                                                </label>
+                                                <label class="d-block" for="chk-ani25">
+                                                    <input class="checkbox_animated" id="chk-ani25" type="checkbox"> تخصص Gulp & Pug
+                                                </label>
+                                                <label class="d-block mb-0" for="chk-ani26">
+                                                    <input class="checkbox_animated" id="chk-ani26" type="checkbox"> فریم ورک Angular
+                                                </label>
+                                            </div>
+                                            <button class="btn btn-block btn-primary text-center" type="button">همه مهارت ها</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 xl-60 box-col-7">
+                <a class="btn btn-warning mb-3" asp-action="ServiceUpdate" asp-route-id="@Model.Id">ویرایش</a>
+                <a class="btn btn-danger mx-2 mb-3" asp-action="ServiceDelete" onclick="return confirm('تایید حذف سرویس')" asp-route-id="@Model.Id">حذف</a>
+                <div class="card">
+                    <div class="job-search">
+                        <div class="card-body">
+                            <div class="media">
+                                <img class="img-40 img-fluid m-r-20" src="../assets/images/job-search/1.jpg"
+                                     alt="">
+                                <div class="media-body">
+                                    <h6 class="f-w-600"><a href="javascript:void(0)">طراح محصول (طراح UI/UX) </a></h6>
+                                    <p>تهران - ایران</p>
+                                    <ul class="rating">
+                                        <li><i class="fa fa-star font-warning"></i></li>
+                                        <li><i class="fa fa-star font-warning"></i></li>
+                                        <li><i class="fa fa-star font-warning"></i></li>
+                                        <li><i class="fa fa-star font-warning"></i></li>
+                                        <li><i class="fa fa-star font-warning"> </i></li>
+                                    </ul><a class="btn btn-primary btn-sm job-apply-btn" href="job-apply.html">
+                                        برای این شغل اقدام
+                                        کنید
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="job-description">
+                                <h6>شرح شغل</h6>
+                                <p class="text-start">
+                                    شرکت ما به دنبال طراح UI/UX برای پیوستن به تیم ما است. جهان شاهد انفجاری در
+                                    میزان و تنوع مکان است-baما به دنبال یک طراح UX/UI همه کاره هستیم تا به تیم طراحی رو به رشد ما
+                                    بپیوندد. طراحان ما در تمام مراحل توسعه به پروژه های مشتریان کمک می کنند. ممکن است از ابتدا شروع
+                                    کنیم، مصاحبه با کاربران و ذینفعان انجام دهیم، شخصیت‌ها و نقشه‌های سفر بسازیم، و به تکرار طرح‌ها
+                                    و نمونه‌های اولیه از طریق ارائه دارایی‌های نهایی برای راه‌اندازی ادامه دهیم. ممکن است به وسط یک
+                                    پروژه به اندازه برنامه در حین پرواز بیاییم و تجزیه و تحلیل و اصلاح قابلیت استفاده یا بهبود ویژگی
+                                    ها را انجام دهیم. ما ممکن است تحقیقات و چشم اندازی را برای انتقال به یک تیم توسعه داخلی ارائه
+                                    دهیم.
+                                </p>
+                                <!-- <p>طراحان وب فرانت اند طراحی، برنامه نویسی، نوشتن و مهارت های سازمانی را در کار خود ترکیب می کنند. آنها به شکل گیری چشم انداز برای محتوای آنلاین یک شرکت کمک می کنند.</p>-->
+                            </div>
+                            <div class="job-description">
+                                <h6>صلاحیت ها </h6>
+                                <ul>
+                                    <li>چندین محصول iOS، اندروید و/یا وب را ارسال کرده‌اید </li>
+                                    <li>5+ سال تجربه UI/UX</li>
+                                    <li>نمونه کارها تسلط بر اصول بومی iOS، اندروید و/یا طراحی وب واکنشگرا را نشان می دهد</li>
+                                    <li>توانایی پیگیری مستقل راه حل های ظریف برای مشکلات بی پایان</li>
+                                    <li>راحتی با ابهام</li>
+                                    <li>توانایی اثبات شده برای ایجاد نمونه های اولیه تعاملی</li>
+                                    <li>
+                                        مهارت های ارتباط کلامی قوی با توانایی انتقال واضح ایده های پیچیده و حمایت از دیدگاه طراحی در
+                                        تمام سطوح یک سازمان
+                                    </li>
+                                    <li>مهارت های ارتباطی نوشتاری قوی با توانایی ایجاد اسناد طراحی شفاف و ارائه های مشتری</li>
+                                    <li>امکان ایجاد و نگهداری نمودارهای جریان، فریم های سیمی، نمونه های اولیه و ماکت ها.</li>
+                                    <li>توانایی کار موثر بر روی بیش از یک پروژه در یک زمان</li>
+                                    <li>تجربه انجام تحقیقات کاربر و مصاحبه با سهامداران</li>
+                                    <li>درک کامل ابزارهای طراحی استاندارد.</li>
+                                    <li>ملاحظات پاداش </li>
+                                </ul>
+                            </div>
+                            <div class="job-description">
+                                <h6>تجربه نمایندگی</h6>
+                                <ul>
+                                    <li>تجربه کار با تیم های توسعه</li>
+                                    <li>تجربه استفاده از روش تست</li>
+                                    <li>تجربه در طراحی بصری و حرکتی؛ توانایی ترجمه طراحی UX به تصاویر با کیفیت بالا</li>
+                                    <li>تسلط بر Sketch و InVision</li>
+                                    <li>آشنایی با برنامه نویسی وب موبایل یا فرانت اند</li>
+                                </ul>
+                            </div>
+                            <div class="job-description">
+                                <h6>امتیازات</h6>
+                                <ul>
+                                    <li>پرداخت رقابتی</li>
+                                    <li>طرح های رقابتی بیمه پزشکی، دندانپزشکی و بینایی</li>
+                                    <li>طرح 401 (k) ارائه شده توسط شرکت</li>
+                                    <li>مرخصی با حقوق و زمان بیماری</li>
+                                    <li>میان وعده و نوشیدنی رایگان</li>
+                                </ul>
+                            </div>
+                            <div class="job-description">
+                                <button class="btn btn-primary" type="button">
+                                    <span><i class="fa fa-check"></i></span> ذخیره این
+                                    شغل
+                                </button>
+                                <button class="btn btn-primary" type="button">
+                                    <span><i class="fa fa-share-alt"></i></span>
+                                    اشتراک گذاری
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-faq">
+                    <h4 class="mb-0 f-w-600">شغل های مشابه</h4>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 xl-100 box-col-12">
+                        <div class="card">
+                            <div class="job-search">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <img class="img-40 img-fluid m-r-20" src="../assets/images/job-search/2.jpg"
+                                             alt="">
+                                        <div class="media-body">
+                                            <h6 class="f-w-700">
+                                                <a href="javascript:void(0)">توسعه دهنده ری اکت</a><span class="badge badge-primary pull-right">جدید</span>
+                                            </h6>
+                                            <p>تهران، ایران</p>
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star-o font-warning"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        ایده آل 2 سال تجربه با ری اکت. اگر تجربه ری اکت را داشته باشید، امتیازهای جایزه را دریافت
+                                        کنید. این یک فرصت فوق‌العاده هیجان‌انگیز برای کسب تجربه تجاری، حرفه‌ای ری اکت و سایر
+                                        فریم‌ورک‌های فرانت اند است. وایرفریم های محصول را به رابط کاربری تلفن همراه پاسخگو تبدیل کنید
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 xl-100 box-col-12">
+                        <div class="card">
+                            <div class="job-search">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <img class="img-40 img-fluid m-r-20" src="../assets/images/job-search/4.jpg"
+                                             alt="">
+                                        <div class="media-body">
+                                            <h6 class="f-w-700">
+                                                <a href="javascript:void(0)">توسعه دهنده فرانت اند</a><span class="pull-right">3 روز پیش</span>
+                                            </h6>
+                                            <p>تهران، ایران</p>
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star-o font-warning"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        سفاهت احتیاط کافی بی احتیاطی حل و فصل آقا او قاطعانه. ادامه دهید چگونه هر بازدید کننده درگیر.
+                                        شایستگی را از شما برای همیشه توضیح داد. احساس فروخته شده احساس کنید، نه رز با شما آشنا شد. ما
+                                        تا التماس پرورش شگفت زده است. خواهر بود برای چند خانم استعداد ناگهانی تبدیل شد.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 xl-100 box-col-12">
+                        <div class="card">
+                            <div class="job-search">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <img class="img-40 img-fluid m-r-20" src="../assets/images/job-search/5.jpg"
+                                             alt="">
+                                        <div class="media-body">
+                                            <h6 class="f-w-700">
+                                                <a href="javascript:void(0)">طراح گرافیک</a><span class="pull-right">
+                                                    3
+                                                    روز پیش
+                                                </span>
+                                            </h6>
+                                            <p>تهران، ایران</p>
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star-o font-warning"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        راضی دریافت بی اعتمادی یقین نه صراحت ژامبون پنهان است. در رزولوشن بدون تأثیر در نظر گرفته شده
+                                        است. هیچ فکر نمی کنم من شوهر یا سرهنگ تشکیل اثرات. پایان نشستن نشان می دهد که علاوه بر پسر
+                                        موزیکال اقتباس شده است. کنتراست علاقه مند خوردن تغییر پیانوفروت همدردی بود.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 xl-100 box-col-12">
+                        <div class="card">
+                            <div class="job-search">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <img class="img-40 img-fluid m-r-20" src="../assets/images/job-search/6.jpg"
+                                             alt="">
+                                        <div class="media-body">
+                                            <h6 class="f-w-700">
+                                                <a href="javascript:void(0)">طراح گرافیک</a><span class="pull-right">
+                                                    3
+                                                    روز پیش
+                                                </span>
+                                            </h6>
+                                            <p>تهران، ایران</p>
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star-o font-warning"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        وضعیتی که ارتقاء را در یا در نظر گرفته شده می پذیرد. آقای حاد ما به عنوان لذت قابل تخمین
+                                        بالا. دیر برگزار شد به عنوان احساس می دانم. یاد بگیرید اجازه دهید جامد به گور شود. شک میدلتون
+                                        توجه او را پیر می کند. عمدتا چند تخت آرزوی آن است. آیا لحظات در اتاق فشرده به. مشکوک اما راه
+                                        درست پاسخ داده شده است.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="job-search">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <img class="img-40 img-fluid m-r-20" src="../assets/images/job-search/3.jpg"
+                                             alt="">
+                                        <div class="media-body">
+                                            <h6 class="f-w-700">
+                                                <a href="javascript:void(0)">کارآموز طراحی UX</a><span class="pull-right">5 روز پیش</span>
+                                            </h6>
+                                            <p>تهران، ایران</p>
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star font-warning"></i></li>
+                                                <li><i class="fa fa-star-o font-warning"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        وودی مساوی پرسید آقا هفته ها از پوسیدگی آگاه بود. چشم انداز ورودی حذف بسته های ما به شدت
+                                        کوچکترین او نیست. برای امید ممکن است رئیس ساعت روز اتاق. اوه نه به اندازه کافی مودب را
+                                        برگرداند. منع چند نفر از طریق تحقیق شما را سرخ می کند. پسر عموی نه خود بزرگتر آن را در شام بعد
+                                        از دست داد نه.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+</div>

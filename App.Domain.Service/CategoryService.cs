@@ -28,6 +28,9 @@ namespace App.Domain.Service
 
         public async Task<List<GetAllCategoryForMainPageDto>> GetAll(CancellationToken cancellationToken)
             => await _categoryRepository.GetAll(cancellationToken);
+
+        public async Task<List<CategoriesForCreateServiceDto>> GetCategories(CancellationToken cancellationToken)
+            =>await _categoryRepository.GetCategories(cancellationToken);
         #endregion
     }
 }

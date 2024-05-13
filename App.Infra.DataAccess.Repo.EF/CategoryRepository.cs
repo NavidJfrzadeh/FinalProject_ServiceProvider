@@ -53,6 +53,28 @@ namespace App.Infra.DataAccess.Repo.EF
 
         }
 
+        public async Task<List<CategoriesForCreateServiceDto>> GetCategories(CancellationToken cancellationToken)
+        {
+            var categories = _memoryCache.Get<List<CategoriesForCreateServiceDto>>("CategoriesForCreateServiceDto");
+            if (categories == null)
+            {
+                categories = await _context.Categories.AsNoTracking().Select(c => new CategoriesForCreateServiceDto
+                {
+                    CategoyId = c.Id,
+                    Title = c.Title
+                }).ToListAsync(cancellationToken);
+                _memoryCache.Set("CategoriesForCreateServiceDto", categories, new MemoryCacheEntryOptions
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                });
+            }
+            if (categories.Any())
+            {
+                return categories;
+            }
+            throw new Exception("دسته بندی یافت نشد");
+        }
+
         public async Task Create(string CategoryTitle, string CategoryPicture, CancellationToken cancellationToken)
         {
             try
