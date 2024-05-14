@@ -1,5 +1,7 @@
-﻿using App.Domain.Core.CategoryEntity.Contracts;
+﻿using App.Domain.Core._0_BaseEntities.Enums;
+using App.Domain.Core.CategoryEntity.Contracts;
 using App.Domain.Core.CommentEntity.Contracts;
+using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.ServiceEntity.Contracts;
 using App.Domain.Core.ServiceEntity.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -13,15 +15,18 @@ namespace GetService.Areas.Admin.Controllers
         private readonly ICategoryAppService _categoryAppService;
         private readonly IServicesAppService _servicesAppService;
         private readonly ICommentAppService _commentAppService;
+        private readonly IRequestAppService _requestAppService;
         #endregion
 
         public AdminController(ICategoryAppService categoryAppService,
             IServicesAppService servicesAppService,
-            ICommentAppService commentAppService)
+            ICommentAppService commentAppService,
+            IRequestAppService requestAppService)
         {
             _categoryAppService = categoryAppService;
             _servicesAppService = servicesAppService;
             _commentAppService = commentAppService;
+            _requestAppService = requestAppService;
         }
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
@@ -94,6 +99,12 @@ namespace GetService.Areas.Admin.Controllers
             return View(serviceCreateDto);
         }
 
+        public async Task<IActionResult> ServiceDelete(int id, CancellationToken cancellationToken)
+        {
+            await _servicesAppService.Delete(id,cancellationToken);
+            return RedirectToAction("ServiceList");
+        }
+
         [HttpGet]
         public async Task<IActionResult> ServiceUpdate(int id, CancellationToken cancellationToken)
         {
@@ -130,7 +141,7 @@ namespace GetService.Areas.Admin.Controllers
             }
             else
             {
-                _commentAppService.Accept(id, cancellationToken);
+                await _commentAppService.Accept(id, cancellationToken);
                 var commentsForAccept = await _commentAppService.GetUnAcceptedComments(cancellationToken);
                 return View(commentsForAccept);
             }
@@ -148,6 +159,24 @@ namespace GetService.Areas.Admin.Controllers
             return View();
         }
 
+        public async Task<IActionResult> RequestsList(CancellationToken cancellationToken)
+        {
+            var requests = await _requestAppService.GetAll(cancellationToken);
+            return View(requests);
+        }
+
+        public async Task<IActionResult> RequestDetails(int id, CancellationToken cancellationToken)
+        {
+            var request = await _requestAppService.GetById(id, cancellationToken);
+            return View(request);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RequestSetStatus(int id, Status status, CancellationToken cancellationToken)
+        {
+            await _requestAppService.SetRequestStatus(id, status, cancellationToken);
+            return RedirectToAction("RequestsList");
+        }
         public async Task<IActionResult> CustomerList(CancellationToken cancellationToken)
         {
             return View();

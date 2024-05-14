@@ -50,6 +50,8 @@ builder.Services.AddScoped<IExpertRepository, ExpertRepository>();
 
 //Request Services
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
+builder.Services.AddScoped<IRequestAppService, RequestAppService>();
+builder.Services.AddScoped<IRequestService, RequestService>();
 
 //Home Services
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();

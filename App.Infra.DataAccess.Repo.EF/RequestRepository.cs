@@ -1,5 +1,7 @@
-﻿using App.Domain.Core.RequestEntity;
+﻿using App.Domain.Core._0_BaseEntities.Enums;
+using App.Domain.Core.RequestEntity;
 using App.Domain.Core.RequestEntity.Contracts;
+using App.Domain.Core.RequestEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -51,8 +53,18 @@ namespace App.Infra.DataAccess.Repo.EF
             return false;
         }
 
-        public async Task<List<Request>> GetAll(CancellationToken cancellationToken)
-            => await _context.Requests.AsNoTracking().ToListAsync(cancellationToken);
+        public async Task<List<RequestDto>> GetAll(CancellationToken cancellationToken)
+        {
+            var requests = await _context.Requests.AsNoTracking().Select(r => new RequestDto
+            {
+                RequestId = r.Id,
+                ServiceTitle = r.Service.Title,
+                CustomerName = r.Customer.FullName,
+                Status = r.Status,
+                IsAccepted = r.IsAccepted
+            }).ToListAsync(cancellationToken);
+            return requests;
+        }
 
         public async Task<Request> GetById(int id, CancellationToken cancellationToken)
         {
@@ -69,12 +81,19 @@ namespace App.Infra.DataAccess.Repo.EF
             var requests = await _context.Requests.AsNoTracking().Where(r => r.ServiceId == serviceId).ToListAsync(cancellationToken);
             return requests;
         }
+
+        public async Task SetRequestStatus(int requestId, Status status, CancellationToken cancellationToken)
+        {
+            var request = await _context.Requests.FirstOrDefaultAsync(r=>r.Id == requestId, cancellationToken);
+            request.Status = status;
+            await _context.SaveChangesAsync(cancellationToken);
+        }
         #endregion
 
         #region Private Methods
         private async Task<Request> FindById(int id, CancellationToken cancellationToken)
         {
-            var request = await _context.Requests.FindAsync(id, cancellationToken);
+            var request = await _context.Requests.AsNoTracking().FirstOrDefaultAsync(r => r.Id == id, cancellationToken);
             if (request != null)
             {
                 return request;

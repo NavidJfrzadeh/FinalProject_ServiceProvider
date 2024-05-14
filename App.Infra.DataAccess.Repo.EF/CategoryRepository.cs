@@ -33,7 +33,7 @@ namespace App.Infra.DataAccess.Repo.EF
                 var Categories = _memoryCache.Get<List<GetAllCategoryForMainPageDto>>("Categories");
                 if (Categories == null)
                 {
-                    Categories = await _context.Categories.AsNoTracking().Select(c => new GetAllCategoryForMainPageDto
+                    Categories = await _context.Categories.AsNoTracking().Where(c => !c.IsDeleted).Select(c => new GetAllCategoryForMainPageDto
                     {
                         Id = c.Id,
                         Title = c.Title,
@@ -41,7 +41,7 @@ namespace App.Infra.DataAccess.Repo.EF
                     }).ToListAsync(cancellationToken);
                     _memoryCache.Set("Categories", Categories, new MemoryCacheEntryOptions()
                     {
-                        SlidingExpiration = TimeSpan.FromMinutes(10)
+                        SlidingExpiration = TimeSpan.FromSeconds(7)
                     });
                 }
                 return Categories;

@@ -77,13 +77,22 @@ namespace App.Infra.DataAccess.Repo.EF
 
         public async Task<int> GetUnAcceptedCommentsCount(CancellationToken cancellationToken)
         {
-            var count = await _context.Comments.Where(c => !c.IsAccepted).CountAsync(cancellationToken);
-            return count;
+            try
+            {
+                var count = await _context.Comments.AsNoTracking().Where(c => !c.IsAccepted).CountAsync(cancellationToken);
+                return count;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         public async Task<CommentDto> GetById(int id, CancellationToken cancellationToken)
         {
-            var comment = await _context.Comments.Where(c => !c.IsAccepted).Select(c => new CommentDto
+            var comment = await _context.Comments.Where(c => !c.IsAccepted && c.Id == id).Select(c => new CommentDto
             {
                 CommentId = c.Id,
                 Title = c.Title,

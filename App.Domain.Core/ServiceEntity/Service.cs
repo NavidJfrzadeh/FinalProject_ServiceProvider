@@ -26,7 +26,7 @@ namespace App.Domain.Core.ServiceEntity
         public int BasePrice {  get; set; }
         [MaxLength(2000)]
         [DisplayName("توضیحات")]
-        public string? Description { get; set; }
+        public string Description { get; set; }
         [DisplayName("دسته‌بندی")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
