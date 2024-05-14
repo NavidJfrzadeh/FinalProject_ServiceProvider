@@ -1,4 +1,5 @@
 ﻿using App.Domain.Core.CategoryEntity.Contracts;
+using App.Domain.Core.CommentEntity.Contracts;
 using App.Domain.Core.ServiceEntity.Contracts;
 using App.Domain.Core.ServiceEntity.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -11,16 +12,21 @@ namespace GetService.Areas.Admin.Controllers
         #region Fields
         private readonly ICategoryAppService _categoryAppService;
         private readonly IServicesAppService _servicesAppService;
+        private readonly ICommentAppService _commentAppService;
         #endregion
 
-        public AdminController(ICategoryAppService categoryAppService, IServicesAppService servicesAppService)
+        public AdminController(ICategoryAppService categoryAppService,
+            IServicesAppService servicesAppService,
+            ICommentAppService commentAppService)
         {
             _categoryAppService = categoryAppService;
             _servicesAppService = servicesAppService;
+            _commentAppService = commentAppService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
+            TempData["UnAccesptedCommentsCount"] = await _commentAppService.GetUnAcceptedCommentsCount(cancellationToken);
             return View();
         }
 
@@ -112,6 +118,34 @@ namespace GetService.Areas.Admin.Controllers
         {
             var service = await _servicesAppService.GetById(id, cancellationToken);
             return View(service);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CommentForAccept(int id, CancellationToken cancellationToken)
+        {
+            if (id == 0)
+            {
+                var commentsForAccept = await _commentAppService.GetUnAcceptedComments(cancellationToken);
+                return View(commentsForAccept);
+            }
+            else
+            {
+                _commentAppService.Accept(id, cancellationToken);
+                var commentsForAccept = await _commentAppService.GetUnAcceptedComments(cancellationToken);
+                return View(commentsForAccept);
+            }
+        }
+
+        public async Task<IActionResult> CommentDetails(int id, CancellationToken cancellationToken)
+        {
+            var commentDto = await _commentAppService.GetById(id, cancellationToken);
+            return View(commentDto);
+        }
+
+        public async Task<IActionResult> CommentDelete(int id, CancellationToken cancellationToken)
+        {
+            _commentAppService.Delete(id, cancellationToken);
+            return View();
         }
 
         public async Task<IActionResult> CustomerList(CancellationToken cancellationToken)

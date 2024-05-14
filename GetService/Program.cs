@@ -33,11 +33,14 @@ builder.Services.AddScoped<IBidRepository, BidRepository>();
 
 //Category Services
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<ICategoryService , CategoryService>();
-builder.Services.AddScoped<ICategoryAppService , CategoryAppService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
 
 //Comment Services
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICommentAppService, CommentAppService>();
+
 
 //Customer Services
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();

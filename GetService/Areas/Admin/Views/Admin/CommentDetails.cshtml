@@ -1,0 +1,23 @@
+﻿@using App.Domain.Core.CommentEntity.DTOs
+@model CommentDto
+@{
+    ViewData["Title"] = " توضیحات کامنت";
+    Layout = "_AdminLayout";
+}
+
+<div class="col-sm-12 col-md-6 col-xl-6">
+    <div class="card">
+        <div class="card-header bg-primary d-flex justify-content-between align-items-center">
+            <h2 class="text-white">@Model.Title</h2>
+        </div>
+        <div class="card-body">
+            <p class="mb-0">
+                @Model.Description
+            </p>
+        </div>
+        <div class="card-footer">
+            <a asp-action="CommentForAccept" class="btn btn-outline-success" asp-route-id="@Model.CommentId">تایید</a>
+            <a asp-action="CommentDelete" class="btn btn-outline-danger" asp-route-id="@Model.CommentId">حذف</a>
+        </div>
+    </div>
+</div>

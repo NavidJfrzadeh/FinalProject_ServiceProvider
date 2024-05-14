@@ -1,5 +1,101 @@
-﻿@{
+﻿@using App.Domain.Core.CommentEntity.DTOs
+@{
     ViewData["Title"] = "صفحه اصلی";
     Layout = "_AdminLayout";
+    int UnAcceptedCommentsCount = (int)TempData["UnAccesptedCommentsCount"];
 }
-<h2>this is admin index</h2>
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <div class="stat-box use-cyan shadow">
+                <a href="#">
+                    <div class="stat">
+                        <div class="counter-down" data-value="10"></div>
+                        <div class="h3">کاربر</div>
+                    </div><!-- /.stat -->
+                    <div class="visual">
+                        <i class="icon-people"></i>
+                    </div><!-- /.visual -->
+                </a>
+            </div><!-- /.stat-box -->
+        </div><!-- /.col-lg-3 -->
+        <div class="col-lg-3 col-6">
+            <div class="stat-box use-blue shadow">
+                <a href="#">
+                    <div class="stat">
+                        <div class="counter-down" data-value="25"></div>
+                        <div class="h3">خدمات</div>
+                    </div><!-- /.stat -->
+                    <div class="visual">
+                        <i class="fas fa-gear"></i>
+                    </div><!-- /.visual -->
+                </a>
+            </div><!-- /.stat-box -->
+        </div><!-- /.col-lg-3 -->
+        <div class="col-lg-3 col-6">
+            <div class="stat-box use-green shadow">
+                <a href="#">
+                    <div class="stat">
+                        <div class="counter-down" data-value="100"></div>
+                        <div class="h3">درخواست‌ ها</div>
+                    </div><!-- /.stat -->
+                    <div class="visual">
+                        <i class="fas fa-arrow-trend-up"></i>
+                    </div><!-- /.visual -->
+                </a>
+            </div><!-- /.stat-box -->
+        </div><!-- /.col-lg-3 -->
+        <div class="col-lg-3 col-6">
+            <div class="stat-box use-purple shadow">
+                <a asp-action="CommentForAccept">
+                    <div class="stat">
+                        <div class="counter-down" data-value="@UnAcceptedCommentsCount"></div>
+                        <div class="h3">کامنت ها</div>
+                    </div><!-- /.stat -->
+                    <div class="visual">
+                        <i class="icon-bubbles"></i>
+                    </div><!-- /.visual -->
+                </a>
+            </div><!-- /.stat-box -->
+        </div><!-- /.col-lg-3 -->
+        <div class="row">
+            <div class="col-lg-2 col-sm-4 col-6">
+                <div class="stat-box use-cyan shadow knob-container">
+                    <div class="h3">فضای دیسک</div>
+                    <input class="knob-animate" value="35" data-linecap="round" data-thickness=".1" data-width="75%" data-bgcolor="rgba(64, 189, 187, 0.15)" data-fgColor="#13a2a6" readonly>
+                </div><!-- /.stat-box -->
+            </div><!-- /.col-lg-2 -->
+            <div class="col-lg-2 col-sm-4 col-6">
+                <div class="stat-box use-blue shadow knob-container">
+                    <div class="h3">پهنای باند</div>
+                    <input class="knob-animate" value="45" data-linecap="round" data-thickness=".1" data-width="75%" data-bgcolor="rgba(20, 185, 214, 0.15)" data-fgColor="#14B9D6" readonly>
+                </div><!-- /.stat-box -->
+            </div><!-- /.col-lg-2 -->
+            <div class="col-lg-2 col-sm-4 col-6">
+                <div class="stat-box use-lime shadow knob-container">
+                    <div class="h3">مصرف رم</div>
+                    <input class="knob-animate" value="55" data-linecap="round" data-thickness=".1" data-width="75%" data-bgcolor="rgba(144, 202, 75, 0.15)" data-fgColor="#90ca4b" readonly>
+                </div><!-- /.stat-box -->
+            </div><!-- /.col-lg-2 -->
+            <div class="col-lg-2 col-sm-4 col-6">
+                <div class="stat-box use-green shadow knob-container">
+                    <div class="h3">مصرف پردازنده</div>
+                    <input class="knob-animate" value="65" data-linecap="round" data-thickness=".1" data-width="75%" data-bgcolor="rgba(83, 169, 107, 0.15)" data-fgColor="#0abb87" readonly>
+                </div><!-- /.stat-box -->
+            </div><!-- /.col-lg-2 -->
+            <div class="col-lg-2 col-sm-4 col-6">
+                <div class="stat-box use-rose shadow knob-container">
+                    <div class="h3">مصرف شبکه</div>
+                    <input class="knob-animate" value="75" data-linecap="round" data-thickness=".1" data-width="75%" data-bgcolor="rgba(233, 30, 99, 0.15)" data-fgColor="#e91e63" readonly>
+                </div><!-- /.stat-box -->
+            </div><!-- /.col-lg-2 -->
+            <div class="col-lg-2 col-sm-4 col-6">
+                <div class="stat-box use-purple shadow knob-container">
+                    <div class="h3">فایل ها</div>
+                    <input class="knob-animate" value="9000" data-min="0" data-max="10000" data-linecap="round" data-thickness=".1" data-width="75%" data-bgcolor="rgba(69, 39, 160, 0.15)" data-fgColor="#4527a0" readonly>
+                </div><!-- /.stat-box -->
+            </div><!-- /.col-lg-2 -->
+        </div><!-- /.row -->
+    </div><!-- /.row -->
+</div>

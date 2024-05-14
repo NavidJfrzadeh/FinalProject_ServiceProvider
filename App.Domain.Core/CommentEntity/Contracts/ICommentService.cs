@@ -2,7 +2,7 @@
 
 namespace App.Domain.Core.CommentEntity.Contracts
 {
-    public interface ICommentRepository
+    public interface ICommentService
     {
         public Task<bool> Create(Comment newComment, CancellationToken cancellationToken);
         public Task<List<ExpertCommentDto>> GetForExpert(int expertId, CancellationToken cancellationToken);
@@ -10,6 +10,6 @@ namespace App.Domain.Core.CommentEntity.Contracts
         public Task<int> GetUnAcceptedCommentsCount(CancellationToken cancellationToken);
         public Task Accept(int id, CancellationToken cancellationToken);
         public Task Delete(int id, CancellationToken cancellationToken);
-        public Task<CommentDto> GetById(int id,CancellationToken cancellationToken);
+        public Task<CommentDto> GetById(int id, CancellationToken cancellationToken);
     }
 }
