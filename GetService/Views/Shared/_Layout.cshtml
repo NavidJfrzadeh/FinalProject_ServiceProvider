@@ -1,52 +1,415 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"] - GetService</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @* 	   <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/GetService.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/GetService.styles.css" asp-append-version="true" /> *@
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/assetsHomePage/img/favicon.png">
+
+    <!-- Custom CSS -->
+    <link href="~/assetsHomePage/css/styles.css" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GetService</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Index">ورود ادمین</a>
-                        </li>
-                    </ul>
+
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader"></div>
+
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+
+        <!-- ============================================================== -->
+        <!-- Top header  -->
+        <!-- ============================================================== -->
+        <!-- Start Navigation -->
+        <div class="header header-light dark-text">
+            <div class="container">
+                <nav id="navigation" class="navigation navigation-landscape">
+                    <div class="nav-header">
+                        <a class="nav-brand" href="#">
+                            <img src="~/assetsHomePage/img/logo.png" class="logo" alt="" />
+                        </a>
+                        <div class="nav-toggle"></div>
+                        <div class="mobile_nav">
+                            <ul>
+                                <li>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#login" class="theme-cl fs-lg">
+                                        <i class="lni lni-user"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="add-listing.html" class="crs_yuo12 w-auto text-white theme-bg">
+                                        <span class="embos_45"><i class="fas fa-plus ms-2"></i>افزودن آگهی</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="nav-menus-wrapper" style="transition-property: none;">
+                        <ul class="nav-menu">
+                            <li>
+                                <a href="javascript:void(0);">آگهی</a>
+                                <ul class="nav-dropdown nav-submenu">
+                                    <li>
+                                        <a href="javascript:void(0);">شبکه ای</a>
+                                        <ul class="nav-dropdown nav-submenu">
+                                            <li><a href="listing-search-v1.html">سایدبار نسخه 1</a></li>
+                                            <li><a href="listing-search-v2.html">سایدبار نسخه 2</a></li>
+                                            <li><a href="listing-search-v3.html">سایدبار نسخه 3</a></li>
+                                            <li><a href="listing-search-with-map.html">تمام صفحه با نقشه</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0);">پنل کاربری</a>
+                                <ul class="nav-dropdown nav-submenu">
+                                    <li><a href="dashboard.html"><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li>
+                                    <li><a href="dashboard-my-listings.html"><i class="lni lni-files ms-2"></i>آگهی های من</a></li>
+                                    <li><a href="dashboard-add-listings.html"><i class="lni lni-add-files ms-2"></i>افزودن آگهی</a></li>
+                                    <li><a href="dashboard-saved-listings.html"><i class="lni lni-bookmark ms-2"></i>علاقه مندی ها</a></li>
+                                    <li><a href="dashboard-my-bookings.html"><i class="lni lni-briefcase ms-2"></i>رزروهای من<span class="count-tag bg-warning">4</span></a></li>
+                                    <li><a href="dashboard-wallet.html"><i class="lni lni-mastercard ms-2"></i>کیف پول</a></li>
+                                    <li><a href="dashboard-messages.html"><i class="lni lni-envelope ms-2"></i>پیام ها<span class="count-tag bg-sky">4</span></a></li>
+                                    <li><a href="dashboard-my-profile.html"><i class="lni lni-user ms-2"></i>حساب من </a></li>
+                                    <li><a href="dashboard-change-password.html"><i class="lni lni-lock-alt ms-2"></i>تغییر رمز عبور</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul class="nav-menu nav-menu-social align-to-left">
+                            <li>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#login" class="ft-bold">
+                                    <i class="fas fa-sign-in-alt ms-1 theme-cl"></i>ورود
+                                </a>
+                            </li>
+                            <li class="add-listing">
+                                <a href="add-listing.html">
+                                    <i class="fas fa-plus ms-2"></i>افزودن آگهی
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- End Navigation -->
+
+        <div>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <!-- =========================== FAQ Start ======================= -->
+        <section>
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="sec_title position-relative text-center mb-5">
+                            <h6 class="text-muted">بخش پرسش و پاسخ</h6>
+                            <h4 class="ft-bold ff-second">سوالات متداول</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-10 col-lg-11 col-md-12 col-12">
+                        <div id="accordion2" class="accordion">
+                            <div class="card">
+                                <div class="card-header" id="h7">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#ord7" aria-expanded="true" aria-controls="ord7">
+                                            آیا می توانم لیست GoodUP را به صورت رایگان دریافت کنم؟
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="ord7" class="collapse show" aria-labelledby="h7" data-parent="#accordion2">
+                                    <div class="card-body">
+                                        کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="h8">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#ord8" aria-expanded="false" aria-controls="ord8">
+                                            چگونه فایل ها را برای همیشه از ویندوز پاک کنیم؟
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="ord8" class="collapse" aria-labelledby="h8" data-parent="#accordion2">
+                                    <div class="card-body">
+                                        کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="h9">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#ord9" aria-expanded="false" aria-controls="ord9">
+                                            آیا می توانم لیست GoodUP را به صورت رایگان دریافت کنم؟
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="ord9" class="collapse" aria-labelledby="h9" data-parent="#accordion2">
+                                    <div class="card-body">
+                                        کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="h4">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#ord4" aria-expanded="false" aria-controls="ord4">
+                                            برای GoodUp کدام مجوز برای اهداف تجاری بهتر است؟
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="ord4" class="collapse" aria-labelledby="h4" data-parent="#accordion2">
+                                    <div class="card-body">
+                                        کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- =========================== FAQ End ===================== -->
+        <!-- ======================= Newsletter Start ============================ -->
+        <section class="space bg-cover" style="background:#f41b3b url(assets/img/landing-bg.png) no-repeat;">
+            <div class="container py-5">
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="sec_title position-relative text-center mb-5">
+                            <h6 class="text-light">عضویت در خبرنامه</h6>
+                            <h3 class="ft-bold text-light ff-second">دریافت به روز رسانی ها و پیشنهادات پیشرفته</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-xl-7 col-lg-10 col-md-12 col-sm-12 col-12">
+                        <form class="bg-white rounded p-1">
+                            <div class="row no-gutters">
+                                <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-8">
+                                    <div class="form-group mb-0 position-relative">
+                                        <input type="text" class="form-control b-0" placeholder="ایمیل خود را وارد کنید...">
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4">
+                                    <div class="form-group mb-0 position-relative">
+                                        <button class="btn full-width btn-height bg-dark text-white fs-md" type="button">عضویت</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- ======================= Newsletter Start ============================ -->
+        <!-- ============================ Footer Start ================================== -->
+        <footer class="light-footer skin-light-footer style-2">
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="footer_widget">
+                                <img src="~/assetsHomePage/img/logo.png" class="img-footer small mb-2" alt="" />
+
+                                <div class="address mt-2">
+                                    ایران، تهران، میدان آزادی جنب مترو شادمان<br> کوچه شکوفه پلاک 8
+                                </div>
+                                <div class="address mt-3">
+                                    09320000000<br>support@Goodup.com
+                                </div>
+                                <div class="address mt-2">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item"><a href="#" class="theme-cl"><i class="lni lni-facebook-filled"></i></a></li>
+                                        <li class="list-inline-item"><a href="#" class="theme-cl"><i class="lni lni-twitter-filled"></i></a></li>
+                                        <li class="list-inline-item"><a href="#" class="theme-cl"><i class="lni lni-youtube"></i></a></li>
+                                        <li class="list-inline-item"><a href="#" class="theme-cl"><i class="lni lni-instagram-filled"></i></a></li>
+                                        <li class="list-inline-item"><a href="#" class="theme-cl"><i class="lni lni-linkedin-original"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                            <div class="footer_widget">
+                                <h4 class="widget_title">راهنمای سایت</h4>
+                                <ul class="footer-menu">
+                                    <li><a href="#">لیست آگهی</a></li>
+                                    <li><a href="#">لیست آگهی دهنده</a></li>
+                                    <li><a href="#">افزودن آگهی</a></li>
+                                    <li><a href="#">تماس با ما</a></li>
+                                    <li><a href="#">پیشخوان</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                            <div class="footer_widget">
+                                <h4 class="widget_title">حساب کاربری</h4>
+                                <ul class="footer-menu">
+                                    <li><a href="#">سایر دسته بندی</a></li>
+                                    <li><a href="#">لینک پرداخت</a></li>
+                                    <li><a href="#">لیست علاقه مندی</a></li>
+                                    <li><a href="#">تنظیمات</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                            <div class="footer_widget">
+                                <h4 class="widget_title">درباره شرکت</h4>
+                                <ul class="footer-menu">
+                                    <li><a href="#">درباره ما</a></li>
+                                    <li><a href="#">وظایف ما</a></li>
+                                    <li><a href="#">کارشناسان</a></li>
+                                    <li><a href="#">پکیج ها</a></li>
+                                    <li><a href="#">پروفایل من</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                            <div class="footer_widget">
+                                <h4 class="widget_title">لینک های مفید</h4>
+                                <ul class="footer-menu">
+                                    <li><a href="#">نقشه سایت</a></li>
+                                    <li><a href="#">حریم شخصی</a></li>
+                                    <li><a href="#">تماس با ما</a></li>
+                                    <li><a href="#">سوالات متداول</a></li>
+                                    <li><a href="#">قوانین سایت</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - GetService - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="footer-bottom br-top">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12 col-md-12 text-center">
+                            <p class="mb-0">© 2022 Goodup ارائه شده در سایت <a href="https://rtl-theme.com/">راست چین</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- ============================ Footer End ================================== -->
+        <!-- Log In Modal -->
+        <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginmodal" aria-hidden="true">
+            <div class="modal-dialog login-pop-form" role="document">
+                <div class="modal-content" id="loginmodal">
+                    <div class="modal-headers">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="ti-close"></span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body p-5">
+                        <div class="text-center mb-4">
+                            <h4 class="m-0 ft-medium">ورود به حساب</h4>
+                        </div>
+
+                        <form class="submit-form">
+                            <div class="form-group">
+                                <label class="mb-1">نام کاربری</label>
+                                <input type="text" class="form-control rounded bg-light" placeholder="نام کاربری*">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="mb-1">رمز عبور</label>
+                                <input type="password" class="form-control rounded bg-light" placeholder="رمز عبور*">
+                            </div>
+
+                            <div class="form-group">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="flex-1">
+                                        <input id="dd" class="checkbox-custom" name="dd" type="checkbox" checked>
+                                        <label for="dd" class="checkbox-custom-label">مرا به خاطر بسپار</label>
+                                    </div>
+                                    <div class="eltio_k2">
+                                        <a href="#" class="theme-cl">فراموشی رمز عبور</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-md full-width theme-bg text-light rounded ft-medium">ورود</button>
+                            </div>
+
+                            <div class="form-group text-center mb-0">
+                                <p class="extra">یـا ورود با</p>
+                                <div class="option-log">
+                                    <div class="single-log-opt"><a href="javascript:void(0);" class="log-btn"><img src="~/assetsHomePage/img/c-1.png" class="img-fluid" alt="" />Google</a></div>
+                                    <div class="single-log-opt"><a href="javascript:void(0);" class="log-btn"><img src="~/assetsHomePage/img/facebook.png" class="img-fluid" alt="" />Facebook</a></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <!-- End Modal -->
+
+        <a id="tops-button" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="~/assetsHomePage/js/jquery.min.js"></script>
+    <script src="~/assetsHomePage/js/popper.min.js"></script>
+    <script src="~/assetsHomePage/js/bootstrap.min.js"></script>
+    <script src="~/assetsHomePage/js/slick.js"></script>
+    <script src="~/assetsHomePage/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/assetsHomePage/js/dropzone.js"></script>
+    <script src="~/assetsHomePage/js/counterup.js"></script>
+    <script src="~/assetsHomePage/js/lightbox.js"></script>
+    <script src="~/assetsHomePage/js/moment.min.js"></script>
+    <script src="~/assetsHomePage/js/daterangepicker.js"></script>
+    <script src="~/assetsHomePage/js/lightbox.js"></script>
+    <script src="~/assetsHomePage/js/jQuery.style.switcher.js"></script>
+    <script src="~/assetsHomePage/js/custom.js"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    @* 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script> *@
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

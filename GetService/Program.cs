@@ -1,4 +1,5 @@
 using App.Domain.AppService;
+using App.Domain.Core;
 using App.Domain.Core._2_Configs;
 using App.Domain.Core.AdminEntity.Contracts;
 using App.Domain.Core.BidEntity.Contracts;
@@ -12,13 +13,14 @@ using App.Domain.Service;
 using App.Infra.DataAccess.Repo.EF;
 using App.Infra.DB.SQLServer.EF;
 using GetService.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+#region Services
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages()
@@ -57,7 +59,7 @@ builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IServicesAppService, ServicesAppService>();
 builder.Services.AddScoped<IServicesService, ServicesService>();
-
+#endregion
 
 //Add appsettings.json
 var configuration = new ConfigurationBuilder()
@@ -97,6 +99,20 @@ builder.Services.AddLogging(LoggingBuilder =>
 //});
 
 
+//Identity Configurations
+builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>
+    (options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+    }).AddRoles<IdentityRole<int>>()
+    .AddEntityFrameworkStores<AppDbContext>();
+
+
 var app = builder.Build();
 
 
@@ -116,11 +132,22 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "Areas",
-    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//        name: "Areas",
+//        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+//    );
+//});
 
 app.MapControllerRoute(
     name: "default",

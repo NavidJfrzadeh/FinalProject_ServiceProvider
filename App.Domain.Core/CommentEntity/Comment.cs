@@ -2,6 +2,7 @@
 using App.Domain.Core.CustomerEntity;
 using App.Domain.Core.ExpertEntity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Domain.Core.CommentEntity
 {
@@ -22,6 +23,7 @@ namespace App.Domain.Core.CommentEntity
         public Customer Customer { get; set; }
         [Required]
         [Range(0, 10)]
+        [Column(TypeName = "decimal(18, 1)")]
         public decimal Score { get; set; } = 0;
         public int ExpertId { get; set; }
         public Expert Expert { get; set; }

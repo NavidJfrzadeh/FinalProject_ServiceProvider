@@ -19,10 +19,9 @@ public class ExceptionMiddleware
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex.Message);
-            //context.Response.WriteAsync(ex.Message);
+            //_logger.LogError(ex.Message);
+            await context.Response.WriteAsync(ex.Message);
             context.Response.Redirect("/Home/Error");
-            //await context.Response.WriteAsync(ex.Message);
         }
     }
 }

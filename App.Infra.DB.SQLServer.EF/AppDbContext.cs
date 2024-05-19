@@ -1,4 +1,5 @@
-﻿using App.Domain.Core._0_BaseEntities;
+﻿using App.Domain.Core;
+using App.Domain.Core._0_BaseEntities;
 using App.Domain.Core._0_BaseEntity;
 using App.Domain.Core.AdminEntity;
 using App.Domain.Core.BidEntity;
@@ -9,11 +10,13 @@ using App.Domain.Core.ExpertEntity;
 using App.Domain.Core.RequestEntity;
 using App.Domain.Core.ServiceEntity;
 using App.Infra.DB.SQLServer.EF.Configurations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DB.SQLServer.EF
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

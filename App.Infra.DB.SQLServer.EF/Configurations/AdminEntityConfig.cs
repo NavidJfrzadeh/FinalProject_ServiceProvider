@@ -12,11 +12,9 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x=>x.FistName).HasMaxLength(100).IsRequired();
             builder.Property(x=>x.LastName).HasMaxLength(100).IsRequired();
-            builder.Property(x=>x.Password).HasMaxLength(100).IsRequired();
-            builder.Property(x=>x.Email).HasMaxLength(100).IsRequired();
-            builder.HasData(
-                new Admin { Id = 1, FistName = "Navid", LastName = "Jafarzadeh", Email = "navid@gmail.com", Password = "9" }
-                );
+            //builder.HasData(
+            //    new Admin { Id = 1, FistName = "Navid", LastName = "Jafarzadeh", Email = "navid@gmail.com", Password = "9" }
+            //    );
         }
     }
 }

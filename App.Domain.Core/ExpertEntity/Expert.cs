@@ -27,16 +27,7 @@ namespace App.Domain.Core.ExpertEntity
         public string LastName { get; set; }
         [Required, MaxLength(100)]
         public string FullName { get; set; }
-        [MaxLength(100)]
-        public string Password { get; set; }
-        [MaxLength(100)]
-        public string Email { get; set; }
         public Gender Gender { get; set; }
-        [MaxLength(11)]
-        [Required]
-        public string PhoneNumber { get; set; }
-        [MaxLength(11)]
-        public string PhoneNumberBackUp { get; set; }
         public decimal? Score { get; set; } //cause more load to application
         public List<Comment>? Comments { get; set; } = new List<Comment>();
         public List<Service>? Services { get; set; } = new List<Service>();

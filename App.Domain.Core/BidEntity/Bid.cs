@@ -2,6 +2,7 @@
 using App.Domain.Core.ExpertEntity;
 using App.Domain.Core.RequestEntity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Domain.Core.BidEntity
 {
@@ -16,7 +17,7 @@ namespace App.Domain.Core.BidEntity
 
         [Key]
         public int Id { get; set; }
-        public decimal Price { get; set; }
+        public int Price { get; set; }
         public DateOnly FinishedAt { get; set; }
         [Required]
         [MaxLength(1000)]

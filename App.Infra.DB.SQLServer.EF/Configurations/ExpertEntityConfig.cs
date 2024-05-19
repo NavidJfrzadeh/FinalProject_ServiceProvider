@@ -10,6 +10,7 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
         {
             builder.ToTable("Experts");
             builder.HasKey(x => x.Id);
+            builder.Property(e => e.Score).HasPrecision(18, 1);
             builder.HasMany(e => e.Comments)
                 .WithOne(c => c.Expert)
                 .HasForeignKey(c => c.ExpertId)
@@ -18,9 +19,9 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
             builder.HasMany(e => e.Services)
                 .WithMany(s => s.Experts);
 
-            builder.HasMany(e=>e.Bids)
-                .WithOne(b=>b.Expert)
-                .HasForeignKey(b=>b.ExpertId)
+            builder.HasMany(e => e.Bids)
+                .WithOne(b => b.Expert)
+                .HasForeignKey(b => b.ExpertId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }
