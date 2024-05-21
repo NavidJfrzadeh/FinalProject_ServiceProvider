@@ -37,6 +37,9 @@ namespace App.Domain.Service
 
         public async Task<bool> Update(ServiceForUpdateDto serviceModel, CancellationToken cancellationToken)
             => await _serviceRepository.Update(serviceModel, cancellationToken);
+
+        public async Task<List<ServicesInCategory>> GetServicesInCategory(int CategoryId, CancellationToken cancellationToken)
+            => await _serviceRepository.GetServicesInCategory(CategoryId, cancellationToken);
         #endregion
     }
 }

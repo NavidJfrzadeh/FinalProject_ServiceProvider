@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GetService.Areas.Identity.Pages.Account
+namespace GetService.Areas.Account.Pages
 {
     [Authorize(Roles = "Customer,Expert")]
     public class ProfileModel : PageModel

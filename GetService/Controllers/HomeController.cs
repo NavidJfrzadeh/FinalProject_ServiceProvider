@@ -1,3 +1,5 @@
+using App.Domain.Core.CategoryEntity.Contracts;
+using App.Domain.Core.ServiceEntity.Contracts;
 using GetService.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -7,15 +9,27 @@ namespace GetService.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICategoryAppService _categoryAppService;
+        private readonly IServicesAppService _servicesAppService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ICategoryAppService categoryAppService, IServicesAppService servicesAppService)
         {
             _logger = logger;
+            _categoryAppService = categoryAppService;
+            _servicesAppService = servicesAppService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            return View();
+            var homeViewModel = new HomePageViewModel();
+            homeViewModel.CategoriesViewModel = await _categoryAppService.GetAll(cancellationToken);
+            return View(homeViewModel);
+        }
+
+        public async Task<IActionResult> ServicesInCategory(int id, CancellationToken cancellationToken)
+        {
+            var services = await _servicesAppService.GetServicesInCategory(id,cancellationToken);
+            return View(services);
         }
 
         public IActionResult Privacy()

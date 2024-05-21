@@ -117,6 +117,20 @@ namespace App.Infra.DataAccess.Repo.EF
             return services ?? throw new Exception("سرویسی یافت نشد");
         }
 
+        public async Task<List<ServicesInCategory>> GetServicesInCategory(int CategoryId, CancellationToken cancellationToken)
+        {
+            var services = await _context.Services.AsNoTracking().Where(s => s.CategoryId == CategoryId)
+                .Select(s => new ServicesInCategory
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    CategoryTitle = s.Category.Title,
+                }).ToListAsync(cancellationToken);
+
+            return services ?? throw new Exception("خدماتی یافت نشد");
+
+        }
+
         public async Task<bool> Update(ServiceForUpdateDto serviceModel, CancellationToken cancellationToken)
         {
             var service = await FindById(serviceModel.ServiceId, cancellationToken);

@@ -41,7 +41,7 @@ namespace App.Infra.DataAccess.Repo.EF
                     }).ToListAsync(cancellationToken);
                     _memoryCache.Set("Categories", Categories, new MemoryCacheEntryOptions()
                     {
-                        SlidingExpiration = TimeSpan.FromSeconds(7)
+                        SlidingExpiration = TimeSpan.FromMinutes(5)
                     });
                 }
                 return Categories;

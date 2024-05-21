@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string? CategoryPicture { get; set; }
         public int CountService { get; set; }
     }
 }

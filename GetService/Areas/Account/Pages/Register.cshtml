@@ -1,5 +1,5 @@
 ﻿@page
-@model GetService.Areas.Identity.Pages.Account.RegisterModel
+@model GetService.Areas.Account.Pages.RegisterModel
 @{
 }
 
@@ -15,25 +15,32 @@
                         </div>
 
                         <form method="post" class="submit-form">
-                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.RegisterView.FullName" class="mb-1"></label>
-                                        <input asp-for="@Model.RegisterView.FullName" type="text" class="form-control rounded" placeholder="مسعود هاشمی*">
+                                        <label asp-for="@Model.RegisterView.Name" class="mb-1"></label>
+                                        <input asp-for="@Model.RegisterView.Name" type="text" class="form-control rounded">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label asp-for="@Model.RegisterView.Email" class="mb-1">پست الکترونیک</label>
-                                        <input asp-for="@Model.RegisterView.Email" type="email" class="form-control rounded" placeholder="example@gmail.com">
+                                        <label asp-for="@Model.RegisterView.LastName" class="mb-1"></label>
+                                        <input asp-for="@Model.RegisterView.LastName" type="text" class="form-control rounded">
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.RegisterView.Email" class="mb-1"></label>
+                                    <input asp-for="@Model.RegisterView.Email" type="email" class="form-control rounded" placeholder="example@gmail.com">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="@Model.RegisterView.Password" class="mb-1">رمز عبور</label>
-                                <input asp-for="@Model.RegisterView.Password" type="password" class="form-control rounded" placeholder="رمز عبور*">
+                                <input asp-for="@Model.RegisterView.Password" type="password" class="form-control rounded">
                             </div>
 
                             <div class="flex-1 my-2">
@@ -42,7 +49,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-md full-width bg-sky text-light rounded ft-medium">ثبت نام</button>
+                                <button type="submit" class="btn btn-md full-width theme-bg text-light rounded ft-medium">ثبت نام</button>
                             </div>
 
                             <div class="form-group text-center mb-0">

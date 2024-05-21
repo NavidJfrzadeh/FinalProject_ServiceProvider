@@ -12,6 +12,7 @@ using App.Domain.Core.ServiceEntity.Contracts;
 using App.Domain.Service;
 using App.Infra.DataAccess.Repo.EF;
 using App.Infra.DB.SQLServer.EF;
+using Framework;
 using GetService.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -112,7 +113,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>
         options.Password.RequireUppercase = false;
         options.Password.RequireLowercase = false;
     }).AddRoles<IdentityRole<int>>()
-    .AddEntityFrameworkStores<AppDbContext>();
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddErrorDescriber<PersianIdentityErrorDescriber>();
 
 
 var app = builder.Build();
