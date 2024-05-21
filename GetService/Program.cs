@@ -1,7 +1,7 @@
 using App.Domain.AppService;
 using App.Domain.Core;
+using App.Domain.Core._1_BaseEntities.AccountAppService;
 using App.Domain.Core._2_Configs;
-using App.Domain.Core.AdminEntity.Contracts;
 using App.Domain.Core.BidEntity.Contracts;
 using App.Domain.Core.CategoryEntity.Contracts;
 using App.Domain.Core.CommentEntity.Contracts;
@@ -26,9 +26,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages()
     .AddRazorRuntimeCompilation();
 
+//AccountAppService
+builder.Services.AddScoped<IAccountAppService, AccountAppService>();
 
 //Admin Services
-builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+//builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
 //Bid Services
 builder.Services.AddScoped<IBidRepository, BidRepository>();

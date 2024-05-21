@@ -32,6 +32,7 @@ namespace App.Infra.DB.SQLServer.EF
             modelBuilder.ApplyConfiguration(new RequestEntityConfig());
             modelBuilder.ApplyConfiguration(new ServiceEntityConfig());
             modelBuilder.ApplyConfiguration(new CityEntityConfig());
+            UserConfigurations.SeedUsers(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
 

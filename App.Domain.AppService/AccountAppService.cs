@@ -22,24 +22,24 @@ public class AccountAppService : IAccountAppService
         return result.Succeeded;
     }
 
-    public async Task<List<IdentityError>> Register(string userName, string email, string password, bool isCustomer, bool isExpert)
+    public async Task<List<IdentityError>> Register(string fullName, string email, string password, bool isExpert)
     {
         var user = CreateUser();
         user.Email = email;
-        user.UserName = userName;
+        user.UserName = email;
+        user.FullName = fullName;
 
         var role = string.Empty;
-
-        if (isCustomer)
-        {
-            role = "Customer";
-            user.Customer = new Customer();
-        }
 
         if (isExpert)
         {
             role = "Expert";
             user.Expert = new Expert();
+        }
+        else
+        {
+            role = "Customer";
+            user.Customer = new Customer();
         }
 
         var result = await _userManager.CreateAsync(user, password);

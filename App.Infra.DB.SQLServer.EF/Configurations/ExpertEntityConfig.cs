@@ -1,4 +1,5 @@
-﻿using App.Domain.Core.ExpertEntity;
+﻿using App.Domain.Core.Enums;
+using App.Domain.Core.ExpertEntity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -23,6 +24,11 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
                 .WithOne(b => b.Expert)
                 .HasForeignKey(b => b.ExpertId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasData(
+                new Expert { Id = 2, FirstName = "Ali", LastName = "Karimi", FullName = "Ali Karimi", Gender = Gender.male },
+                new Expert { Id = 3, FirstName = "Sahar", LastName = "Akbari", FullName = "Sahar Akbari", Gender = Gender.female }
+                );
         }
     }
 }

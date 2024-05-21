@@ -13,6 +13,6 @@ namespace App.Infra.DataAccess.Repo.EF
         {
             _context = context;
         }
-        public Admin GetById(int id) => _context.Admins.AsNoTracking().FirstOrDefault(a=>a.Id == id);
+        public Admin GetById(int id) => _context.Admins.AsNoTracking().FirstOrDefault(a => a.Id == id);
     }
 }

@@ -31,7 +31,7 @@ namespace App.Domain.Core.ExpertEntity
         public decimal? Score { get; set; } //cause more load to application
         public List<Comment>? Comments { get; set; } = new List<Comment>();
         public List<Service>? Services { get; set; } = new List<Service>();
-        public List<Bid> Bids { get; set; } = new List<Bid>();
-        public long CardNumber { get; set; }
+        public List<Bid>? Bids { get; set; } = new List<Bid>();
+        public long? CardNumber { get; set; }
     }
 }

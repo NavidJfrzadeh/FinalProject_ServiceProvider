@@ -1,4 +1,5 @@
 ﻿using App.Domain.Core.CustomerEntity;
+using App.Domain.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,10 +21,15 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
                 .HasForeignKey(co => co.CustomerId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(cu=>cu.Addresses)
+            builder.HasMany(cu => cu.Addresses)
                 .WithOne(a => a.Customer)
-                .HasForeignKey(a=>a.CustomerId)
+                .HasForeignKey(a => a.CustomerId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasData(
+                new Customer { Id = 4, FirstName = "Maryam", LastName = "Asadi", FullName = "Maryam Asadi", Gender = Gender.female }
+                );
+
         }
     }
 }

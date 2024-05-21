@@ -13,11 +13,8 @@ namespace App.Domain.Core.CustomerEntity
         {
             CreatedAt = DateTime.Now;
             IsDeleted = false;
-            FullName = string.Format("{0} {1}",FirstName,LastName);
+            FullName = string.Format("{0} {1}", FirstName, LastName);
         }
-
-        [Required]
-        [Key]
         public int Id { get; set; }
         [MaxLength(500)]
         public string? ProfileImageUrl { get; set; }
@@ -25,11 +22,13 @@ namespace App.Domain.Core.CustomerEntity
         public string FirstName { get; set; }
         [MaxLength(100)]
         public string LastName { get; set; }
-        [MaxLength (150)]
+        [MaxLength(150)]
         public string FullName { get; set; }
         public Gender Gender { get; set; }
+        [Required]
+        [Key]
         public List<Request>? Requests { get; set; } = new List<Request>();
-        public List<Comment> Comments { get; set; } = new List<Comment>();
-        public List<Address> Addresses { get; set; } = new List<Address>();
+        public List<Comment>? Comments { get; set; } = new List<Comment>();
+        public List<Address>? Addresses { get; set; } = new List<Address>();
     }
 }
