@@ -12,8 +12,11 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.FistName).HasMaxLength(100).IsRequired();
             builder.Property(x => x.LastName).HasMaxLength(100).IsRequired();
+            builder.HasOne(a => a.ApplicationUser)
+                .WithOne(ap => ap.Admin);
+
             builder.HasData(
-                new Admin { Id = 1, FistName = "Navid", LastName = "Jafarzadeh",FullName = "Navid Jafarzadeh" }
+                new Admin { Id = 1, FistName = "Navid", LastName = "Jafarzadeh", FullName = "Navid Jafarzadeh", ApplicationUserId = 1 }
                 );
         }
     }

@@ -26,8 +26,11 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
                 .HasForeignKey(a => a.CustomerId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasOne(c => c.ApplicationUser)
+                .WithOne(ap => ap.Customer);
+
             builder.HasData(
-                new Customer { Id = 4, FirstName = "Maryam", LastName = "Asadi", FullName = "Maryam Asadi", Gender = Gender.female }
+                new Customer { Id = 4, FirstName = "Maryam", LastName = "Asadi", FullName = "Maryam Asadi", Gender = Gender.female, ApplicationUserId = 4 }
                 );
 
         }

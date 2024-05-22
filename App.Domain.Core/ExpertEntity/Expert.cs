@@ -33,5 +33,7 @@ namespace App.Domain.Core.ExpertEntity
         public List<Service>? Services { get; set; } = new List<Service>();
         public List<Bid>? Bids { get; set; } = new List<Bid>();
         public long? CardNumber { get; set; }
+        public int ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

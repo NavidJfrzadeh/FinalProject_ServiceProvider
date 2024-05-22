@@ -21,4 +21,6 @@ public class Admin
     public string FullName { get; set; }
     [MaxLength(500)]
     public string? ProfileImageUrl { get; set; }
+    public int ApplicationUserId { get; set; }
+    public ApplicationUser ApplicationUser { get; set; }
 }

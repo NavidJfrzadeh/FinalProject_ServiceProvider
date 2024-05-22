@@ -35,7 +35,6 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
                     NormalizedEmail = "ALI@GMAIL.COM",
                     LockoutEnabled = false,
                     PhoneNumber = "09377507920",
-                    ExpertId = 2,
                     SecurityStamp = Guid.NewGuid().ToString()
                 },
                 new ApplicationUser()
@@ -48,7 +47,6 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
                     NormalizedEmail = "SAHAR@GMAIL.COM",
                     LockoutEnabled = false,
                     PhoneNumber = "09377507920",
-                    ExpertId = 3,
                     SecurityStamp = Guid.NewGuid().ToString()
                 },
                 new ApplicationUser()
@@ -61,7 +59,6 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
                     NormalizedEmail = "MARYAM@GMAIL.COM",
                     LockoutEnabled = false,
                     PhoneNumber = "09377507920",
-                    CustomerId = 4,
                     SecurityStamp = Guid.NewGuid().ToString()
                 }
             };

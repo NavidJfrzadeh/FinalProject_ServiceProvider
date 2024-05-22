@@ -21,6 +21,8 @@ namespace App.Domain.Core.RequestEntity
         public int Id { get; set; }
         [MaxLength(500)]
         public string? ImageSrc { get; set; }
+        [MaxLength(500)]
+        public string Description { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         public int ServiceId { get; set; }
