@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12">
-                    <form class="submit-form">
+                    <form method="post" class="submit-form">
                         <div class="dashboard-list-wraps bg-white rounded mb-4">
                             <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
                                 <div class="dashboard-list-wraps-flx">
@@ -56,14 +56,14 @@
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                                         <div class="form-group">
-                                            <label class="mb-1">نام</label>
-                                            <input type="text" class="form-control rounded" placeholder="نازنین" />
+                                            <label asp-for="@Model.CustomerSummary.FirstName" class="mb-1"></label>
+                                            <input asp-for="@Model.CustomerSummary.LastName" type="text" class="form-control rounded"/>
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                                         <div class="form-group">
-                                            <label class="mb-1">نام خانوادگی</label>
-                                            <input type="text" class="form-control rounded" placeholder="حقیقت نژاد" />
+                                            <label asp-for="@Model.CustomerSummary.LastName" class="mb-1"></label>
+                                            <input asp-for="@Model.CustomerSummary.LastName" type="text" class="form-control rounded"/>
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
@@ -122,13 +122,5 @@
                 </div>
             </div>
         </div>
-        @* <!-- footer -->
-        <div class="row">
-        <div class="col-md-12">
-        <div class="py-3">© 2022 Goodup ارائه شده در سایت <a href="https://rtl-theme.com/">راست چین</a></div>
-        </div>
-        </div> *@
-
     </div>
-
 </div>

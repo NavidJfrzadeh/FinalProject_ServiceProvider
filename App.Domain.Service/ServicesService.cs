@@ -40,6 +40,9 @@ namespace App.Domain.Service
 
         public async Task<List<ServicesInCategory>> GetServicesInCategory(int CategoryId, CancellationToken cancellationToken)
             => await _serviceRepository.GetServicesInCategory(CategoryId, cancellationToken);
+
+        public async Task<ServiceDetailsDto> GetDetails(int id, CancellationToken cancellationToken)
+            => await _serviceRepository.GetDetails(id, cancellationToken);
         #endregion
     }
 }

@@ -2,6 +2,7 @@ using App.Domain.AppService;
 using App.Domain.Core;
 using App.Domain.Core._1_BaseEntities.AccountAppService;
 using App.Domain.Core._2_Configs;
+using App.Domain.Core.AdminEntity.Contracts;
 using App.Domain.Core.BidEntity.Contracts;
 using App.Domain.Core.CategoryEntity.Contracts;
 using App.Domain.Core.CommentEntity.Contracts;
@@ -31,29 +32,31 @@ builder.Services.AddRazorPages()
 builder.Services.AddScoped<IAccountAppService, AccountAppService>();
 
 //Admin Services
-//builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
-//Bid Services
+//Bid
 builder.Services.AddScoped<IBidRepository, BidRepository>();
 
-//Category Services
+//Category
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
 
-//Comment Services
+//Comment
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<ICommentAppService, CommentAppService>();
 
 
-//Customer Services
+//Customer
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
 
-//Expert Services
+//Expert
 builder.Services.AddScoped<IExpertRepository, ExpertRepository>();
 
-//Request Services
+//Request
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
 builder.Services.AddScoped<IRequestAppService, RequestAppService>();
 builder.Services.AddScoped<IRequestService, RequestService>();

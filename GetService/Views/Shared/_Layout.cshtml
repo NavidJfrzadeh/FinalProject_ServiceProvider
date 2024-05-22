@@ -92,7 +92,7 @@
 
                                 <li>
                                     <a href="add-listing.html" class="crs_yuo12 w-auto text-white theme-bg">
-                                        <span class="embos_45"><i class="fas fa-plus ms-2"></i>افزودن آگهی</span>
+                                        <span class="embos_45"><i class="fas fa-plus ms-2"></i>افزودن درخواست</span>
                                     </a>
                                 </li>
                             </ul>
@@ -101,7 +101,7 @@
                     <div class="nav-menus-wrapper" style="transition-property: none;">
                         <ul class="nav-menu">
                             <li>
-                                <a href="javascript:void(0);">آگهی</a>
+                                <a href="javascript:void(0);">درخواست</a>
                                 <ul class="nav-dropdown nav-submenu">
                                     <li>
                                         <a href="javascript:void(0);">شبکه ای</a>
@@ -134,16 +134,21 @@
                         <ul class="nav-menu nav-menu-social align-to-left">
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                <li>
-                                    <a asp-area="Account" asp-page="/Profile" title="Profile" class="ft-bold">
-                                        @User.Identity?.Name
-                                    </a>
-                                </li>
                                 <li class="add-listing">
                                     <a href="add-listing.html">
                                         <i class="fas fa-plus ms-2"></i>افزودن آگهی
                                     </a>
                                 </li>
+                                <li>
+                                    <a asp-area="Account" asp-page="/Profile" title="Profile" class="ft-bold">
+                                        @User.Identity?.Name
+                                    </a>
+                                </li>
+@*                                 <li>
+                                    <form class="form-inline" asp-area="Account" asp-page="Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                                        <button type="submit" class="nav-link btn btn-link text-dark">خروج</button>
+                                    </form>
+                                </li> *@
                             }
                             else
                             {

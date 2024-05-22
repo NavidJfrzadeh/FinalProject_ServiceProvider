@@ -6,6 +6,7 @@ namespace App.Domain.Core.ServiceEntity.Contracts
     public interface IServiceRepository
     {
         public Task<Service> GetById(int id, CancellationToken cancellationToken);
+        public Task<ServiceDetailsDto> GetDetails(int id, CancellationToken cancellationToken);
         public Task<ServiceForUpdateDto> GetServiceForUpdate(int id, CancellationToken cancellationToken);
         public Task<List<ServiceListDto>> GetServiceList(CancellationToken cancellationToken);
         public Task<List<ServiceListDto>> GetCategoryServices(int id, CancellationToken cancellationToken);

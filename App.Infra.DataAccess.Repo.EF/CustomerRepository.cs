@@ -1,5 +1,6 @@
 ﻿using App.Domain.Core.CustomerEntity;
 using App.Domain.Core.CustomerEntity.Contracts;
+using App.Domain.Core.CustomerEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,7 +32,7 @@ namespace App.Infra.DataAccess.Repo.EF
 
         public async Task<Customer> GetById(int id, CancellationToken cancellationToken)
         {
-            var customer = await _context.Customers.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+            var customer = await FindById(id, cancellationToken);
             if (customer != null)
             {
                 return customer;
@@ -45,17 +46,40 @@ namespace App.Infra.DataAccess.Repo.EF
             await _context.SaveChangesAsync(cancellationToken);
             return true;
         }
+
+        public async Task<CustomerSummaryDto> GetCustomerSummary(int CustomerId, CancellationToken cancellationToken)
+        {
+            var customer = await _context.Customers.Where(c => c.Id == CustomerId)
+                .Select(c => new CustomerSummaryDto
+                {
+                    Id = c.Id,
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    ProfileImage = c.ProfileImageUrl
+                }).FirstOrDefaultAsync(cancellationToken);
+
+            return customer ?? throw new Exception($"Profile not found for CustomerID {CustomerId}");
+        }
+
+        public async Task UpdateProfile(CustomerSummaryDto customerSummary, CancellationToken cancellationToken)
+        {
+            var customer = await FindById(customerSummary.Id, cancellationToken);
+            customer.FirstName = customerSummary.FirstName;
+            customer.LastName = customerSummary.LastName;
+            customer.ProfileImageUrl = customerSummary.ProfileImage;
+            customer.Addresses = customerSummary.Addresses;
+
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
         #endregion
 
         #region Private Fields
         public async Task<Customer> FindById(int id, CancellationToken cancellationToken)
         {
             var customer = await _context.Customers.FindAsync(id, cancellationToken);
-            if (customer != null)
-            {
-                return customer;
-            }
-            throw new Exception($"Customer with Id {id} not found");
+
+            return customer ?? throw new Exception($"Customer with Id {id} not found");
         }
         #endregion
     }

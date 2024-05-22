@@ -26,10 +26,18 @@ namespace GetService.Controllers
             return View(homeViewModel);
         }
 
+        [HttpGet]
         public async Task<IActionResult> ServicesInCategory(int id, CancellationToken cancellationToken)
         {
-            var services = await _servicesAppService.GetServicesInCategory(id,cancellationToken);
+            var services = await _servicesAppService.GetServicesInCategory(id, cancellationToken);
             return View(services);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ServiceDetails(int id, CancellationToken cancellationToken)
+        {
+            var service = await _servicesAppService.GetDetails(id, cancellationToken);
+            return View(service);
         }
 
         public IActionResult Privacy()

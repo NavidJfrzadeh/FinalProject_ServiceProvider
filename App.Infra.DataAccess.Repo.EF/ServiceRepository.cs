@@ -84,9 +84,25 @@ namespace App.Infra.DataAccess.Repo.EF
             return new Service();
         }
 
+        public async Task<ServiceDetailsDto> GetDetails(int id, CancellationToken cancellationToken)
+        {
+            var serviceDto = await _context.Services.AsNoTracking().Where(s => s.Id == id)
+                .Select(s => new ServiceDetailsDto
+                {
+                    ServiceId = s.Id,
+                    Title = s.Title,
+                    ImageSrc = s.ImageSrc,
+                    BasePrice = s.BasePrice,
+                    CategoryTitle = s.Category.Title,
+                    Description = s.Description
+                }).FirstOrDefaultAsync(cancellationToken);
+
+            return serviceDto ?? throw new Exception($"service With Id {id} not found for service Details page");
+        }
+
         public async Task<ServiceForUpdateDto> GetServiceForUpdate(int id, CancellationToken cancellationToken)
         {
-            var service = await _context.Services.AsNoTracking().Where(s => s.Id == id)
+            var service = await _context.Services.Where(s => s.Id == id)
                 .Select(s => new ServiceForUpdateDto
                 {
                     ServiceId = s.Id,
