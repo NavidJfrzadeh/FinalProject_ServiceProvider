@@ -36,6 +36,8 @@ builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
 //Bid
 builder.Services.AddScoped<IBidRepository, BidRepository>();
+builder.Services.AddScoped<IBidService, BidService>();
+builder.Services.AddScoped<IBidAppService, BidAppService>();
 
 //Category
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();

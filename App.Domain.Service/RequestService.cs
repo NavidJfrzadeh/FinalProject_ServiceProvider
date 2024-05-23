@@ -34,6 +34,9 @@ public class RequestService : IRequestService
     public async Task<Request> GetById(int id, CancellationToken cancellationToken)
         => await _requestRepository.GetById(id, cancellationToken);
 
+    public async Task<List<CustomerRequestDto>> GetCustomerRequests(int customerId, CancellationToken cancellationToken)
+        => await _requestRepository.GetCustomerRequests(customerId, cancellationToken);
+
     public async Task<List<Request>> GetForService(int serviceId, CancellationToken cancellationToken)
         => await _requestRepository.GetForService(serviceId, cancellationToken);
 

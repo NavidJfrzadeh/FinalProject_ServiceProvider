@@ -7,6 +7,6 @@
         public string CustomerFullName { get; set; }
         public decimal Score { get; set; }
         public string Description { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public string CreatedAtFa { get; set; }
     }
 }

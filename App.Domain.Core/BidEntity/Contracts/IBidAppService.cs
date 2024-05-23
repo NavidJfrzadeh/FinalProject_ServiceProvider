@@ -2,7 +2,7 @@
 
 namespace App.Domain.Core.BidEntity.Contracts;
 
-public interface IBidRepository
+public interface IBidAppService
 {
     public Task<bool> Create(Bid bid, CancellationToken cancellationToken);
     public Task<bool> IsAccepted(int id, CancellationToken cancellationToken);

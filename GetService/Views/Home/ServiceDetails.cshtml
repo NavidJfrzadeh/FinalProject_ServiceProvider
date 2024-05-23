@@ -1,5 +1,24 @@
 ﻿@using App.Domain.Core.ServiceEntity.DTOs
 @model ServiceDetailsDto
+@{
+    var RequestCreated = TempData["RequestCreated"] as string;
+    var RequestFailed = TempData["RequestFailed"] as string;
+}
+
+<div class="w-50 text-center container">
+    @if (RequestCreated != null)
+    {
+        <div class="text-success alert" role="alert">
+            @RequestCreated
+        </div>
+    }
+    @if (RequestFailed != null)
+    {
+        <div class="text-danger alert" role="alert">
+            @RequestFailed
+        </div>
+    }
+</div>
 
 
 <!-- ======================= Searchbar Banner ======================== -->

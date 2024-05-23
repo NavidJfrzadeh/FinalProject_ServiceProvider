@@ -3,6 +3,7 @@ using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.RequestEntity.DTOs;
 using App.Domain.Core.ServiceEntity.Contracts;
 using GetService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

@@ -18,9 +18,9 @@ namespace App.Domain.Core.BidEntity
         [Key]
         public int Id { get; set; }
         public int Price { get; set; }
-        public DateOnly FinishedAt { get; set; }
+        public DateTime FinishedAt { get; set; }
         [Required]
-        [MaxLength(1000)]
+        [MaxLength(500)]
         public string Description { get; set; }
         public int RequestId { get; set; }
         public Request Request { get; set; }

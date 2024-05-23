@@ -22,7 +22,7 @@ namespace App.Domain.Core.CommentEntity
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         [Required]
-        [Range(0, 10)]
+        [Range(0, 10, ErrorMessage = "امتیاز باید بین 0 تا 10 باشد")]
         [Column(TypeName = "decimal(18, 1)")]
         public decimal Score { get; set; } = 0;
         public int ExpertId { get; set; }

@@ -2,7 +2,7 @@
 using App.Domain.Core.CommentEntity.Contracts;
 using App.Domain.Core.CommentEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
-using Azure;
+using Framework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -53,7 +53,7 @@ namespace App.Infra.DataAccess.Repo.EF
                     Id = c.Id,
                     Title = c.Title,
                     Score = c.Score,
-                    CreatedAt = c.CreatedAt,
+                    CreatedAtFa = c.CreatedAt.ToPersianString("yyyy/MM/dd"),
                     CustomerFullName = c.Customer.FullName,
                     Description = c.Description
                 }).ToListAsync(cancellationToken);
@@ -87,7 +87,7 @@ namespace App.Infra.DataAccess.Repo.EF
 
                 throw new Exception(ex.Message);
             }
-            
+
         }
 
         public async Task<CommentDto> GetById(int id, CancellationToken cancellationToken)
