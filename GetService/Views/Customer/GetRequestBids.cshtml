@@ -1,9 +1,7 @@
 ﻿@using App.Domain.Core.BidEntity.DTOs
 @model List<CustomerRequestBidsDto>
 
-<div class=" container col-lg-8">
-
-
+<div class=" container col-lg-5">
     <table class="table table-striped table-hover table-responsive">
         <thead>
             <tr>
@@ -25,8 +23,12 @@
                     <td>@bid.FinishedAtFa</td>
                     <td>@bid.Price</td>
                     <td>
-                        <a class="btn btn-sm btn-primary" asp-action="GetExpertComments" asp-route-expertId="@bid.ExpertId">امتیاز کارشناس</a>
+                        <a class="btn btn-sm btn-primary" asp-action="GetExpertComments" asp-route-expertId="@bid.ExpertId">مشاهده امتیاز</a>
                         <a class="btn btn-sm btn-success" asp-action="AccesptBid" asp-route-id="@bid.BidId">تایید پیشنهاد</a>
+                        @if (bid.IsAccepted)
+                        {
+                            <a class="btn btn-sm btn-warning" asp-action="WriteCommentForExpert" asp-route-id="@bid.ExpertId">ثب نظر برای کارشناس</a>
+                        }
                     </td>
                 </tr>
             }

@@ -1,4 +1,5 @@
 ﻿using App.Domain.Core._0_BaseEntities.Enums;
+using App.Domain.Core.ExpertEntity;
 using App.Domain.Core.RequestEntity.DTOs;
 
 namespace App.Domain.Core.RequestEntity.Contracts;
@@ -12,5 +13,5 @@ public interface IRequestService
     public Task<List<CustomerRequestDto>> GetCustomerRequests(int customerId, CancellationToken cancellationToken);
     public Task<bool> Accept(int id, CancellationToken cancellationToken);
 	public Task<bool> Delete(int id, CancellationToken cancellationToken);
-	public Task SetRequestStatus(int requestId, Status status, CancellationToken cancellationToken);
+	public Task SetRequestStatus(int requestId,int? expertId, Status status, CancellationToken cancellationToken);
 }

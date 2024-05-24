@@ -18,8 +18,8 @@ namespace App.Domain.Service
         #endregion
 
         #region Implementations
-        public async Task<bool> Create(Comment newComment, CancellationToken cancellationToken)
-            => await _commentRepository.Create(newComment, cancellationToken);
+        public async Task<bool> Create(CreateCommentDto newCommentDto, CancellationToken cancellationToken)
+            => await _commentRepository.Create(newCommentDto, cancellationToken);
 
         public Task Delete(int id, CancellationToken cancellationToken)
             => _commentRepository.Delete(id, cancellationToken);

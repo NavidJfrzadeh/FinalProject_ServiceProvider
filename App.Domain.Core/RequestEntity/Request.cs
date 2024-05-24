@@ -29,6 +29,7 @@ namespace App.Domain.Core.RequestEntity
         public Service Service { get; set; }
         public List<Bid>? Bids { get; set; } = new List<Bid>();
         public Status Status { get; set; }
+        public int? AcceptedExpert { get; set; }
         public bool IsAccepted {  get; set; }
     }
 }

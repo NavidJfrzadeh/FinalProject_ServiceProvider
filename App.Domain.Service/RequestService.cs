@@ -40,7 +40,7 @@ public class RequestService : IRequestService
     public async Task<List<Request>> GetForService(int serviceId, CancellationToken cancellationToken)
         => await _requestRepository.GetForService(serviceId, cancellationToken);
 
-    public Task SetRequestStatus(int requestId, Status status, CancellationToken cancellationToken)
-        => _requestRepository.SetRequestStatus(requestId, status, cancellationToken);
+    public Task SetRequestStatus(int requestId, int? expertId, Status status, CancellationToken cancellationToken)
+        => _requestRepository.SetRequestStatus(requestId, expertId, status, cancellationToken);
     #endregion
 }

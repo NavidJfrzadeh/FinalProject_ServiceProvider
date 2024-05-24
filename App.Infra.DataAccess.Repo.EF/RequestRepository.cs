@@ -115,10 +115,11 @@ namespace App.Infra.DataAccess.Repo.EF
             return requests;
         }
 
-        public async Task SetRequestStatus(int requestId, Status status, CancellationToken cancellationToken)
+        public async Task SetRequestStatus(int requestId, int? expertId, Status status, CancellationToken cancellationToken)
         {
             var request = await _context.Requests.FirstOrDefaultAsync(r => r.Id == requestId, cancellationToken);
             request.Status = status;
+            request.AcceptedExpert = expertId;
             await _context.SaveChangesAsync(cancellationToken);
         }
         #endregion

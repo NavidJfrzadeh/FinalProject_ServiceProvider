@@ -101,7 +101,7 @@ namespace GetService.Areas.Admin.Controllers
 
         public async Task<IActionResult> ServiceDelete(int id, CancellationToken cancellationToken)
         {
-            await _servicesAppService.Delete(id,cancellationToken);
+            await _servicesAppService.Delete(id, cancellationToken);
             return RedirectToAction("ServiceList");
         }
 
@@ -174,7 +174,7 @@ namespace GetService.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> RequestSetStatus(int id, Status status, CancellationToken cancellationToken)
         {
-            await _requestAppService.SetRequestStatus(id, status, cancellationToken);
+            await _requestAppService.SetRequestStatus(id, null, status, cancellationToken);
             return RedirectToAction("RequestsList");
         }
         public async Task<IActionResult> CustomerList(CancellationToken cancellationToken)

@@ -24,8 +24,16 @@ namespace App.Infra.DataAccess.Repo.EF
         #endregion
 
         #region Implementations
-        public async Task<bool> Create(Comment newComment, CancellationToken cancellationToken)
+        public async Task<bool> Create(CreateCommentDto newCommentDto, CancellationToken cancellationToken)
         {
+            var newComment = new Comment()
+            {
+                Title = newCommentDto.Title,
+                CustomerId = newCommentDto.CustomerId,
+                ExpertId = newCommentDto.ExpertId,
+                Score = newCommentDto.Score,
+                Description = newCommentDto.Description
+            };
             await _context.Comments.AddAsync(newComment, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             return true;
@@ -54,7 +62,7 @@ namespace App.Infra.DataAccess.Repo.EF
                     Title = c.Title,
                     Score = c.Score,
                     CreatedAtFa = c.CreatedAt.ToPersianString("yyyy/MM/dd"),
-                    CustomerFullName = c.Customer.FullName,
+                    CustomerFullName = c.Customer.ApplicationUser.FullName,
                     Description = c.Description
                 }).ToListAsync(cancellationToken);
             return comments;

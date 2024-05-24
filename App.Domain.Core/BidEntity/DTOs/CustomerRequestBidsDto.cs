@@ -1,8 +1,12 @@
-﻿namespace App.Domain.Core.BidEntity.DTOs;
+﻿using App.Domain.Core.RequestEntity;
+
+namespace App.Domain.Core.BidEntity.DTOs;
 
 public class CustomerRequestBidsDto
 {
     public int BidId { get; set; }
+    public int RequestId { get; set; }
+    public bool IsAccepted { get; set; }
     public int Price { get; set; }
     public string FinishedAtFa { get; set; }
     public string Description { get; set; }

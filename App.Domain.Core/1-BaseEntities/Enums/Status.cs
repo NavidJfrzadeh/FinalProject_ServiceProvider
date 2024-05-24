@@ -6,11 +6,13 @@ namespace App.Domain.Core._0_BaseEntities.Enums
     {
         [Display(Name = "منتظر تایید درخواست")]
         level1 = 1,
-        [Display(Name = "منتظر تایید کارشناس")]
+        [Display(Name = "در انتظار انتخاب کارشناس")]
         level2,
-        [Display(Name = "تایید شده توسط کارشناس")]
+        [Display(Name = "تایید کارشناس")]
         level3,
+        [Display(Name = "به درخواست شما پاسخ داده شد")]
+        level4,
         [Display(Name = "درخواست شما توسط ادمین سایت رد شد")]
-        level4
+        level5
     }
 }

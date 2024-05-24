@@ -2,6 +2,7 @@
 using App.Domain.Core.BidEntity.Contracts;
 using App.Domain.Core.BidEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
+using App.Infra.DB.SQLServer.EF.Migrations;
 using Framework;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,26 +41,29 @@ namespace App.Infra.DataAccess.Repo.EF
                 .Select(b => new CustomerRequestBidsDto
                 {
                     BidId = b.Id,
+                    RequestId = b.Id,
                     Description = b.Description,
                     Price = b.Price,
                     ExpertFullName = b.Expert.FullName,
                     ExpertId = b.ExpertId,
+                    IsAccepted = b.IsAccepted,
                     FinishedAtFa = b.FinishedAt.ToPersianString("dddd, dd MMMM, yyyy")
                 }).ToListAsync(cancellationToken);
 
             return bids;
         }
 
-        public async Task<bool> IsAccepted(int id, CancellationToken cancellationToken)
+        public async Task<Tuple<bool, int>> IsAccepted(int id, CancellationToken cancellationToken)
         {
             var targetBid = await FindBid(id, cancellationToken);
             if (targetBid != null)
             {
                 targetBid.IsAccepted = true;
+                var expertId = targetBid.ExpertId;
                 await context.SaveChangesAsync(cancellationToken);
-                return true;
+                return new Tuple<bool, int>(true, expertId);
             }
-            return false;
+            return new Tuple<bool, int>(false, 0);
         }
         #endregion
 
