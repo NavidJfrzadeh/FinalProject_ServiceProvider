@@ -1,7 +1,9 @@
 ﻿@using App.Domain.Core.RequestEntity.DTOs
 @using Framework
 @model List<CustomerRequestDto>
-
+@{
+    Layout = "_CustomerProfileLayout";
+}
 
 
 <div class="dashboard-widg-bar d-block">
@@ -35,28 +37,11 @@
                                     </div>
                                     <div class="dsd-single-lst-footer">
                                         <button id="showTableButton">Show Table</button>
-                                        <a asp-action="GetRequestBids" asp-route-id="@request.RequestId" class="btn btn-view">مشاهده پیشنهاد ها</a>
+                                        <a asp-action="GetRequestBids" asp-route-requestId="@request.RequestId" class="btn btn-view">مشاهده پیشنهاد ها</a>
                                         <a asp-action="RemoveRequest" asp-route-id="@request.RequestId" class="btn btn-delete"><i class="fas fa-trash ms-1"></i>حذف</a>
                                     </div>
                                 </div>
                             </div>
-
-                            <table id="dataTable">
-                                <thead>
-                                    <tr>
-                                        <th>Column 1</th>
-                                        <th>Column 2</th>
-                                        <th>Column 3</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Row 1, Cell 1</td>
-                                        <td>Row 1, Cell 2</td>
-                                        <td>Row 1, Cell 3</td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         }
                     </div>
                 </div>
@@ -65,15 +50,3 @@
     </div>
 
 </div>
-
-
-<script>
-    document.getElementById('showTableButton').addEventListener('click', function () {
-        var table = document.getElementById('dataTable');
-        if (table.style.display === 'none' || table.style.display === '') {
-            table.style.display = 'table';
-        } else {
-            table.style.display = 'none';
-        }
-    });
-</script>

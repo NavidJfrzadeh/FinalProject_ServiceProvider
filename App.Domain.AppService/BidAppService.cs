@@ -27,7 +27,7 @@ public class BidAppService : IBidAppService
     public async Task<List<CustomerRequestBidsDto>> GetForRequest(int RequestId, CancellationToken cancellationToken)
         => await _bidService.GetForRequest(RequestId, cancellationToken);
 
-    public async Task<Tuple<bool, int>> IsAccepted(int id, CancellationToken cancellationToken)
-        => await _bidService.IsAccepted(id, cancellationToken);
+    public async Task<bool> AcceptBid(int bidId, CancellationToken cancellationToken)
+        => await _bidService.AcceptBid(bidId, cancellationToken);
     #endregion
 }

@@ -4,11 +4,13 @@ using App.Domain.Core.CommentEntity.Contracts;
 using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.ServiceEntity.Contracts;
 using App.Domain.Core.ServiceEntity.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GetService.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         #region Fields
@@ -174,7 +176,7 @@ namespace GetService.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> RequestSetStatus(int id, Status status, CancellationToken cancellationToken)
         {
-            await _requestAppService.SetRequestStatus(id, null, status, cancellationToken);
+            await _requestAppService.SetRequestStatus(id, status, cancellationToken);
             return RedirectToAction("RequestsList");
         }
         public async Task<IActionResult> CustomerList(CancellationToken cancellationToken)

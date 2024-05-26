@@ -40,7 +40,7 @@ public class RequestAppService : IRequestAppService
     public async Task<List<Request>> GetForService(int serviceId, CancellationToken cancellationToken)
         => await _requestService.GetForService(serviceId, cancellationToken);
 
-    public async Task SetRequestStatus(int requestId, int? expertId, Status status, CancellationToken cancellationToken)
-     => await _requestService.SetRequestStatus(requestId,expertId, status, cancellationToken);
+    public async Task SetRequestStatus(int requestId, Status status, CancellationToken cancellationToken)
+     => await _requestService.SetRequestStatus(requestId, status, cancellationToken);
     #endregion
 }

@@ -41,29 +41,28 @@ namespace App.Infra.DataAccess.Repo.EF
                 .Select(b => new CustomerRequestBidsDto
                 {
                     BidId = b.Id,
-                    RequestId = b.Id,
                     Description = b.Description,
                     Price = b.Price,
                     ExpertFullName = b.Expert.FullName,
                     ExpertId = b.ExpertId,
                     IsAccepted = b.IsAccepted,
-                    FinishedAtFa = b.FinishedAt.ToPersianString("dddd, dd MMMM, yyyy")
+                    FinishedAtFa = b.FinishedAt.ToPersianString("dddd, dd MMMM, yyyy"),
+                    IsRequestHasAcceptedBid = b.Request.IsAcceptBid
                 }).ToListAsync(cancellationToken);
 
             return bids;
         }
 
-        public async Task<Tuple<bool, int>> IsAccepted(int id, CancellationToken cancellationToken)
+        public async Task<bool> AcceptBid(int bidId, CancellationToken cancellationToken)
         {
-            var targetBid = await FindBid(id, cancellationToken);
+            var targetBid = await FindBid(bidId, cancellationToken);
             if (targetBid != null)
             {
                 targetBid.IsAccepted = true;
-                var expertId = targetBid.ExpertId;
                 await context.SaveChangesAsync(cancellationToken);
-                return new Tuple<bool, int>(true, expertId);
+                return true;
             }
-            return new Tuple<bool, int>(false, 0);
+            return false;
         }
         #endregion
 

@@ -55,7 +55,9 @@ namespace App.Infra.DataAccess.Repo.EF
                     Id = c.Id,
                     FirstName = c.FirstName,
                     LastName = c.LastName,
-                    ProfileImage = c.ProfileImageUrl
+                    ProfileImage = c.ProfileImageUrl,
+                    Email = c.ApplicationUser.Email,
+                    PhoneNumber = c.ApplicationUser.PhoneNumber
                 }).FirstOrDefaultAsync(cancellationToken);
 
             return customer ?? throw new Exception($"Profile not found for CustomerID {CustomerId}");

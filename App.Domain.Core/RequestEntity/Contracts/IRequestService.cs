@@ -13,5 +13,5 @@ public interface IRequestService
     public Task<List<CustomerRequestDto>> GetCustomerRequests(int customerId, CancellationToken cancellationToken);
     public Task<bool> Accept(int id, CancellationToken cancellationToken);
 	public Task<bool> Delete(int id, CancellationToken cancellationToken);
-	public Task SetRequestStatus(int requestId,int? expertId, Status status, CancellationToken cancellationToken);
+	public Task SetRequestStatus(int requestId, Status status, CancellationToken cancellationToken);
 }

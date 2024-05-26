@@ -1,0 +1,105 @@
+﻿@using App.Domain.Core.CustomerEntity.DTOs;
+@model CustomerSummaryDto;
+@{
+    Layout = "_CustomerProfileLayout";
+}
+
+
+<div class="goodup-dashboard-content">
+
+    <div class="dashboard-widg-bar d-block">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 order-xl-last order-lg-last order-md-last">
+                <div class="d-flex bg-white rounded px-3 py-3 mb-3">
+                    <div class="dash-figure">
+                        <div class="dash-figure-thumb"><img src="~/assetsHomePage/img/team-2.jpg" class="img-fluid rounded" alt="" /></div>
+                        <div class="upload-photo-btn">
+                            <div class="Uploadphoto">
+                                <span><i class="fas fa-upload"></i> آپلود تصویر</span>
+                                <input type="file" class="upload">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12">
+                <form method="post" class="submit-form">
+                    <div class="dashboard-list-wraps bg-white rounded mb-4">
+                        <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
+                            <div class="dashboard-list-wraps-flx">
+                                <h4 class="mb-0 ft-medium fs-md"><i class="fa fa-user-check ms-2 theme-cl fs-sm"></i>مشخصات شخصی</h4>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-list-wraps-body py-3 px-3">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="hidden" asp-for="@Model.Id" value="@User.Claims.First().Value" />
+                                        <label asp-for="@Model.FirstName" class="mb-1"></label>
+                                        <input asp-for="@Model.LastName" type="text" class="form-control rounded" />
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.LastName" class="mb-1"></label>
+                                        <input asp-for="@Model.LastName" type="text" class="form-control rounded" />
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Email" class="mb-1"></label>
+                                        <input asp-for="@Model.Email" type="text" class="form-control rounded" />
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.PhoneNumber" class="mb-1">شماره تماس</label>
+                                        <input asp-for="@Model.PhoneNumber" type="text" class="form-control rounded" />
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="mb-1">شهر</label>
+                                        <select class="form-control">
+                                            <option>تهران</option>
+                                            <option>کرج</option>
+                                            <option>پردیس</option>
+                                            <option>پرند</option>
+                                            <option>دماوند</option>
+                                            <option>بومهن</option>
+                                            <option>شهریار</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="mb-1">آدرس</label>
+                                        <input type="text" class="form-control rounded" placeholder="نواب، خیابان بریانک، خیابان کمیل" />
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="mb-1">کد پستی</label>
+                                        <input type="text" class="form-control rounded" placeholder="1355984703" />
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="mb-1">توضیحات</label>
+                                        <textarea class="form-control rounded ht-150" placeholder="درباره من..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <button class="btn theme-bg rounded text-light">ذخیره تغییرات</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -43,7 +43,8 @@ namespace App.Infra.DataAccess.Repo.EF
                 CustomerId = newRequestDto.CustomerId,
                 Description = newRequestDto.Description,
                 ServiceId = newRequestDto.ServiceId,
-                ImageSrc = newRequestDto.RequestImage
+                ImageSrc = newRequestDto.RequestImage,
+                DateFor = newRequestDto.DateFor
             };
 
             await _context.Requests.AddAsync(newRequest, cancellationToken);
@@ -78,7 +79,7 @@ namespace App.Infra.DataAccess.Repo.EF
 
         public async Task<Request> GetById(int id, CancellationToken cancellationToken)
         {
-            var request = await _context.Requests.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+            var request = await _context.Requests.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
             if (request != null)
             {
                 return request;
@@ -115,11 +116,11 @@ namespace App.Infra.DataAccess.Repo.EF
             return requests;
         }
 
-        public async Task SetRequestStatus(int requestId, int? expertId, Status status, CancellationToken cancellationToken)
+        public async Task SetRequestStatus(int requestId, Status status, CancellationToken cancellationToken)
         {
-            var request = await _context.Requests.FirstOrDefaultAsync(r => r.Id == requestId, cancellationToken);
+            var request = await FindById(requestId, cancellationToken);
             request.Status = status;
-            request.AcceptedExpert = expertId;
+            request.IsAcceptBid = true;
             await _context.SaveChangesAsync(cancellationToken);
         }
         #endregion
@@ -127,7 +128,7 @@ namespace App.Infra.DataAccess.Repo.EF
         #region Private Methods
         private async Task<Request> FindById(int id, CancellationToken cancellationToken)
         {
-            var request = await _context.Requests.AsNoTracking().FirstOrDefaultAsync(r => r.Id == id, cancellationToken);
+            var request = await _context.Requests.FindAsync(id, cancellationToken);
             if (request != null)
             {
                 return request;

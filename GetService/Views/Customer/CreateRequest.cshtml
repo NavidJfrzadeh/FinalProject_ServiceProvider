@@ -1,0 +1,81 @@
+﻿@using App.Domain.Core.RequestEntity.DTOs
+@model CreateRequestDto
+@{
+    var serviceId = (int)ViewData["id"];
+    Layout = "_CustomerProfileLayout";
+}
+
+<div class="container col-lg-8 dashboard-widg-bar d-block">
+    <div class="row">
+        <div class="col-xl-12 col-lg-2 col-md-12 col-sm-12">
+            <form asp-action="CreateRequest" method="post">
+                <div class="submit-form">
+                    <input type="hidden" asp-for="@Model.ServiceId" value="@serviceId" />
+                    <div class="dashboard-list-wraps bg-white rounded mb-4">
+                        <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
+                            <div class="dashboard-list-wraps-flx">
+                                <h4 class="mb-0 ft-medium fs-md">اطلاعات را پر کنید</h4>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-list-wraps-body py-3 px-3">
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.DateFor" class="mb-1"></label>
+                                        <input data-jdp />
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label asp-for=@Model.Description class="mb-1"></label>
+                                        <textarea asp-for=@Model.Description class="form-control rounded ht-80" placeholder="بنویسید"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <label for="formFileLg" class="form-label">آپلود تصویر</label>
+                                    <div class="input-group form-group">
+                                        <input asp-for=@Model.RequestImage type="file" class="form-control upload-name-photo rounded" />
+                                        <span class="btn cursor-pointer upload-btn-photo">آپلود فایل</span>
+                                    </div>
+                                    <input type="file" class="d-none hidden-upload-photo" />
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn theme-cl rounded theme-bg-light ft-medium">افزودن</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script>
+        jalaliDatepicker.startWatch({
+            minDate: "attr",
+            maxDate: "attr",
+            minTime: "attr",
+            maxTime: "attr",
+            hideAfterChange: true,
+            autoHide: true,
+            showTodayBtn: true,
+            showEmptyBtn: true,
+            topSpace: 10,
+            bottomSpace: 30,
+            dayRendering(opt, input) {
+                return {
+                    isHollyDay: opt.day == 1
+                }
+            }
+        });
+
+        document.getElementById("aaa").addEventListener("jdp:change", function (e) { console.log(e) });
+    </script>
+}

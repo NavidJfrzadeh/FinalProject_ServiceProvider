@@ -11,4 +11,8 @@ public class CustomerSummaryDto
     public string LastName { get; set; }
     public string? ProfileImage { get; set; }
     public List<Address>? Addresses { get; set; }
+    [Display(Name = "ایمیل")]
+    public string? Email { get; set; }
+    [Display(Name = "شماره همراه")]
+    public string? PhoneNumber { get; set; }
 }
