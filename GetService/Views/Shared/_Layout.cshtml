@@ -81,7 +81,7 @@
                                 @if (SignInManager.IsSignedIn(User))
                                 {
                                     <li>
-                                        <a asp-area="" asp-controller="Customer" asp-action="ProfileDashboard" title="Profile" class="ft-bold">
+                                        <a asp-area="" asp-controller="Customer" asp-action="Dashboard" title="Profile" class="ft-bold">
                                             <i class="lni lni-user"></i>
                                         </a>
                                     </li>
@@ -145,7 +145,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Customer" asp-action="ProfileDashboard" title="Profile" class="ft-bold">
+                                    <a asp-area="" asp-controller="Customer" asp-action="Dashboard" title="Profile" class="ft-bold">
                                         @User.Identity?.Name
                                     </a>
                                 </li>

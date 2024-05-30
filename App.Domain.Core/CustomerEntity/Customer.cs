@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.CustomerEntity;
 
-public class Customer : SharedFields
+public class Customer : BaseProperties
 {
     public Customer()
     {

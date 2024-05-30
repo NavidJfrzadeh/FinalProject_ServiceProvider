@@ -1,50 +1,46 @@
 ﻿@using App.Domain.Core.RequestEntity.DTOs
 @model CreateRequestDto
 @{
-    var serviceId = (int)ViewData["id"];
     Layout = "_CustomerProfileLayout";
 }
 
-<div class="container col-lg-8 dashboard-widg-bar d-block">
-    <div class="row">
-        <div class="col-xl-12 col-lg-2 col-md-12 col-sm-12">
-            <form asp-action="CreateRequest" method="post">
-                <div class="submit-form">
-                    <input type="hidden" asp-for="@Model.ServiceId" value="@serviceId" />
-                    <div class="dashboard-list-wraps bg-white rounded mb-4">
-                        <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
-                            <div class="dashboard-list-wraps-flx">
-                                <h4 class="mb-0 ft-medium fs-md">اطلاعات را پر کنید</h4>
+
+<div class="col-xl-12 col-lg-2 col-md-12 col-sm-12">
+    <div class="submit-form">
+        <div class="dashboard-list-wraps bg-white rounded mb-4">
+            <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
+                <div class="dashboard-list-wraps-flx">
+                    <h4 class="mb-0 ft-medium fs-md">درخواست جدید</h4>
+                </div>
+            </div>
+            <form method="post" asp-action="CreateRequest" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="dashboard-list-wraps-body py-3 px-3">
+                    <div class="row">
+
+                        <input type="hidden" asp-for="@Model.ServiceId" value="@Model.ServiceId" />
+                        <input type="hidden" asp-for="@Model.CustomerId" value="@Model.CustomerId" />
+
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="@Model.PersianDate" class="form-label">برای چه زمانی؟</label>
+                                <input asp-for="@Model.PersianDate" data-jdp class="form-control rounded" />
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                            <div class="form-group">
+                                <label class="mb-1">توضیحات</label>
+                                <textarea asp-for="@Model.Description" class="form-control rounded" rows="5" cols="4"></textarea>
                             </div>
                         </div>
 
-                        <div class="dashboard-list-wraps-body py-3 px-3">
-                            <div class="row">
-                                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                                    <div class="form-group">
-                                        <label asp-for="@Model.DateFor" class="mb-1"></label>
-                                        <input data-jdp />
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-group">
-                                        <label asp-for=@Model.Description class="mb-1"></label>
-                                        <textarea asp-for=@Model.Description class="form-control rounded ht-80" placeholder="بنویسید"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                    <label for="formFileLg" class="form-label">آپلود تصویر</label>
-                                    <div class="input-group form-group">
-                                        <input asp-for=@Model.RequestImage type="file" class="form-control upload-name-photo rounded" />
-                                        <span class="btn cursor-pointer upload-btn-photo">آپلود فایل</span>
-                                    </div>
-                                    <input type="file" class="d-none hidden-upload-photo" />
-                                </div>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn theme-cl rounded theme-bg-light ft-medium">افزودن</button>
-                                    </div>
-                                </div>
+                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5">
+                            <label for="formFileLg" class="form-label">آپلود تصویر</label>
+                            <input type="file" asp-for="@Model.ImageFile" class="form-control" />
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group p-2">
+                                <button type="submit" class="btn theme-cl rounded theme-bg-light ft-medium">ثبت</button>
                             </div>
                         </div>
                     </div>
@@ -52,8 +48,9 @@
             </form>
         </div>
     </div>
-
 </div>
+
+
 
 @section Scripts {
 

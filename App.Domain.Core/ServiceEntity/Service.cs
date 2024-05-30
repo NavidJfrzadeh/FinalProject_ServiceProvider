@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.ServiceEntity
 {
-    public class Service : SharedFields
+    public class Service : BaseProperties
     {
         public Service()
         {

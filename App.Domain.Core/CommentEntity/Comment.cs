@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Domain.Core.CommentEntity
 {
-    public class Comment : SharedFields
+    public class Comment : BaseProperties
     {
         public Comment()
         {

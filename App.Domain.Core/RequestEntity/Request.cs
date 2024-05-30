@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.RequestEntity
 {
-    public class Request : SharedFields
+    public class Request : BaseProperties
     {
         public Request()
         {

@@ -64,7 +64,7 @@
                                 @if (SignInManager.IsSignedIn(User))
                                 {
                                     <li>
-                                        <a asp-area="" asp-controller="Customer" asp-action="ProfileDashboard" title="Profile" class="ft-bold">
+                                        <a asp-area="" asp-controller="Customer" asp-action="Dashboard" title="Profile" class="ft-bold">
                                             <i class="lni lni-user"></i>
                                         </a>
                                     </li>
@@ -128,7 +128,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a asp-area="" asp-controller="Customer" asp-action="ProfileDashboard" title="Profile" class="ft-bold">
+                                    <a asp-area="" asp-controller="Customer" asp-action="Dashboard" title="Profile" class="ft-bold">
                                         @User.Identity?.Name
                                     </a>
                                 </li>
@@ -161,7 +161,7 @@
                 <div class="goodup-dashboard-nav sticky-top">
                     <div class="goodup-dashboard-inner">
                         <ul data-submenu-title="منو">
-                            <li><a asp-area="" asp-controller="Customer" asp-action="ProfileDashboard"></i>داشبورد</a></li>
+                            <li><a asp-area="" asp-controller="Customer" asp-action="Dashboard"></i>داشبورد</a></li>
                             <li><a asp-area="" asp-controller="Customer" asp-action="RequestList"><i class="lni lni-files ms-2"></i>درخواست های من</a></li>
                             <li><a href="dashboard-my-bookings.html"><i class="lni lni-briefcase ms-2"></i>لیست رزروها<span class="count-tag bg-warning">4</span></a></li>
                             <li><a href="dashboard-messages.html"><i class="lni lni-envelope ms-2"></i>پیام ها<span class="count-tag">4</span></a></li>
@@ -175,12 +175,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div>
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+            <div class="goodup-dashboard-content">
+                <div class="dashboard-widg-bar d-block">
+                    <div class="row">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- ============================ Footer Start ================================== -->

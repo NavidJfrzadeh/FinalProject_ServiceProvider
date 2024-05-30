@@ -38,7 +38,7 @@ namespace GetService.Controllers
             _signInManager = signInManager;
         }
 
-        public async Task<IActionResult> ProfileDashboard(CancellationToken cancellationToken)
+        public async Task<IActionResult> Dashboard(CancellationToken cancellationToken)
         {
             ActiveLink = "Active";
             return View();
@@ -64,25 +64,28 @@ namespace GetService.Controllers
 
         public async Task<IActionResult> CreateRequest(int id, CancellationToken cancellationToken)
         {
-            ViewData["id"] = id;
-            return View();
+            var newRequestDto = new CreateRequestDto
+            {
+                ServiceId = id,
+                CustomerId = int.Parse(User.Claims.First().Value)
+            };
+
+            return View(newRequestDto);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateRequest(CreateRequestDto createRequestDto, CancellationToken cancellationToken)
         {
-            createRequestDto.CustomerId = int.Parse(User.Claims.First().Value);
-
             var result = await _requestAppService.Create(createRequestDto, cancellationToken);
 
             if (result)
             {
                 TempData["RequestCreated"] = "درخواست شما با موفقیت ثبت شد";
-                return RedirectToAction("ServiceDetails", nameof(HomeController), new { id = createRequestDto.ServiceId });
+                return RedirectToAction("ServiceDetails", nameof(HomeController), new { id = createRequestDto.ServiceId,cancellationToken });
             }
 
             TempData["RequestFailed"] = "ثبت درخواست شما ناموفق بود";
-            return RedirectToAction("ServiceDetails", nameof(HomeController), new { id = createRequestDto.ServiceId });
+            return RedirectToAction("ServiceDetails", nameof(HomeController), new { id = createRequestDto.ServiceId,cancellationToken });
         }
 
         [HttpGet]

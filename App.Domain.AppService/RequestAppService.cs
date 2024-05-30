@@ -2,6 +2,8 @@
 using App.Domain.Core.RequestEntity;
 using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.RequestEntity.DTOs;
+using App.Domain.Core._3_BaseServices;
+using Framework;
 
 namespace App.Domain.AppService;
 
@@ -23,7 +25,14 @@ public class RequestAppService : IRequestAppService
         => await _requestService.Accept(id, cancellationToken);
 
     public async Task<bool> Create(CreateRequestDto newRequestDto, CancellationToken cancellationToken)
-        => await _requestService.Create(newRequestDto, cancellationToken);
+    {
+        var imageAddress = newRequestDto.ImageFile.SaveFileAsync();
+        var dateTime = newRequestDto.PersianDate.ConvertToGregorian();
+
+        newRequestDto.ImageAddress = imageAddress;
+        newRequestDto.DateFor = dateTime;
+        return await _requestService.Create(newRequestDto, cancellationToken);
+    }
 
     public async Task<bool> Delete(int id, CancellationToken cancellationToken)
         => await _requestService.Delete(id, cancellationToken);

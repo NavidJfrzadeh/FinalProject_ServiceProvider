@@ -43,7 +43,7 @@ namespace App.Infra.DataAccess.Repo.EF
                 CustomerId = newRequestDto.CustomerId,
                 Description = newRequestDto.Description,
                 ServiceId = newRequestDto.ServiceId,
-                ImageSrc = newRequestDto.RequestImage,
+                ImageSrc = newRequestDto.ImageAddress,
                 DateFor = newRequestDto.DateFor
             };
 

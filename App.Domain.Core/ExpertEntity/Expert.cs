@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.ExpertEntity
 {
-    public class Expert : SharedFields
+    public class Expert : BaseProperties
     {
         public Expert()
         {

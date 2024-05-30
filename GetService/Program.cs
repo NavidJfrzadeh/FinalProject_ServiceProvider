@@ -31,7 +31,7 @@ builder.Services.AddRazorPages()
 //AccountAppService
 builder.Services.AddScoped<IAccountAppService, AccountAppService>();
 
-//Admin Services
+//Admin
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
 //Bid

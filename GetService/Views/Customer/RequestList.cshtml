@@ -6,47 +6,41 @@
 }
 
 
-<div class="dashboard-widg-bar d-block">
-    <div class="row">
-        <div class="col-xl-12 col-lg-12">
-            <div class="dashboard-list-wraps bg-white rounded mb-4">
-                <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
-                    <div class="dashboard-list-wraps-flx">
-                        <h4 class="mb-0 ft-medium fs-md"><i class="fa fa-file-alt ms-2 theme-cl fs-sm"></i>آگهی های من</h4>
-                    </div>
-                </div>
+<div class="col-xl-12 col-lg-12">
+    <div class="dashboard-list-wraps bg-white rounded mb-4">
+        <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
+            <div class="dashboard-list-wraps-flx">
+                <h4 class="mb-0 ft-medium fs-md"><i class="fa fa-file-alt ms-2 theme-cl fs-sm"></i>آگهی های من</h4>
+            </div>
+        </div>
 
-                <div class="dashboard-list-wraps-body py-3 px-3">
-                    <div class="dashboard-listing-wraps">
+        <div class="dashboard-list-wraps-body py-3 px-3">
+            <div class="dashboard-listing-wraps">
 
-                        @foreach (var request in Model)
-                        {
-                            <div class="dsd-single-listing-wraps">
-                                <div class="dsd-single-lst-thumb"><img src="~/assetsHomePage/img/c-4.jpg" class="img-fluid" alt=""></div>
-                                <div class="dsd-single-lst-caption">
-                                    <div class="dsd-single-lst-title"><h5>@request.ServiceTitle</h5></div>
-                                    <div class="ico-content">
-                                        <div class="Goodup-ft-first">
-                                            <div class="Goodup-price-range">
-                                                <span>@request.CreateDateFa</span>
-                                            </div>
-                                        </div>
-                                        <div class="Goodup-price-range">
-                                            <span>@request.Status.GetEnumDisplayName()</span>
-                                        </div>
-                                    </div>
-                                    <div class="dsd-single-lst-footer">
-                                        <button id="showTableButton">Show Table</button>
-                                        <a asp-action="GetRequestBids" asp-route-requestId="@request.RequestId" class="btn btn-view">مشاهده پیشنهاد ها</a>
-                                        <a asp-action="RemoveRequest" asp-route-id="@request.RequestId" class="btn btn-delete"><i class="fas fa-trash ms-1"></i>حذف</a>
+                @foreach (var request in Model)
+                {
+                    <div class="dsd-single-listing-wraps mb-5">
+                        <div class="dsd-single-lst-thumb"><img src="~/assetsHomePage/img/c-4.jpg" class="img-fluid" alt=""></div>
+                        <div class="dsd-single-lst-caption">
+                            <div class="dsd-single-lst-title"><h5>@request.ServiceTitle</h5></div>
+                            <div class="ico-content">
+                                <div class="Goodup-ft-first">
+                                    <div class="Goodup-price-range">
+                                        <span>@request.CreateDateFa</span>
                                     </div>
                                 </div>
+                                <div class="Goodup-price-range">
+                                    <span>@request.Status.GetEnumDisplayName()</span>
+                                </div>
                             </div>
-                        }
+                            <div class="dsd-single-lst-footer">
+                                <a asp-action="GetRequestBids" asp-route-requestId="@request.RequestId" class="btn btn-view">مشاهده پیشنهاد ها</a>
+                                <a asp-action="RemoveRequest" asp-route-id="@request.RequestId" class="btn btn-delete"><i class="fas fa-trash ms-1"></i>حذف</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     </div>
-
 </div>

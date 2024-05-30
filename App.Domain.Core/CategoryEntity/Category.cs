@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Core.CategoryEntity
 {
-    public class Category : SharedFields
+    public class Category : BaseProperties
     {
         public Category()
         {

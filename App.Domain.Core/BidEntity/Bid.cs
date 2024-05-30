@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Domain.Core.BidEntity
 {
-    public class Bid : SharedFields
+    public class Bid : BaseProperties
     {
         public Bid()
         {
