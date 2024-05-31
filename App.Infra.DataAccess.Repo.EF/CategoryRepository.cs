@@ -1,6 +1,7 @@
 ﻿using App.Domain.Core.CategoryEntity;
 using App.Domain.Core.CategoryEntity.Contracts;
 using App.Domain.Core.CategoryEntity.DTOs;
+using App.Domain.Core.ServiceEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -121,6 +122,24 @@ namespace App.Infra.DataAccess.Repo.EF
             {
                 throw new Exception($"دسته بندی با آیدی {CategoryId} برای حذف یافت نشد!");
             }
+        }
+
+        public async Task<List<CategoriesWithServiceListDto>> GetCategoriesWithServiceList(CancellationToken cancellationToken)
+        {
+            var categoriesWithServiceList = await _context.Categories.Select(c => new CategoriesWithServiceListDto
+            {
+                CategoryId = c.Id,
+                Title = c.Title,
+                PictureLocation = c.PictureLocation,
+                Services = c.Services.Select(s => new ServicesInCategory
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    CategoryTitle = s.Category.Title,
+                    Description = s.Description,
+                }).ToList()
+            }).ToListAsync(cancellationToken);
+            return categoriesWithServiceList ?? throw new Exception($"دسته بندی یافت نشد");
         }
         #endregion
 

@@ -129,12 +129,7 @@ namespace App.Infra.DataAccess.Repo.EF
         private async Task<Request> FindById(int id, CancellationToken cancellationToken)
         {
             var request = await _context.Requests.FindAsync(id, cancellationToken);
-            if (request != null)
-            {
-                return request;
-            }
-
-            throw new Exception($"Request with Id {id} not found");
+            return request ?? throw new Exception($"Request with Id {id} not found");
         }
         #endregion
     }

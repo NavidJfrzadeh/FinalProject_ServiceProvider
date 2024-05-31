@@ -30,7 +30,10 @@ namespace App.Domain.Service
             => await _categoryRepository.GetAll(cancellationToken);
 
         public async Task<List<CategoriesForCreateServiceDto>> GetCategories(CancellationToken cancellationToken)
-            =>await _categoryRepository.GetCategories(cancellationToken);
+            => await _categoryRepository.GetCategories(cancellationToken);
+
+        public async Task<List<CategoriesWithServiceListDto>> GetCategoriesWithServiceList(CancellationToken cancellationToken)
+            => await _categoryRepository.GetCategoriesWithServiceList(cancellationToken);
         #endregion
     }
 }

@@ -30,5 +30,8 @@ public class CategoryAppService : ICategoryAppService
 
     public async Task<List<CategoriesForCreateServiceDto>> GetCategories(CancellationToken cancellationToken)
         => await _categoryService.GetCategories(cancellationToken);
+
+    public async Task<List<CategoriesWithServiceListDto>> GetCategoriesWithServiceList(CancellationToken cancellationToken)
+        => await _categoryService.GetCategoriesWithServiceList(cancellationToken);
     #endregion
 }
