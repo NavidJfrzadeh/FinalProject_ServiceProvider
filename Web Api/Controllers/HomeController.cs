@@ -1,15 +1,18 @@
 ﻿using App.Domain.Core._1_BaseEntities.AccountAppService;
 using App.Domain.Core.CategoryEntity.Contracts;
 using App.Domain.Core.CategoryEntity.DTOs;
+using App.Domain.Core.Enums;
 using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.RequestEntity.DTOs;
+using Azure.Messaging;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using Web_Api.Models;
 
 namespace Web_Api.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class HomeController : ControllerBase
     {
         #region Fields
@@ -30,31 +33,42 @@ namespace Web_Api.Controllers
         }
         #endregion
 
-        [HttpGet(Name = nameof(GetCategoriesWithServices))]
+        [HttpGet]
+        [Route(nameof(GetCategoriesWithServices))]
         public async Task<List<CategoriesWithServiceListDto>> GetCategoriesWithServices(CancellationToken cancellationToken)
         {
             return await _categoryAppService.GetCategoriesWithServiceList(cancellationToken);
         }
 
-        [HttpGet(Name = nameof(GetAllRequests))]
+        [HttpGet]
+        [Route(nameof(GetAllRequests))]
         public async Task<List<RequestDto>> GetAllRequests(CancellationToken cancellationToken)
         {
             return await _requestAppService.GetAll(cancellationToken);
         }
 
-        [HttpPost(Name = nameof(Login))]
-        public async Task<IActionResult> Login(LoginModel loginModel, CancellationToken cancellationToken)
-        {
-            var isLogin = await _accountAppService.Login(loginModel.Email, loginModel.password);
-            if (isLogin) return Ok();
-            return NotFound();
-        }
-
-        [HttpPost(Name = nameof(Register))]
+        [HttpPost]
+        [Route(nameof(Register))]
         public async Task<IActionResult> Register(RegisterModel registerModel, CancellationToken cancellationToken)
         {
-            registerModel.Errors = await _accountAppService.Register(registerModel.Name, registerModel.LastName, registerModel.Email, registerModel.Password, registerModel.IsExpert);
-            return Ok();
+            registerModel.Errors = await _accountAppService.Register(registerModel.Name, registerModel.LastName, registerModel.Email, registerModel.Password, registerModel.IsExpert, registerModel.Gender);
+            string Message = string.Empty;
+
+            if (registerModel.Errors.Count > 0)
+            {
+
+                foreach (var error in registerModel.Errors)
+                {
+                    Message += error.Description + "\n";
+                }
+                return BadRequest(Message);
+            }
+
+            else
+            {
+                Message = "ثبت نام انجام شد";
+                return Ok(Message);
+            }
         }
     }
 }

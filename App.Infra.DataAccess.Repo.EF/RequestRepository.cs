@@ -110,6 +110,21 @@ namespace App.Infra.DataAccess.Repo.EF
             return requests;
         }
 
+        public async Task<List<RequestDto>> GetForCategory(List<int> categoryIds, CancellationToken cancellationToken)
+        {
+            var requests = await _context.Requests.Where(r => categoryIds.Contains(r.Service.CategoryId))
+                .Select(r => new RequestDto
+                {
+                    RequestId = r.Id,
+                    ServiceTitle = r.Service.Title,
+                    CustomerName = r.Customer.FullName,
+                    Status = r.Status,
+                    IsAccepted = r.IsAccepted
+                }).ToListAsync(cancellationToken);
+
+            return requests;
+        }
+
         public async Task<List<Request>> GetForService(int serviceId, CancellationToken cancellationToken)
         {
             var requests = await _context.Requests.AsNoTracking().Where(r => r.ServiceId == serviceId).ToListAsync(cancellationToken);

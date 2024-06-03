@@ -1,4 +1,5 @@
 ﻿@page
+@using App.Domain.Core.Enums
 @model GetService.Areas.Account.Pages.RegisterModel
 @{
 }
@@ -41,6 +42,16 @@
                             <div class="form-group">
                                 <label asp-for="@Model.RegisterView.Password" class="mb-1">رمز عبور</label>
                                 <input asp-for="@Model.RegisterView.Password" type="password" class="form-control rounded">
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="gender">جنسیت:</label>
+                                    <input class="radio-custom" type="radio" id="gender-male" name="gender" value="male">
+                                    <label class="radio-custom-label" for="gender-male">مرد</label>
+                                    <input class="radio-custom" type="radio" id="gender-female" name="gender" value="female">
+                                    <label class="radio-custom-label" for="gender-female">زن</label>
+                                </div>
                             </div>
 
                             <div class="flex-1 my-2">

@@ -1,6 +1,6 @@
 ﻿namespace App.Domain.Core.CategoryEntity.DTOs
 {
-    public class CategoriesForCreateServiceDto
+    public class CategoryDto
     {
         public int CategoyId { get; set; }
         public string Title { get; set; }

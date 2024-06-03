@@ -13,19 +13,16 @@ public class ExceptionMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-
-        await _next(context);
-
-        //try
-        //{
-            
-        //}
-        //catch (Exception ex)
-        //{
-        //    //_logger.LogError(ex.Message);
-        //    await context.Response.WriteAsync(ex.Message);
-        //    context.Response.Redirect("/Home/Error");
-        //}
+        try
+        {
+            await _next(context);
+        }
+        catch (Exception ex)
+        {
+            //_logger.LogError(ex.Message);
+            //await context.Response.WriteAsync(ex.Message);
+            context.Response.Redirect("/Home/Error");
+        }
     }
 }
 

@@ -4,6 +4,7 @@ using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.RequestEntity.DTOs;
 using App.Domain.Core._3_BaseServices;
 using Framework;
+using App.Domain.Core.ExpertEntity.Contracts;
 
 namespace App.Domain.AppService;
 
@@ -11,12 +12,15 @@ public class RequestAppService : IRequestAppService
 {
     #region Fields
     private readonly IRequestService _requestService;
+    private readonly IExpertService _expertService;
     #endregion
 
     #region Ctors
-    public RequestAppService(IRequestService requestService)
+    public RequestAppService(IRequestService requestService
+        , IExpertService expertService)
     {
         _requestService = requestService;
+        _expertService = expertService;
     }
     #endregion
 
@@ -45,6 +49,12 @@ public class RequestAppService : IRequestAppService
 
     public async Task<List<CustomerRequestDto>> GetCustomerRequests(int customerId, CancellationToken cancellationToken)
         => await _requestService.GetCustomerRequests(customerId, cancellationToken);
+
+    public async Task<List<RequestDto>> GetForCategory(int expertId, CancellationToken cancellationToken)
+    {
+        var categoryIds = await _expertService.GetExpertCategories(expertId, cancellationToken);
+        return await _requestService.GetForCategory(categoryIds, cancellationToken);
+    }
 
     public async Task<List<Request>> GetForService(int serviceId, CancellationToken cancellationToken)
         => await _requestService.GetForService(serviceId, cancellationToken);

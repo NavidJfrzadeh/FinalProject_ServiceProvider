@@ -28,7 +28,7 @@ public class CategoryAppService : ICategoryAppService
     public async Task<List<GetAllCategoryForMainPageDto>> GetAll(CancellationToken cancellationToken)
         => await _categoryService.GetAll(cancellationToken);
 
-    public async Task<List<CategoriesForCreateServiceDto>> GetCategories(CancellationToken cancellationToken)
+    public async Task<List<CategoryDto>> GetCategories(CancellationToken cancellationToken)
         => await _categoryService.GetCategories(cancellationToken);
 
     public async Task<List<CategoriesWithServiceListDto>> GetCategoriesWithServiceList(CancellationToken cancellationToken)

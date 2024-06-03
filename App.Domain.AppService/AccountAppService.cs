@@ -1,6 +1,7 @@
 ﻿using App.Domain.Core;
 using App.Domain.Core._1_BaseEntities.AccountAppService;
 using App.Domain.Core.CustomerEntity;
+using App.Domain.Core.Enums;
 using App.Domain.Core.ExpertEntity;
 using Microsoft.AspNetCore.Identity;
 
@@ -22,7 +23,7 @@ public class AccountAppService : IAccountAppService
         return result.Succeeded;
     }
 
-    public async Task<List<IdentityError>> Register(string firstName, string lastName, string email, string password, bool isExpert)
+    public async Task<List<IdentityError>> Register(string firstName, string lastName, string email, string password, bool isExpert, Gender gender)
     {
         var user = CreateUser();
         user.Email = email;
@@ -37,6 +38,7 @@ public class AccountAppService : IAccountAppService
             {
                 FirstName = firstName,
                 LastName = lastName,
+                Gender = gender
             };
         }
         else
@@ -45,7 +47,8 @@ public class AccountAppService : IAccountAppService
             user.Customer = new Customer()
             {
                 FirstName = firstName,
-                LastName = lastName
+                LastName = lastName,
+                Gender = gender
             };
         }
 

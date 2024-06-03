@@ -81,11 +81,11 @@ namespace GetService.Controllers
             if (result)
             {
                 TempData["RequestCreated"] = "درخواست شما با موفقیت ثبت شد";
-                return RedirectToAction("ServiceDetails", nameof(HomeController), new { id = createRequestDto.ServiceId,cancellationToken });
+                return RedirectToAction("ServiceDetails", "Home", new { serviceId = createRequestDto.ServiceId, cancellationToken });
             }
 
             TempData["RequestFailed"] = "ثبت درخواست شما ناموفق بود";
-            return RedirectToAction("ServiceDetails", nameof(HomeController), new { id = createRequestDto.ServiceId,cancellationToken });
+            return RedirectToAction("ServiceDetails", "Home", new { serviceId = createRequestDto.ServiceId, cancellationToken });
         }
 
         [HttpGet]

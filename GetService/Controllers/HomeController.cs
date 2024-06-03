@@ -2,8 +2,8 @@
 using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.RequestEntity.DTOs;
 using App.Domain.Core.ServiceEntity.Contracts;
+using GetService.Areas.Admin.Controllers;
 using GetService.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -16,7 +16,8 @@ namespace GetService.Controllers
         private readonly IServicesAppService _servicesAppService;
         private readonly IRequestAppService _requestAppSerice;
 
-        public HomeController(ILogger<HomeController> logger, ICategoryAppService categoryAppService,
+        public HomeController(ILogger<HomeController> logger,
+            ICategoryAppService categoryAppService,
             IServicesAppService servicesAppService,
             IRequestAppService requestAppSerice
             )
@@ -29,6 +30,9 @@ namespace GetService.Controllers
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
+            if (User.IsInRole("Admin")) return RedirectToAction("Dashboard", "Admin");
+            if (User.IsInRole("Expert")) return RedirectToAction("Dashboard", "Expert"); ;
+
             var homeViewModel = new HomePageViewModel();
             homeViewModel.CategoriesViewModel = await _categoryAppService.GetAll(cancellationToken);
             return View(homeViewModel);
@@ -42,9 +46,9 @@ namespace GetService.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ServiceDetails(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> ServiceDetails(int serviceId, CancellationToken cancellationToken)
         {
-            var service = await _servicesAppService.GetDetails(id, cancellationToken);
+            var service = await _servicesAppService.GetDetails(serviceId, cancellationToken);
             return View(service);
         }
 

@@ -54,12 +54,12 @@ namespace App.Infra.DataAccess.Repo.EF
 
         }
 
-        public async Task<List<CategoriesForCreateServiceDto>> GetCategories(CancellationToken cancellationToken)
+        public async Task<List<CategoryDto>> GetCategories(CancellationToken cancellationToken)
         {
-            var categories = _memoryCache.Get<List<CategoriesForCreateServiceDto>>("CategoriesForCreateServiceDto");
+            var categories = _memoryCache.Get<List<CategoryDto>>("CategoriesForCreateServiceDto");
             if (categories == null)
             {
-                categories = await _context.Categories.AsNoTracking().Select(c => new CategoriesForCreateServiceDto
+                categories = await _context.Categories.AsNoTracking().Select(c => new CategoryDto
                 {
                     CategoyId = c.Id,
                     Title = c.Title

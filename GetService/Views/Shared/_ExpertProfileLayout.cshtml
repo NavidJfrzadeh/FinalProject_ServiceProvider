@@ -14,9 +14,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"] - GetService</title>
-    @* 	   <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/GetService.styles.css" asp-append-version="true" /> *@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="~/assetsHomePage/img/HomeLogo.png">
@@ -41,20 +38,6 @@
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <div id="main-wrapper">
-
-        @*         @if (error)
-        {
-        <script>
-        $(document).ready(function () {
-        Swal.fire({
-        icon: 'error',
-        title: 'ناموفق',
-        text: 'lajdaljadld'
-        });
-        });
-        </script>
-        } *@
-
         <div class="w-50 container text-center mt-3">
             @if (error != null)
             {
@@ -80,36 +63,17 @@
                             <ul>
                                 @if (SignInManager.IsSignedIn(User))
                                 {
-                                    if (User.IsInRole("Customer"))
-                                    {
-                                        <li>
-                                            <a asp-area="" asp-controller="Customer" asp-action="Dashboard" title="Profile" class="ft-bold">
-                                                <i class="lni lni-user"></i>
-                                            </a>
-                                        </li>
-                                    }
-                                    if (User.IsInRole("Expert"))
-                                    {
-                                        <li>
-                                            <a asp-area="" asp-controller="Expert" asp-action="Dashboard" title="Profile" class="ft-bold">
-                                                <i class="lni lni-user"></i>
-                                            </a>
-                                        </li>
-                                    }
+                                    <li>
+                                        <a asp-area="" asp-controller="Expert" asp-action="Dashboard" title="Profile" class="ft-bold">
+                                            <i class="lni lni-user"></i>
+                                        </a>
+                                    </li>
                                 }
                                 else
                                 {
                                     <li>
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#login" class="theme-cl fs-lg">
                                             <i class="lni lni-user"></i>
-                                        </a>
-                                    </li>
-                                }
-                                @if (!User.IsInRole("Expert"))
-                                {
-                                    <li>
-                                        <a href="add-listing.html" class="crs_yuo12 w-auto text-white theme-bg">
-                                            <span class="embos_45"><i class="fas fa-plus ms-2"></i>ثبت سفارش</span>
                                         </a>
                                     </li>
                                 }
@@ -152,31 +116,11 @@
                         <ul class="nav-menu nav-menu-social align-to-left">
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                if (!User.IsInRole("Expert"))
-                                {
-                                    <li class="add-listing">
-                                        <a href="add-listing.html">
-                                            <i class="fas fa-plus ms-2"></i>ثبت سفارش
-                                        </a>
-                                    </li>
-                                }
-                                if (User.IsInRole("Customer"))
-                                {
-                                    <li>
-                                        <a asp-area="" asp-controller="Customer" asp-action="Dashboard" title="Profile" class="ft-bold">
-                                            @User.Identity?.Name
-                                        </a>
-                                    </li>
-                                }
-                                if (User.IsInRole("Expert"))
-                                {
-                                    <li>
-                                        <a asp-area="" asp-controller="Expert" asp-action="Dashboard" title="Profile" class="ft-bold">
-                                            @User.Identity?.Name
-                                        </a>
-                                    </li>
-                                }
-
+                                <li>
+                                    <a asp-area="" asp-controller="Expert" asp-action="Dashboard" title="Profile" class="ft-bold">
+                                        @User.Identity?.Name
+                                    </a>
+                                </li>
                                 <li>
                                     <form class="form-inline" asp-area="Account" asp-page="/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
                                         <button type="submit" class="nav-link btn btn-link text-dark">خروج</button>
@@ -198,10 +142,33 @@
         </div>
         <!-- End Navigation -->
 
-        <div>
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+        <div class="goodup-dashboard-wrap gray px-4 py-5">
+            <a class="mobNavigation" data-bs-toggle="collapse" href="#MobNav" role="button" aria-expanded="false" aria-controls="MobNav">
+                <i class="fas fa-bars ms-2"></i>منو
+            </a>
+            <div class="collapse" id="MobNav">
+                <div class="goodup-dashboard-nav sticky-top">
+                    <div class="goodup-dashboard-inner">
+                        <ul data-submenu-title="منو">
+                            <li><a asp-area="" asp-controller="Expert" asp-action="Dashboard"></i>داشبورد</a></li>
+                            <li><a asp-area="" asp-controller="Expert" asp-action="GetRequests"><i class="lni lni-files ms-2"></i>درخواست های جدید</a></li>
+                            <li><a asp-area="" asp-controller="Expert" asp-action="GetFinishedRequests"><i class="lni lni-briefcase ms-2"></i>سوابق کاری<span class="count-tag bg-warning">4</span></a></li>
+                            <li><a href="dashboard-messages.html"><i class="lni lni-envelope ms-2"></i>پیام ها<span class="count-tag">4</span></a></li>
+                        </ul>
+                        <ul data-submenu-title="حساب کاربری">
+                            <li><a asp-area="" asp-controller="Expert" asp-action="ProfileEdit"><i class="lni lni-user ms-2"></i>ویرایش پروفایل</a></li>
+                            <li><a href="javascript:void(0);"><i class="lni lni-trash-can ms-2"></i>حذف اکانت</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="goodup-dashboard-content">
+                <div class="dashboard-widg-bar d-block">
+                    <div class="row">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- ============================ Footer Start ================================== -->
@@ -376,14 +343,9 @@
     <script src="~/assetsHomePage/js/lightbox.js"></script>
     <script src="~/assetsHomePage/js/jQuery.style.switcher.js"></script>
     <script src="~/assetsHomePage/js/custom.js"></script>
-    @*     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> *@
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
-    @* 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script> *@
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

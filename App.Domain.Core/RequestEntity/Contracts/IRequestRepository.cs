@@ -13,4 +13,5 @@ public interface IRequestRepository
     public Task<bool> Accept(int id, CancellationToken cancellationToken);
     public Task<bool> Delete(int id, CancellationToken cancellationToken);
     public Task SetRequestStatus(int requestId, Status status, CancellationToken cancellationToken);
+    public Task<List<RequestDto>> GetForCategory(List<int> categoryIds, CancellationToken cancellationToken);
 }

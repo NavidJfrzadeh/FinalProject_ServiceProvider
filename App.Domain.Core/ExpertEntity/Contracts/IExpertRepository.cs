@@ -1,9 +1,13 @@
-﻿namespace App.Domain.Core.ExpertEntity.Contracts
+﻿using App.Domain.Core.CategoryEntity.DTOs;
+using App.Domain.Core.ExpertEntity.DTOs;
+
+namespace App.Domain.Core.ExpertEntity.Contracts
 {
     public interface IExpertRepository
     {
-        public Task<Expert> GetById(int id, CancellationToken cancellationToken);
+        public Task<ExpertSummaryDto> GetSummary(int ExpertId, CancellationToken cancellationToken);
         public Task<List<Expert>> GetAll(CancellationToken cancellationToken);
-        public Task<bool> Register(Expert newExpert, CancellationToken cancellationToken);
+        public Task Update(ExpertSummaryDto expertSummaryDto, CancellationToken cancellationToken);
+        public Task<List<int>> GetExpertCategories(int expertId, CancellationToken cancellationToken);
     }
 }

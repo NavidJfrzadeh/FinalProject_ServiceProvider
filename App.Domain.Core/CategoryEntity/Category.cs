@@ -1,4 +1,5 @@
 ﻿using App.Domain.Core._0_BaseEntities;
+using App.Domain.Core.ExpertEntity;
 using App.Domain.Core.ServiceEntity;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,5 +18,6 @@ namespace App.Domain.Core.CategoryEntity
         [MaxLength(50)]
         public string Title { get; set; }
         public List<Service>? Services { get; set; } = new List<Service>();
+        public List<Expert>? Experts { get; set; }
     }
 }

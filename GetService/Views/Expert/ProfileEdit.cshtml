@@ -1,7 +1,9 @@
-﻿@using App.Domain.Core.CustomerEntity.DTOs;
-@model CustomerSummaryDto;
+﻿@using App.Domain.Core.CategoryEntity.Contracts
+@using App.Domain.Core.ExpertEntity.DTOs;
+@inject ICategoryAppService CategoryAppService
+@model ExpertSummaryDto;
 @{
-    Layout = "_CustomerProfileLayout";
+    Layout = "_ExpertProfileLayout";
 }
 
 <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 order-xl-last order-lg-last order-md-last">
@@ -18,7 +20,7 @@
     </div>
 </div>
 <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12">
-    <form method="post" class="submit-form">
+    <form enctype="multipart/form-data" method="post" class="submit-form">
         <div class="dashboard-list-wraps bg-white rounded mb-4">
             <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
                 <div class="dashboard-list-wraps-flx">
@@ -30,7 +32,7 @@
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                         <div class="form-group">
-                            <input type="hidden" asp-for="@Model.Id" value="@User.Claims.First().Value" />
+                            <input type="hidden" asp-for="@Model.ExpertId" />
                             <label asp-for="@Model.FirstName" class="mb-1"></label>
                             <input asp-for="@Model.FirstName" type="text" class="form-control rounded" />
                         </div>
@@ -52,6 +54,14 @@
                             <label asp-for="@Model.PhoneNumber" class="mb-1">شماره تماس</label>
                             <input asp-for="@Model.PhoneNumber" type="text" class="form-control rounded" />
                         </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select asp-for="CategoryIds" class="js-example-basic-multiple form-control" multiple="multiple">
+                            @foreach (var category in await CategoryAppService.GetAll(default))
+                            {
+                                <option value="@category.Id">@category.Title</option>
+                            }
+                        </select>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                         <div class="form-group">
@@ -95,3 +105,22 @@
         </div>
     </form>
 </div>
+
+
+@section Scripts
+{
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.js-example-basic-multiple').select2(
+                {
+                    placeholder: "انتخاب حرفه",
+                    allowClear: true
+                });
+        });
+    </script>
+}

@@ -1,5 +1,7 @@
-﻿using App.Domain.Core.ExpertEntity;
+﻿using App.Domain.Core.CategoryEntity.DTOs;
+using App.Domain.Core.ExpertEntity;
 using App.Domain.Core.ExpertEntity.Contracts;
+using App.Domain.Core.ExpertEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,33 +31,70 @@ namespace App.Infra.DataAccess.Repo.EF
             return new List<Expert>();
         }
 
-        public async Task<Expert> GetById(int id, CancellationToken cancellationToken)
+        public async Task<List<int>> GetExpertCategories(int expertId, CancellationToken cancellationToken)
         {
-            var expert = await _context.Experts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
-            if (expert != null)
-            {
-                return expert;
-            }
-            return new Expert();
+            //var expert = await _context.Experts.Include(e => e.Categories).FirstOrDefaultAsync(e => e.Id == expertId, cancellationToken);
+            //if (expert != null)
+            //{
+            //    var expertCategoryIds = expert.Categories.Select(c => c.Id).ToList();
+            //    return expertCategoryIds;
+            //}
+            //return new List<int>();
+
+            var expertCategoryIds = await _context.Experts.Where(e => e.ApplicationUser.Id == expertId)
+                .SelectMany(e => e.Categories)
+                .Select(c => c.Id).ToListAsync(cancellationToken);
+
+            return expertCategoryIds ?? new List<int>();
+
         }
 
-        public async Task<bool> Register(Expert newExpert, CancellationToken cancellationToken)
+        public async Task<ExpertSummaryDto> GetSummary(int expertId, CancellationToken cancellationToken)
         {
-            await _context.Experts.AddAsync(newExpert, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
-            return true;
-        }
-        #endregion
+            var expertSummary = await _context.Experts.Where(e => e.ApplicationUserId == expertId).Select(e => new ExpertSummaryDto
+            {
+                ExpertId = e.Id,
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                Email = e.ApplicationUser.Email,
+                PhoneNumber = e.ApplicationUser.PhoneNumber,
+                ImageAddress = e.ProfileImageUrl,
+                CategoryIds = e.Categories.Select(c => c.Id).ToList()
+            }).FirstOrDefaultAsync(cancellationToken);
 
-        #region Private methods
-        private async Task<Expert> FindById(int id, CancellationToken cancellationToken)
+            return expertSummary ?? throw new Exception($"Expert with Id : {expertId} not found!");
+        }
+
+        public async Task Update(ExpertSummaryDto expertSummaryDto, CancellationToken cancellationToken)
         {
-            var expert = await _context.Experts.FindAsync(id, cancellationToken);
+            //var expert = await FindById(expertSummaryDto.ExpertId, cancellationToken);
+            var expert = await _context.Experts.Include(e => e.ApplicationUser)
+                .FirstOrDefaultAsync(e => e.Id == expertSummaryDto.ExpertId);
+
             if (expert != null)
             {
-                return expert;
+                expert.Categories.Clear();
+
+                if (expertSummaryDto.CategoryIds is not null)
+                {
+                    foreach (var catId in expertSummaryDto.CategoryIds)
+                    {
+                        var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == catId);
+                        expert.Categories.Add(category);
+                    }
+                }
+
+                expert.FirstName = expertSummaryDto.FirstName;
+                expert.LastName = expertSummaryDto.LastName;
+                expert.ApplicationUser.Email = expertSummaryDto.Email;
+                expert.ApplicationUser.PhoneNumber = expertSummaryDto.PhoneNumber;
+                expert.ProfileImageUrl = expertSummaryDto.ImageAddress;
+
+                await _context.SaveChangesAsync(cancellationToken);
             }
-            throw new Exception($"Expert with Id {id} not found");
+
+            else
+                throw new Exception($"Expert with Id {expertSummaryDto.ExpertId} not found");
         }
         #endregion
     }
