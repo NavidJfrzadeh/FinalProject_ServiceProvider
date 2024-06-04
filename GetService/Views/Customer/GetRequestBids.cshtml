@@ -1,44 +1,42 @@
 ﻿@using App.Domain.Core.BidEntity.DTOs
+@using App.Domain.Core._0_BaseEntities.Enums
 @model List<CustomerRequestBidsDto>
 @{
     Layout = "_CustomerProfileLayout";
 }
 
-<div class=" container col-lg-8">
-    <table class="table table-striped table-hover table-responsive">
-        <thead>
+<table class="table table-striped table-hover table-responsive">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">نام کارشناس</th>
+            <th scope="col">توضیحات کارشناس</th>
+            <th scope="col">تاریخ انجام کار</th>
+            <th scope="col">قیمت</th>
+            <th scope="col">عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bid in Model)
+        {
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">نام کارشناس</th>
-                <th scope="col">توضیحات کارشناس</th>
-                <th scope="col">تاریخ انجام کار</th>
-                <th scope="col">قیمت</th>
-                <th scope="col">عملیات</th>
+                <th scope="row">@bid.BidId</th>
+                <td>@bid.ExpertFullName</td>
+                <td>@bid.Description</td>
+                <td>@bid.FinishedAtFa</td>
+                <td>@bid.Price</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="GetExpertComments" asp-route-expertId="@bid.ExpertId">مشاهده امتیاز</a>
+                    @if (bid.RequestStatus == Status.WaitingForChoosingExpert)
+                    {
+                        <a class="btn btn-sm btn-success" asp-action="AccesptBid" asp-route-bidId="@bid.BidId">تایید پیشنهاد</a>
+                    }
+                    @if (bid.RequestStatus == Status.RequestResponsed)
+                    {
+                        <a class="btn btn-sm btn-warning" asp-action="WriteCommentForExpert" asp-route-expertId="@bid.ExpertId">ثب نظر برای کارشناس</a>
+                    }
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var bid in Model)
-            {
-                <tr>
-                    <th scope="row">@bid.BidId</th>
-                    <td>@bid.ExpertFullName</td>
-                    <td>@bid.Description</td>
-                    <td>@bid.FinishedAtFa</td>
-                    <td>@bid.Price</td>
-                    <td>
-                        <a class="btn btn-sm btn-primary" asp-action="GetExpertComments" asp-route-expertId="@bid.ExpertId">مشاهده امتیاز</a>
-                        @if (!bid.IsRequestHasAcceptedBid)
-                        {
-                            <a class="btn btn-sm btn-success" asp-action="AccesptBid" asp-route-id="@bid.BidId">تایید پیشنهاد</a>
-                        }
-                        @if (bid.IsAccepted)
-                        {
-                            <a class="btn btn-sm btn-warning" asp-action="WriteCommentForExpert" asp-route-expertId="@bid.ExpertId">ثب نظر برای کارشناس</a>
-                        }
-                    </td>
-                </tr>
-            }
-
-        </tbody>
-    </table>
-</div>
+        }
+    </tbody>
+</table>

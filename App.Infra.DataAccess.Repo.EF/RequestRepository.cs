@@ -135,7 +135,6 @@ namespace App.Infra.DataAccess.Repo.EF
         {
             var request = await FindById(requestId, cancellationToken);
             request.Status = status;
-            request.IsAcceptBid = true;
             await _context.SaveChangesAsync(cancellationToken);
         }
         #endregion

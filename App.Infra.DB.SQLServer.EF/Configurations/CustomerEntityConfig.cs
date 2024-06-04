@@ -30,7 +30,7 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
                 .WithOne(ap => ap.Customer);
 
             builder.HasData(
-                new Customer { Id = 4, FirstName = "Maryam", LastName = "Asadi", FullName = "Maryam Asadi", Gender = Gender.female, ApplicationUserId = 4 }
+                new Customer { Id = 4, FirstName = "Maryam", LastName = "Asadi", FullName = "Maryam Asadi", Gender = Gender.Female, ApplicationUserId = 4 }
                 );
 
         }

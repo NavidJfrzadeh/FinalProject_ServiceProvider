@@ -5,14 +5,16 @@ namespace App.Domain.Core._0_BaseEntities.Enums
     public enum Status
     {
         [Display(Name = "منتظر تایید درخواست")]
-        level1 = 1,
+        WaitingForAcceptRequest = 1,
         [Display(Name = "در انتظار انتخاب کارشناس")]
-        level2,
+        WaitingForChoosingExpert,
         [Display(Name = "تایید کارشناس")]
-        level3,
+        AcceptExpert,
         [Display(Name = "به درخواست شما پاسخ داده شد")]
-        level4,
+        RequestResponsed,
+        [Display(Name = "نظر شما ثبت شد")]
+        CommentSubmited,
         [Display(Name = "درخواست شما توسط ادمین سایت رد شد")]
-        level5
+        RequestRejected
     }
 }

@@ -1,4 +1,5 @@
 ﻿using App.Domain.Core;
+using App.Domain.Core._0_BaseEntities.Enums;
 using App.Domain.Core.BidEntity.Contracts;
 using App.Domain.Core.CommentEntity.Contracts;
 using App.Domain.Core.CommentEntity.DTOs;
@@ -6,6 +7,7 @@ using App.Domain.Core.CustomerEntity.Contracts;
 using App.Domain.Core.CustomerEntity.DTOs;
 using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.RequestEntity.DTOs;
+using App.Infra.DB.SQLServer.EF.Migrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -112,14 +114,6 @@ namespace GetService.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetExpertComments(int expertId, CancellationToken cancellationToken)
-        {
-            var expertComments = await _commentAppSerivce.GetForExpert(expertId, cancellationToken);
-            return View(expertComments);
-        }
-
-
-        [HttpGet]
         public async Task<IActionResult> AccesptBid(int bidId, CancellationToken cancellationToken)
         {
             var result = await _bidAppService.AcceptBid(bidId, cancellationToken);
@@ -127,8 +121,15 @@ namespace GetService.Controllers
             if (result)
             {
                 int requestId = (int)TempData["requestId"];
-                await _requestAppService.SetRequestStatus(requestId, App.Domain.Core._0_BaseEntities.Enums.Status.level3, cancellationToken);
+                await _requestAppService.SetRequestStatus(requestId, Status.AcceptExpert, cancellationToken);
             }
+            return RedirectToAction("RequestList");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> FinishRequest(int requestId, CancellationToken cancellationToken)
+        {
+            await _requestAppService.SetRequestStatus(requestId, Status.RequestResponsed, cancellationToken);
             return RedirectToAction("RequestList");
         }
 
@@ -146,8 +147,20 @@ namespace GetService.Controllers
         [HttpPost]
         public async Task<IActionResult> WriteCommentForExpert(CreateCommentDto newCommentDto, CancellationToken cancellationToken)
         {
-            await _commentAppSerivce.Create(newCommentDto, cancellationToken);
+            var requestId = (int)TempData["requestId"];
+
+            var result = await _commentAppSerivce.Create(newCommentDto, cancellationToken);
+            if (result)
+                await _requestAppService.SetRequestStatus(requestId, Status.CommentSubmited, cancellationToken);
+
             return RedirectToAction("RequestList");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetExpertComments(int expertId, CancellationToken cancellationToken)
+        {
+            var expertComments = await _commentAppSerivce.GetForExpert(expertId, cancellationToken);
+            return View(expertComments);
         }
 
         [HttpGet]

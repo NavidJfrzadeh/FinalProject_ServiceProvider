@@ -41,7 +41,7 @@ namespace App.Infra.DataAccess.Repo.EF
             //}
             //return new List<int>();
 
-            var expertCategoryIds = await _context.Experts.Where(e => e.ApplicationUser.Id == expertId)
+            var expertCategoryIds = await _context.Experts.Where(e => e.Id == expertId)
                 .SelectMany(e => e.Categories)
                 .Select(c => c.Id).ToListAsync(cancellationToken);
 
@@ -51,7 +51,7 @@ namespace App.Infra.DataAccess.Repo.EF
 
         public async Task<ExpertSummaryDto> GetSummary(int expertId, CancellationToken cancellationToken)
         {
-            var expertSummary = await _context.Experts.Where(e => e.ApplicationUserId == expertId).Select(e => new ExpertSummaryDto
+            var expertSummary = await _context.Experts.Where(e => e.Id == expertId).Select(e => new ExpertSummaryDto
             {
                 ExpertId = e.Id,
                 FirstName = e.FirstName,

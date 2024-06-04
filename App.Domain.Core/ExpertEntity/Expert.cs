@@ -13,8 +13,7 @@ namespace App.Domain.Core.ExpertEntity
         public Expert()
         {
             CreatedAt = DateTime.Now;
-            IsDeleted = false;
-            FullName = string.Format("{0} {1}", FirstName, LastName);
+            IsDeleted = false; 
         }
 
         [Required]

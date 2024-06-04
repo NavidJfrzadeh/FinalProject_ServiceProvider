@@ -2,7 +2,6 @@
 using App.Domain.Core.BidEntity.Contracts;
 using App.Domain.Core.BidEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
-using App.Infra.DB.SQLServer.EF.Migrations;
 using Framework;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,9 +21,17 @@ namespace App.Infra.DataAccess.Repo.EF
         #endregion
 
         #region Implementations
-        public async Task<bool> Create(Bid bid, CancellationToken cancellationToken)
+        public async Task<bool> Create(CreateBidDto createBidDto, CancellationToken cancellationToken)
         {
-            await context.Bids.AddAsync(bid, cancellationToken);
+            var newBid = new Bid()
+            {
+                Description = createBidDto.Description,
+                ExpertId = createBidDto.ExpertId,
+                Price = createBidDto.Price,
+                RequestId = createBidDto.RequestId,
+                FinishedAt = createBidDto.DateFor,
+            };
+            await context.Bids.AddAsync(newBid, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
             return true;
         }
@@ -45,9 +52,8 @@ namespace App.Infra.DataAccess.Repo.EF
                     Price = b.Price,
                     ExpertFullName = b.Expert.FullName,
                     ExpertId = b.ExpertId,
-                    IsAccepted = b.IsAccepted,
                     FinishedAtFa = b.FinishedAt.ToPersianString("dddd, dd MMMM, yyyy"),
-                    IsRequestHasAcceptedBid = b.Request.IsAcceptBid
+                    RequestStatus = b.Request.Status
                 }).ToListAsync(cancellationToken);
 
             return bids;
@@ -70,11 +76,7 @@ namespace App.Infra.DataAccess.Repo.EF
         private async Task<Bid> FindBid(int id, CancellationToken cancellationToken)
         {
             var bid = await context.Bids.FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
-            if (bid != null)
-            {
-                return bid;
-            }
-            throw new Exception($"Suggestion with Id {id} not found");
+            return bid ?? throw new Exception($"Suggestion with Id {id} not found");
         }
         #endregion
     }

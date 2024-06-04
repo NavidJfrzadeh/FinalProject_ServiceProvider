@@ -34,7 +34,7 @@ namespace GetService.Areas.Account.Pages
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl = Url.Content("~/");
 
             if (!ModelState.IsValid) return Page();
 

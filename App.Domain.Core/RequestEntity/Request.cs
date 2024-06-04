@@ -14,8 +14,7 @@ namespace App.Domain.Core.RequestEntity
             CreatedAt = DateTime.Now;
             IsDeleted = false;
             IsAccepted = false;
-            Status = Status.level1;
-            IsAcceptBid = false;
+            Status = Status.WaitingForChoosingExpert;
         }
 
         [Key]
@@ -32,6 +31,5 @@ namespace App.Domain.Core.RequestEntity
         public List<Bid>? Bids { get; set; } = new List<Bid>();
         public Status Status { get; set; }
         public bool IsAccepted { get; set; }
-        public bool IsAcceptBid { get; set; }
     }
 }

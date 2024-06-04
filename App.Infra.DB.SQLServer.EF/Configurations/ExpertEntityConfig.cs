@@ -29,8 +29,8 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
                 .WithOne(ap => ap.Expert);
 
             builder.HasData(
-                new Expert { Id = 2, FirstName = "Ali", LastName = "Karimi", FullName = "Ali Karimi", Gender = Gender.male, ApplicationUserId = 2 },
-                new Expert { Id = 3, FirstName = "Sahar", LastName = "Akbari", FullName = "Sahar Akbari", Gender = Gender.female, ApplicationUserId = 3 }
+                new Expert { Id = 2, FirstName = "Ali", LastName = "Karimi", FullName = "Ali Karimi", Gender = Gender.Male, ApplicationUserId = 2 },
+                new Expert { Id = 3, FirstName = "Sahar", LastName = "Akbari", FullName = "Sahar Akbari", Gender = Gender.Female, ApplicationUserId = 3 }
                 );
         }
     }

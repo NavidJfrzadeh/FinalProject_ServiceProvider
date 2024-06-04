@@ -1,9 +1,15 @@
-﻿using App.Domain.Core.BidEntity.DTOs;
+﻿using App.Domain.Core;
+using App.Domain.Core._0_BaseEntities.Enums;
+using App.Domain.Core._1_BaseEntities.AccountAppService;
+using App.Domain.Core.BidEntity.Contracts;
+using App.Domain.Core.BidEntity.DTOs;
 using App.Domain.Core.ExpertEntity.Contracts;
 using App.Domain.Core.ExpertEntity.DTOs;
 using App.Domain.Core.RequestEntity.Contracts;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GetService.Controllers
 {
@@ -13,26 +19,34 @@ namespace GetService.Controllers
         #region Fields
         private readonly IExpertAppService _expertAppService;
         private readonly IRequestAppService _requestAppService;
+        private readonly IBidAppService _bidAppService;
+        private readonly UserManager<ApplicationUser> _userManager;
         #endregion
 
         #region Ctors
         public ExpertController(IExpertAppService expertAppService
-            , IRequestAppService requestAppService)
+            , IRequestAppService requestAppService
+            , IBidAppService bidAppService
+            , UserManager<ApplicationUser> userManager)
         {
             _expertAppService = expertAppService;
             _requestAppService = requestAppService;
+            _bidAppService = bidAppService;
+            _userManager = userManager;
         }
         #endregion
 
-        public IActionResult Dashboard()
+        public async Task<IActionResult> Dashboard()
         {
+            var Expert = await _userManager.GetUserAsync(User);
+            ViewData["expertName"] = Expert.FullName;
             return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> ProfileEdit(CancellationToken cancellationToken)
         {
-            var expertId = int.Parse(User.Claims.First().Value);
+            var expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
             var expertSummary = await _expertAppService.GetSummary(expertId, cancellationToken);
             return View(expertSummary);
         }
@@ -46,13 +60,14 @@ namespace GetService.Controllers
 
         public async Task<IActionResult> GetRequests(CancellationToken cancellationToken)
         {
-            var expertId = int.Parse(User.Claims.First().Value);
+            var expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
             var categoryRequests = await _requestAppService.GetForCategory(expertId, cancellationToken);
             return View(categoryRequests);
         }
 
-        public async Task<IActionResult> GetRequestDetails(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetRequestDetails(int requestId, CancellationToken cancellationToken)
         {
+            //var reqeust = 
             return View();
         }
 
@@ -62,14 +77,27 @@ namespace GetService.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateBid(CancellationToken cancellationToken)
+        public async Task<IActionResult> BidCreate(int requestId, CancellationToken cancellationToken)
         {
+            ViewData["requestId"] = requestId;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBid(CreateBidDto createBidDto, CancellationToken cancellationToken)
+        public async Task<IActionResult> BidCreate(CreateBidDto createBidDto, CancellationToken cancellationToken)
         {
+            var isCreated = await _bidAppService.Create(createBidDto, cancellationToken);
+            if (isCreated)
+            {
+                await _requestAppService.SetRequestStatus(createBidDto.RequestId, Status.WaitingForChoosingExpert, cancellationToken);
+            }
+            return RedirectToAction("GetRequests");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetComments(CancellationToken cancellationToken)
+        {
+            //var comments = 
             return View();
         }
     }

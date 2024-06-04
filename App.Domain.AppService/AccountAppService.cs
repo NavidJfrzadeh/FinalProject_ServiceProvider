@@ -4,6 +4,7 @@ using App.Domain.Core.CustomerEntity;
 using App.Domain.Core.Enums;
 using App.Domain.Core.ExpertEntity;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace App.Domain.AppService;
 public class AccountAppService : IAccountAppService
@@ -38,7 +39,8 @@ public class AccountAppService : IAccountAppService
             {
                 FirstName = firstName,
                 LastName = lastName,
-                Gender = gender
+                Gender = gender,
+                FullName = string.Format("{0} {1}", firstName, lastName)
             };
         }
         else
@@ -48,13 +50,28 @@ public class AccountAppService : IAccountAppService
             {
                 FirstName = firstName,
                 LastName = lastName,
-                Gender = gender
+                Gender = gender,
+                FullName = string.Format("{0} {1}", firstName, lastName)
             };
         }
 
         var result = await _userManager.CreateAsync(user, password);
         if (result.Succeeded)
+        {
+            if (isExpert)
+            {
+                var userExpertId = user.Expert!.Id;
+                await _userManager.AddClaimAsync(user, new Claim("userExpertId", userExpertId.ToString()));
+            }
+
+            else
+            {
+                var userCustomerId = user.Customer!.Id;
+                await _userManager.AddClaimAsync(user, new Claim("userCustomerId", userCustomerId.ToString()));
+            }
+
             await _userManager.AddToRoleAsync(user, role);
+        }
 
         return (List<IdentityError>)result.Errors;
     }

@@ -1,6 +1,7 @@
 ﻿using App.Domain.Core.BidEntity;
 using App.Domain.Core.BidEntity.Contracts;
 using App.Domain.Core.BidEntity.DTOs;
+using Framework;
 
 namespace App.Domain.AppService;
 
@@ -18,8 +19,12 @@ public class BidAppService : IBidAppService
     #endregion
 
     #region Implementations
-    public async Task<bool> Create(Bid bid, CancellationToken cancellationToken)
-     => await _bidService.Create(bid, cancellationToken);
+    public async Task<bool> Create(CreateBidDto createBidDto, CancellationToken cancellationToken)
+    {
+        var dateFor = createBidDto.PersianDate.ConvertToGregorian();
+        createBidDto.DateFor = dateFor;
+        return await _bidService.Create(createBidDto, cancellationToken);
+    }
 
     public async Task<Bid> GetById(int id, CancellationToken cancellationToken)
         => await _bidService.GetById(id, cancellationToken);

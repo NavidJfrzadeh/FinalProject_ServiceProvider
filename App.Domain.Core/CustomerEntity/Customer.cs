@@ -13,7 +13,6 @@ public class Customer : BaseProperties
     {
         CreatedAt = DateTime.Now;
         IsDeleted = false;
-        FullName = string.Format("{0} {1}", FirstName, LastName);
     }
     public int Id { get; set; }
     [MaxLength(500)]

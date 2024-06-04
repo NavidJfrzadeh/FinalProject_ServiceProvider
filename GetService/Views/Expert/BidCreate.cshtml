@@ -1,0 +1,77 @@
+﻿@using App.Domain.Core.BidEntity.DTOs
+@model CreateBidDto;
+@{
+    Layout = "_ExpertProfileLayout";
+    var requestId = (int)ViewData["requestId"];
+    var expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
+}
+
+<div class="col-xl-12 col-lg-2 col-md-12 col-sm-12">
+    <div class="submit-form">
+        <div class="dashboard-list-wraps bg-white rounded mb-4">
+            <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
+                <div class="dashboard-list-wraps-flx">
+                    <h4 class="mb-0 ft-medium fs-md">ایجاد پیشنهاد</h4>
+                </div>
+            </div>
+            <form method="post" asp-action="BidCreate" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="dashboard-list-wraps-body py-3 px-3">
+                    <div class="row">
+
+                        <input type="hidden" asp-for="@Model.RequestId" value="@requestId" />
+                        <input type="hidden" asp-for="@Model.ExpertId" value="@expertId" />
+
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="@Model.PersianDate" class="form-label"></label>
+                                <input asp-for="@Model.PersianDate" data-jdp class="form-control rounded" />
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                            <div class="form-group">
+                                <label asp-for="Description" class="mb-1"></label>
+                                <textarea asp-for="@Model.Description" class="form-control rounded" rows="5" cols="4"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5">
+                            <label asp-for="Price" class="form-label"></label>
+                            <input type="number" asp-for="@Model.Price" class="form-control" />
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group p-2">
+                                <button type="submit" class="btn theme-cl rounded theme-bg-light ft-medium">ثبت</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        jalaliDatepicker.startWatch({
+            minDate: "attr",
+            maxDate: "attr",
+            minTime: "attr",
+            maxTime: "attr",
+            hideAfterChange: true,
+            autoHide: true,
+            showTodayBtn: true,
+            showEmptyBtn: true,
+            topSpace: 10,
+            bottomSpace: 30,
+            dayRendering(opt, input) {
+                return {
+                    isHollyDay: opt.day == 1
+                }
+            }
+        });
+
+        document.getElementById("aaa").addEventListener("jdp:change", function (e) { console.log(e) });
+    </script>
+}

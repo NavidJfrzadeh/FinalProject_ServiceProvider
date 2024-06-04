@@ -11,7 +11,7 @@ public class CreateBidDto
     [Required(ErrorMessage = "تاریخ را وارد کنید")]
     [DisplayName("تاریخ اتمام کار")]
     public string PersianDate { get; set; }
-    public DateTime? DateFor { get; set; }
+    public DateTime DateFor { get; set; }
     [Required(ErrorMessage = "توضیحات پیشنهادتان را وارد کنید")]
     [DisplayName("توضیحات")]
     public string Description { get; set; }

@@ -1,4 +1,6 @@
-﻿namespace App.Domain.Core.BidEntity.DTOs;
+﻿using App.Domain.Core._0_BaseEntities.Enums;
+
+namespace App.Domain.Core.BidEntity.DTOs;
 
 public class CustomerRequestBidsDto
 {
@@ -8,6 +10,5 @@ public class CustomerRequestBidsDto
     public string Description { get; set; }
     public int ExpertId { get; set; }
     public string ExpertFullName { get; set; }
-    public bool IsAccepted { get; set; }
-    public bool IsRequestHasAcceptedBid { get; set; }
+    public Status RequestStatus { get; set; }
 }

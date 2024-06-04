@@ -1,18 +1,13 @@
 ﻿@{
     Layout = "_ExpertProfileLayout";
+    var expertName = (string)ViewData["expertName"];
 }
 
 <div class="goodup-dashboard-content">
     <div class="dashboard-tlbar d-block mb-5">
         <div class="row">
             <div class="colxl-12 col-lg-12 col-md-12">
-                <h1 class="ft-medium fs-4">سلام @User.Identity.Name</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item text-muted"><a href="#">خانه</a></li>
-                        <li class="breadcrumb-item"><a href="#" class="theme-cl">داشبورد</a></li>
-                    </ol>
-                </nav>
+                <h1 class="ft-medium fs-4">سلام @expertName</h1>
             </div>
         </div>
     </div>
@@ -21,7 +16,7 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 mb-3">
                 <div class="alert bg-inverse text-light d-flex align-items-center" role="alert">
-                    <p class="p-0 m-0 ft-medium full-width">آگهی <a href="#" class="text-success">هتل لاله پارک تبریز</a> تایید شد!</p>
+                    <p class="p-0 m-0 ft-medium full-width"><a href="#" class="text-success">پیشنهاد شما</a> تایید شد!</p>
                     <button type="button" class="btn-close text-light" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
@@ -29,21 +24,21 @@
         <div class="row">
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                 <div class="dsd-boxed-widget py-5 px-4 bg-danger rounded">
-                    <h2 class="ft-medium mb-1 fs-xl text-light count">46</h2>
+                    <h2 class="ft-medium mb-1 fs-xl text-light count">4</h2>
                     <p class="p-0 m-0 text-light fs-md">درخواست های جدید</p>
                     <i class="lni lni-empty-file"></i>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                 <div class="dsd-boxed-widget py-5 px-4 bg-success rounded">
-                    <h2 class="ft-medium mb-1 fs-xl text-light count">2615</h2>
+                    <h2 class="ft-medium mb-1 fs-xl text-light count">2</h2>
                     <p class="p-0 m-0 text-light fs-md">سوابق کاری</p>
                     <i class="lni lni-eye"></i>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                 <div class="dsd-boxed-widget py-5 px-4 bg-warning rounded">
-                    <h2 class="ft-medium mb-1 fs-xl text-light count">312</h2>
+                    <h2 class="ft-medium mb-1 fs-xl text-light count">2</h2>
                     <p class="p-0 m-0 text-light fs-md">تعداد نظرات</p>
                     <i class="lni lni-comments"></i>
                 </div>
@@ -270,12 +265,4 @@
         </div>
 
     </div>
-
-    <!-- footer -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="py-3">© 2022 Goodup ارائه شده در سایت <a href="https://rtl-theme.com/">راست چین</a></div>
-        </div>
-    </div>
-
 </div>

@@ -46,11 +46,11 @@
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="gender">جنسیت:</label>
-                                    <input class="radio-custom" type="radio" id="gender-male" name="gender" value="male">
-                                    <label class="radio-custom-label" for="gender-male">مرد</label>
-                                    <input class="radio-custom" type="radio" id="gender-female" name="gender" value="female">
-                                    <label class="radio-custom-label" for="gender-female">زن</label>
+                                    <label class="form-label">جنسیت:</label>
+                                    <select asp-for="@Model.RegisterView.Gender" class="form-select">
+                                        <option value="@Gender.Male">آقا</option>
+                                        <option value="@Gender.Female">خانم</option>
+                                    </select>
                                 </div>
                             </div>
 

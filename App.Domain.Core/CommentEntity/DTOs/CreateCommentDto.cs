@@ -10,7 +10,7 @@ public class CreateCommentDto
     public int CustomerId { get; set; }
     public int ExpertId { get; set; }
     [Required]
-    [Display(Name = "امتیاز دهید 0 تا 10")]
+    [Display(Name = "امتیاز دهید")]
     public int Score { get; set; }
     [Required]
     [Display(Name = "متن نظر")]

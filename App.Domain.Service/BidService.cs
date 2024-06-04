@@ -19,8 +19,8 @@ public class BidService : IBidService
 
 
     #region Implementations
-    public async Task<bool> Create(Bid bid, CancellationToken cancellationToken)
-        => await _bidRepository.Create(bid, cancellationToken);
+    public async Task<bool> Create(CreateBidDto createBidDto, CancellationToken cancellationToken)
+        => await _bidRepository.Create(createBidDto, cancellationToken);
 
     public async Task<Bid> GetById(int id, CancellationToken cancellationToken)
         => await _bidRepository.GetById(id, cancellationToken);
