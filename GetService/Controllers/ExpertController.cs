@@ -1,15 +1,14 @@
 ﻿using App.Domain.Core;
 using App.Domain.Core._0_BaseEntities.Enums;
-using App.Domain.Core._1_BaseEntities.AccountAppService;
 using App.Domain.Core.BidEntity.Contracts;
 using App.Domain.Core.BidEntity.DTOs;
+using App.Domain.Core.CommentEntity.Contracts;
 using App.Domain.Core.ExpertEntity.Contracts;
 using App.Domain.Core.ExpertEntity.DTOs;
 using App.Domain.Core.RequestEntity.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace GetService.Controllers
 {
@@ -20,6 +19,7 @@ namespace GetService.Controllers
         private readonly IExpertAppService _expertAppService;
         private readonly IRequestAppService _requestAppService;
         private readonly IBidAppService _bidAppService;
+        private readonly ICommentAppService _commentAppService;
         private readonly UserManager<ApplicationUser> _userManager;
         #endregion
 
@@ -27,11 +27,13 @@ namespace GetService.Controllers
         public ExpertController(IExpertAppService expertAppService
             , IRequestAppService requestAppService
             , IBidAppService bidAppService
-            , UserManager<ApplicationUser> userManager)
+            , UserManager<ApplicationUser> userManager
+            , ICommentAppService commentAppService)
         {
             _expertAppService = expertAppService;
             _requestAppService = requestAppService;
             _bidAppService = bidAppService;
+            _commentAppService = commentAppService;
             _userManager = userManager;
         }
         #endregion
@@ -97,8 +99,9 @@ namespace GetService.Controllers
         [HttpGet]
         public async Task<IActionResult> GetComments(CancellationToken cancellationToken)
         {
-            //var comments = 
-            return View();
+            var expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
+            var comments = await _commentAppService.GetForExpert(expertId, cancellationToken);
+            return View(comments);
         }
     }
 }

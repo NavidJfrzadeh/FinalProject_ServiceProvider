@@ -28,7 +28,7 @@ namespace App.Domain.Core.ExpertEntity
         [Required, MaxLength(100)]
         public string FullName { get; set; }
         public Gender Gender { get; set; }
-        public List<Category>? Categories { get; set; } = new List<Category>();
+        public List<Category>? Categories { get; set; }
         public decimal? Score { get; set; } //cause more load to application
         public List<Comment>? Comments { get; set; } = new List<Comment>();
         public List<Service>? Services { get; set; } = new List<Service>();

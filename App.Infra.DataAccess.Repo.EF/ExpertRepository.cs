@@ -1,4 +1,5 @@
-﻿using App.Domain.Core.CategoryEntity.DTOs;
+﻿using App.Domain.Core.CategoryEntity;
+using App.Domain.Core.CategoryEntity.DTOs;
 using App.Domain.Core.ExpertEntity;
 using App.Domain.Core.ExpertEntity.Contracts;
 using App.Domain.Core.ExpertEntity.DTOs;
@@ -68,11 +69,14 @@ namespace App.Infra.DataAccess.Repo.EF
         public async Task Update(ExpertSummaryDto expertSummaryDto, CancellationToken cancellationToken)
         {
             //var expert = await FindById(expertSummaryDto.ExpertId, cancellationToken);
-            var expert = await _context.Experts.Include(e => e.ApplicationUser)
+            var expert = await _context.Experts.Include(e => e.ApplicationUser).Include(e =>e.Categories)
                 .FirstOrDefaultAsync(e => e.Id == expertSummaryDto.ExpertId);
 
             if (expert != null)
             {
+                expert.Categories ??= new List<Category>();
+
+
                 expert.Categories.Clear();
 
                 if (expertSummaryDto.CategoryIds is not null)

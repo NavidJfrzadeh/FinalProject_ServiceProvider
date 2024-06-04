@@ -14,7 +14,7 @@ namespace App.Domain.Core.RequestEntity
             CreatedAt = DateTime.Now;
             IsDeleted = false;
             IsAccepted = false;
-            Status = Status.WaitingForChoosingExpert;
+            Status = Status.WaitingForAcceptRequest;
         }
 
         [Key]

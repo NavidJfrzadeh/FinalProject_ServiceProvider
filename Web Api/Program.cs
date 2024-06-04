@@ -2,6 +2,7 @@ using App.Domain.AppService;
 using App.Domain.Core;
 using App.Domain.Core._1_BaseEntities.AccountAppService;
 using App.Domain.Core.CategoryEntity.Contracts;
+using App.Domain.Core.ExpertEntity.Contracts;
 using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Service;
 using App.Infra.DataAccess.Repo.EF;
@@ -19,6 +20,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+//expert
+builder.Services.AddScoped<IExpertService, ExpertService>();
+builder.Services.AddScoped<IExpertAppService, ExpertAppService>();
+builder.Services.AddScoped<IExpertRepository, ExpertRepository>();
 
 //Requests
 builder.Services.AddScoped<IRequestAppService, RequestAppService>();

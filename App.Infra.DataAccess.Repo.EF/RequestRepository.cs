@@ -6,7 +6,6 @@ using App.Domain.Core.RequestEntity.DTOs;
 using App.Infra.DB.SQLServer.EF;
 using Framework;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
 
 namespace App.Infra.DataAccess.Repo.EF
 {
@@ -112,7 +111,7 @@ namespace App.Infra.DataAccess.Repo.EF
 
         public async Task<List<RequestDto>> GetForCategory(List<int> categoryIds, CancellationToken cancellationToken)
         {
-            var requests = await _context.Requests.Where(r => categoryIds.Contains(r.Service.CategoryId))
+            var requests = await _context.Requests.Where(r => categoryIds.Contains(r.Service.CategoryId) && r.Status != Status.WaitingForAcceptRequest)
                 .Select(r => new RequestDto
                 {
                     RequestId = r.Id,

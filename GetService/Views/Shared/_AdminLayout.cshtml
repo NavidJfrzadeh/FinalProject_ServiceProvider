@@ -291,10 +291,9 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="login.html">
-                                    <i class="icon-power"></i>
-                                    خروج
-                                </a>
+                                <form class="form-inline" asp-area="Account" asp-page="/Logout" asp-route-returnUrl="/Home/Index">
+                                    <button type="submit" class="nav-link btn btn-link text-dark"><i class="icon-power"></i>  خروج</button>
+                                </form>
                             </li>
                         </ul>
                     </li>
@@ -634,8 +633,6 @@
     <script src="~/assets/plugins/jquery-knob/dist/jquery.knob.min.js"></script>
     <script src="~/assets/js/pages/dashboard1.js"></script>
     <!-- END PAGE JAVASCRIPT -->
-
-
     @*     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

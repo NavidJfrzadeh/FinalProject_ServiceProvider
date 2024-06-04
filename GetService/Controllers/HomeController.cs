@@ -30,8 +30,8 @@ namespace GetService.Controllers
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            if (User.IsInRole("Admin")) return RedirectToAction("Dashboard", "Admin");
-            if (User.IsInRole("Expert")) return RedirectToAction("Dashboard", "Expert"); ;
+            if (User.IsInRole("Admin")) return LocalRedirect("/Admin/Admin/index");
+            if (User.IsInRole("Expert")) return LocalRedirect("/Expert/Dashboard");
 
             var homeViewModel = new HomePageViewModel();
             homeViewModel.CategoriesViewModel = await _categoryAppService.GetAll(cancellationToken);

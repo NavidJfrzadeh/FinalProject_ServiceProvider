@@ -1,0 +1,47 @@
+﻿@using App.Domain.Core.CommentEntity.DTOs
+@model List<ExpertCommentDto>
+@{
+    Layout = "_ExpertProfileLayout";
+}
+
+<div class="col-xl-12 col-lg-12">
+    <div class="dashboard-list-wraps bg-white rounded mb-4">
+        <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
+            <div class="dashboard-list-wraps-flx">
+                <h4 class="mb-0 ft-medium fs-md"><i class="fa fa-file-alt ms-2 theme-cl fs-sm"></i>نظرات</h4>
+            </div>
+        </div>
+        @foreach (var comment in Model)
+        {
+            <div class="dashboard-list-wraps-body py-3 px-3">
+                <div class="dashboard-listing-wraps">
+                    <div class="dsd-single-listing-wraps">
+                        <div class="dsd-single-lst-thumb"><img src="~/assetsHomePage/img/listing/l-8.jpg" class="img-fluid" alt="" /></div>
+                        <div class="dsd-single-lst-caption">
+                            <div class="dsd-single-lst-title"><h5>@comment.Title</h5></div>
+                            <span class="agd-location">@comment.CustomerFullName</span>
+                            <div class="ico-content">
+                                <div class="Goodup-ft-first">
+                                    <div class="Goodup-rating">
+                                        <div class="Goodup-rates">
+                                            @for (int i = 0; i < comment.Score; i++)
+                                            {
+                                                <i class="fas fa-star"></i>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="Goodup-price-range">
+                                        <span class="ft-medium">@comment.Score</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span>@comment.Description</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

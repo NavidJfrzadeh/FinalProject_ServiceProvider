@@ -63,8 +63,10 @@ namespace App.Infra.DataAccess.Repo.EF
                     Score = c.Score,
                     CreatedAtFa = c.CreatedAt.ToPersianString("yyyy/MM/dd"),
                     CustomerFullName = c.Customer.ApplicationUser.FullName,
+                    CustomerImage = c.Customer.ProfileImageUrl,
                     Description = c.Description
                 }).ToListAsync(cancellationToken);
+
             return comments;
         }
 
@@ -119,11 +121,7 @@ namespace App.Infra.DataAccess.Repo.EF
         private async Task<Comment> FindById(int id, CancellationToken cancellationToken)
         {
             var comment = await _context.Comments.FindAsync(id, cancellationToken);
-            if (comment != null)
-            {
-                return comment;
-            }
-            throw new Exception($"Comment with Id {id} not found");
+            return comment ?? throw new Exception($"Comment with Id {id} not found");
         }
         #endregion
     }
