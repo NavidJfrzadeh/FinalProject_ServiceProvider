@@ -3,6 +3,7 @@ using App.Domain.Core.BidEntity;
 using App.Domain.Core.CategoryEntity;
 using App.Domain.Core.CommentEntity;
 using App.Domain.Core.Enums;
+using App.Domain.Core.RequestEntity;
 using App.Domain.Core.ServiceEntity;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,7 +14,7 @@ namespace App.Domain.Core.ExpertEntity
         public Expert()
         {
             CreatedAt = DateTime.Now;
-            IsDeleted = false; 
+            IsDeleted = false;
         }
 
         [Required]
@@ -33,6 +34,7 @@ namespace App.Domain.Core.ExpertEntity
         public List<Comment>? Comments { get; set; } = new List<Comment>();
         public List<Service>? Services { get; set; } = new List<Service>();
         public List<Bid>? Bids { get; set; } = new List<Bid>();
+        public List<Request>? AcceptedRequests { get; set; } = new List<Request>();
         public long? CardNumber { get; set; }
         public int ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

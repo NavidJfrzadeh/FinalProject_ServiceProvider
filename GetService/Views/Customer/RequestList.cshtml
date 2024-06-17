@@ -35,13 +35,63 @@
                                 </div>
                             </div>
                             <div class="dsd-single-lst-footer">
-                                <a asp-action="GetRequestBids" asp-route-requestId="@request.RequestId" class="btn btn-view">مشاهده پیشنهاد ها</a>
-                                @if (request.Status == Status.AcceptExpert)
-                                {
-                                    <a class="btn btn-sm btn-warning" onclick="return confirm('تایید اتمام کار')" asp-action="FinishRequest" asp-route-requestId="@request.RequestId">اتمام درخواست</a>
-                                }
-                                <a asp-action="RemoveRequest" asp-route-id="@request.RequestId" onclick="return confirm('تایید حذف درخواست!')" class="btn btn-delete"><i class="fas fa-trash ms-1"></i>حذف</a>
+                                @* <a asp-action="GetRequestBids" asp-route-requestId="@request.RequestId" class="btn btn-view">مشاهده پیشنهاد ها</a> *@
+                                <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse" data-bs-target="#@("collapse-" + request.RequestId)" aria-expanded="false" aria-controls="@("collapse-" + request.RequestId)">پیشنهاد ها</button>
+                                <div class="collapse" id="@("collapse-" + request.RequestId)">
+                                    <div class="d-grid d-sm-flex p-3 border">
+                                        @if (!request.Bids.Any())
+                                        {
+                                            <span class="lh-1">پیشنهادی ندارید!</span>
+                                        }
+                                        else
+                                        {
+                                            <table class="table">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th>نام متخصص</th>
+                                                        <th>توضیحات</th>
+                                                        <th>تاریخ پیشنهادی</th>
+                                                        <th>قیمت پیشنهادی</th>
+                                                        <th>عملیات</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    @foreach (var bid in request.Bids)
+                                                    {
+                                                        <tr>
+                                                            <td>@bid.ExpertFullName</td>
+                                                            <td>@bid.Description</td>
+                                                            <td>@bid.FinishedAtFa</td>
+                                                            <td>@bid.Price</td>
+                                                            <td>
+                                                                <a class="btn btn-sm btn-primary" asp-action="GetExpertComments" asp-route-expertId="@bid.ExpertId">امتیاز کارشناس</a>
+                                                                @if (request.Status == Status.WaitingForChoosingExpert)
+                                                                {
+@*                                                                     <a class="btn btn-sm btn-success" asp-action="AccesptBid" asp-route-bidId="@bid.BidId">تایید پیشنهاد</a>
+ *@                                                                    @Html.ActionLink("تایید پیشنهاد", "AcceptBid", new { bidId = bid.BidId, requestId = request.RequestId })
+                                                                }
+                                                                @if (bid.IsAccepted)
+                                                                {
+                                                                    <button class="btn btn-secondary disabled">تایید شده</button>
+                                                                }
+                                                                @if (request.Status == Status.RequestResponsed)
+                                                                {
+                                                                    <a class="btn btn-sm btn-warning" asp-action="WriteCommentForExpert" asp-route-expertId="@bid.ExpertId">ثب نظر برای کارشناس</a>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                    </div>
+                                </div>
                             </div>
+                            @if (request.Status == Status.AcceptExpert)
+                            {
+                                <a class="btn btn-sm btn-warning rounded" onclick="return confirm('تایید اتمام کار')" asp-action="FinishRequest" asp-route-requestId="@request.RequestId">اتمام درخواست</a>
+                            }
+                            <a asp-action="RemoveRequest" asp-route-id="@request.RequestId" onclick="return confirm('تایید حذف درخواست!')" class="btn btn-danger btn-sm rounded"><i class="fas fa-trash ms-1"></i>حذف</a>
                         </div>
                     </div>
                 }

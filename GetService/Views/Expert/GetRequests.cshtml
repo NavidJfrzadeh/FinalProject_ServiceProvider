@@ -15,7 +15,7 @@
         </div>
         @foreach (var request in Model)
         {
-            <div class="dashboard-list-wraps-body py-3 px-3">
+            <div class="dashboard-list-wraps-body br-bottom py-3 px-3">
                 <div class="dashboard-listing-wraps">
                     <div class="dsd-single-listing-wraps">
                         <div class="dsd-single-lst-thumb"><img src="~/assetsHomePage/img/listing/l-8.jpg" class="img-fluid" alt="" /></div>
@@ -33,7 +33,29 @@
                                 <a asp-action="GetRequestDetails" asp-route-requestId="@request.RequestId" class="btn btn-view mr-1"><i class="fas fa-eye ms-1"></i>نمایش</a>
                                 @if (request.Status == Status.WaitingForChoosingExpert)
                                 {
-                                    <a asp-action="BidCreate" asp-route-requestId="@request.RequestId" class="btn btn-edit mr-1"><i class=" fas fa-edit ms-1"></i>پیشنهاد</a>
+                                    if (request.HasExpertBid == false)
+                                    {
+                                        <a asp-action="BidCreate" asp-route-requestId="@request.RequestId" class="btn btn-edit mr-1"><i class=" fas fa-edit ms-1"></i>پیشنهاد</a>
+                                    }
+                                    else
+                                    {
+                                        <p>پیشنهاد شما ثبت شد</p>
+                                    }
+                                }
+                                @if (request.Status == Status.AcceptExpert)
+                                {
+                                    @if (request.IsAcceptedBid == true)
+                                    {
+                                        <div class="text-success">
+                                            <p>پیشنهاد شما تایید مشتری شد</p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="text-warning">
+                                            <p>پیشنهاد شما انتخاب نشد</p>
+                                        </div>
+                                    }
                                 }
                             </div>
                         </div>

@@ -34,14 +34,6 @@ namespace App.Infra.DataAccess.Repo.EF
 
         public async Task<List<int>> GetExpertCategories(int expertId, CancellationToken cancellationToken)
         {
-            //var expert = await _context.Experts.Include(e => e.Categories).FirstOrDefaultAsync(e => e.Id == expertId, cancellationToken);
-            //if (expert != null)
-            //{
-            //    var expertCategoryIds = expert.Categories.Select(c => c.Id).ToList();
-            //    return expertCategoryIds;
-            //}
-            //return new List<int>();
-
             var expertCategoryIds = await _context.Experts.Where(e => e.Id == expertId)
                 .SelectMany(e => e.Categories)
                 .Select(c => c.Id).ToListAsync(cancellationToken);

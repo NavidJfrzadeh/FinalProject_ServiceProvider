@@ -26,7 +26,7 @@
                 <td>@bid.FinishedAtFa</td>
                 <td>@bid.Price</td>
                 <td>
-                    <a class="btn btn-sm btn-primary" asp-action="GetExpertComments" asp-route-expertId="@bid.ExpertId">مشاهده امتیاز</a>
+                   @*  <a class="btn btn-sm btn-primary" asp-action="GetExpertComments" asp-route-expertId="@bid.ExpertId">مشاهده امتیاز</a>
                     @if (bid.RequestStatus == Status.WaitingForChoosingExpert)
                     {
                         <a class="btn btn-sm btn-success" asp-action="AccesptBid" asp-route-bidId="@bid.BidId">تایید پیشنهاد</a>
@@ -34,7 +34,7 @@
                     @if (bid.RequestStatus == Status.RequestResponsed)
                     {
                         <a class="btn btn-sm btn-warning" asp-action="WriteCommentForExpert" asp-route-expertId="@bid.ExpertId">ثب نظر برای کارشناس</a>
-                    }
+                    } *@
                 </td>
             </tr>
         }

@@ -53,7 +53,7 @@ namespace App.Infra.DataAccess.Repo.EF
                     ExpertFullName = b.Expert.FullName,
                     ExpertId = b.ExpertId,
                     FinishedAtFa = b.FinishedAt.ToPersianString("dddd, dd MMMM, yyyy"),
-                    RequestStatus = b.Request.Status
+                    IsAccepted = b.IsAccepted
                 }).ToListAsync(cancellationToken);
 
             return bids;

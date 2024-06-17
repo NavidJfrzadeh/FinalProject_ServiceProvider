@@ -50,8 +50,8 @@ namespace GetService.Controllers
         {
             ActiveLink = "Active";
 
-            //var userId = int.Parse(User.Claims.First().Value);
-            var userId = int.Parse(_signInManager.UserManager.GetUserId(User));
+            //var userId = int.Parse(_signInManager.UserManager.GetUserId(User));
+            var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userCustomerId").Value);
             var customerSummary = await _customerAppSerivce.GetCustomerSummary(userId, cancellationToken);
             return View(customerSummary);
         }
@@ -68,7 +68,7 @@ namespace GetService.Controllers
             var newRequestDto = new CreateRequestDto
             {
                 ServiceId = id,
-                CustomerId = int.Parse(User.Claims.First().Value)
+                CustomerId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userCustomerId").Value)
             };
 
             return View(newRequestDto);
@@ -77,6 +77,8 @@ namespace GetService.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRequest(CreateRequestDto createRequestDto, CancellationToken cancellationToken)
         {
+            if (!ModelState.IsValid) return View(createRequestDto);
+
             var result = await _requestAppService.Create(createRequestDto, cancellationToken);
 
             if (result)
@@ -94,7 +96,7 @@ namespace GetService.Controllers
         {
             ActiveLink = "Active";
 
-            var customerId = int.Parse(User.Claims.First().Value);
+            var customerId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userCustomerId").Value);
 
             var CustomerRequests = await _requestAppService.GetCustomerRequests(customerId, cancellationToken);
 
@@ -113,13 +115,12 @@ namespace GetService.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> AccesptBid(int bidId, CancellationToken cancellationToken)
+        public async Task<IActionResult> AcceptBid(int bidId, int requestId, CancellationToken cancellationToken)
         {
             var result = await _bidAppService.AcceptBid(bidId, cancellationToken);
 
             if (result)
             {
-                int requestId = (int)TempData["requestId"];
                 await _requestAppService.SetRequestStatus(requestId, Status.AcceptExpert, cancellationToken);
             }
             return RedirectToAction("RequestList");
@@ -137,7 +138,7 @@ namespace GetService.Controllers
         {
             var newCommentDto = new CreateCommentDto
             {
-                CustomerId = int.Parse(User.Claims.First().Value),
+                CustomerId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userCustomerId").Value),
                 ExpertId = expertId
             };
             return View(newCommentDto);

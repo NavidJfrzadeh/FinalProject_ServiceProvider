@@ -8,7 +8,7 @@ namespace App.Domain.Core._0_BaseEntities.Enums
         WaitingForAcceptRequest = 1,
         [Display(Name = "در انتظار انتخاب کارشناس")]
         WaitingForChoosingExpert,
-        [Display(Name = "تایید کارشناس")]
+        [Display(Name = "کارشناس انتخاب شد")]
         AcceptExpert,
         [Display(Name = "به درخواست شما پاسخ داده شد")]
         RequestResponsed,

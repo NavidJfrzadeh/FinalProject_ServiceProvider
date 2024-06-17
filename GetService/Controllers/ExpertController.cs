@@ -63,7 +63,8 @@ namespace GetService.Controllers
         public async Task<IActionResult> GetRequests(CancellationToken cancellationToken)
         {
             var expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
-            var categoryRequests = await _requestAppService.GetForCategory(expertId, cancellationToken);
+            ViewData["expertId"] = expertId;
+            var categoryRequests = await _requestAppService.GetRequestsForExpert(expertId, cancellationToken);
             return View(categoryRequests);
         }
 
@@ -73,9 +74,11 @@ namespace GetService.Controllers
             return View();
         }
 
-        public IActionResult GetFinishedRequests()
+        public IActionResult GetFinishedRequests(CancellationToken cancellationToken)
         {
-            return View();
+            var expertId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userExpertId").Value);
+            var finishedRequests = _requestAppService.GetFinishedReqeustsForExpert(expertId, cancellationToken);
+            return View(finishedRequests);
         }
 
         [HttpGet]

@@ -50,16 +50,19 @@ public class RequestAppService : IRequestAppService
     public async Task<List<CustomerRequestDto>> GetCustomerRequests(int customerId, CancellationToken cancellationToken)
         => await _requestService.GetCustomerRequests(customerId, cancellationToken);
 
-    public async Task<List<RequestDto>> GetForCategory(int expertId, CancellationToken cancellationToken)
+    public async Task<List<RequestDto>> GetRequestsForExpert(int expertId, CancellationToken cancellationToken)
     {
         var categoryIds = await _expertService.GetExpertCategories(expertId, cancellationToken);
-        return await _requestService.GetForCategory(categoryIds, cancellationToken);
+        return await _requestService.GetRequestsForExpert(categoryIds, expertId, cancellationToken);
     }
 
     public async Task<List<Request>> GetForService(int serviceId, CancellationToken cancellationToken)
         => await _requestService.GetForService(serviceId, cancellationToken);
 
     public async Task SetRequestStatus(int requestId, Status status, CancellationToken cancellationToken)
-     => await _requestService.SetRequestStatus(requestId, status, cancellationToken);
+        => await _requestService.SetRequestStatus(requestId, status, cancellationToken);
+
+    public async Task<List<RequestDto>> GetFinishedReqeustsForExpert(int expertId, CancellationToken cancellationToken)
+        => await _requestService.GetFinishedReqeustsForExpert(expertId, cancellationToken);
     #endregion
 }

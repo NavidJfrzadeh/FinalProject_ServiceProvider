@@ -14,5 +14,6 @@ public interface IRequestService
     public Task<bool> Accept(int id, CancellationToken cancellationToken);
     public Task<bool> Delete(int id, CancellationToken cancellationToken);
     public Task SetRequestStatus(int requestId, Status status, CancellationToken cancellationToken);
-    public Task<List<RequestDto>> GetForCategory(List<int> categoryIds, CancellationToken cancellationToken);
+    public Task<List<RequestDto>> GetRequestsForExpert(List<int> categoryIds, int expertId, CancellationToken cancellationToken);
+    public Task<List<RequestDto>> GetFinishedReqeustsForExpert(int expertId, CancellationToken cancellationToken);
 }

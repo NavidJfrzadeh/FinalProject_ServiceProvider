@@ -48,6 +48,7 @@ namespace GetService.Controllers
         [HttpGet]
         public async Task<IActionResult> ServiceDetails(int serviceId, CancellationToken cancellationToken)
         {
+            if (serviceId is 0) return RedirectToAction("Index"); 
             var service = await _servicesAppService.GetDetails(serviceId, cancellationToken);
             return View(service);
         }

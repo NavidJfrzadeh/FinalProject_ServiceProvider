@@ -10,5 +10,5 @@ public class CustomerRequestBidsDto
     public string Description { get; set; }
     public int ExpertId { get; set; }
     public string ExpertFullName { get; set; }
-    public Status RequestStatus { get; set; }
+    public bool IsAccepted { get; set; }
 }
