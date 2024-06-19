@@ -22,6 +22,9 @@ public class RequestService : IRequestService
     public async Task<bool> Accept(int id, CancellationToken cancellationToken)
         => await _requestRepository.Accept(id, cancellationToken);
 
+    public async Task<bool> Reject(int requestId, CancellationToken cancellationToken)
+        => await _requestRepository.Reject(requestId, cancellationToken);
+
     public async Task<bool> Create(CreateRequestDto newRequestDto, CancellationToken cancellationToken)
         => await _requestRepository.Create(newRequestDto, cancellationToken);
 
@@ -31,7 +34,7 @@ public class RequestService : IRequestService
     public async Task<List<RequestDto>> GetAll(CancellationToken cancellationToken)
         => await _requestRepository.GetAll(cancellationToken);
 
-    public async Task<Request> GetById(int id, CancellationToken cancellationToken)
+    public async Task<RequestDetailsDto> GetById(int id, CancellationToken cancellationToken)
         => await _requestRepository.GetById(id, cancellationToken);
 
     public async Task<List<CustomerRequestDto>> GetCustomerRequests(int customerId, CancellationToken cancellationToken)
@@ -48,5 +51,17 @@ public class RequestService : IRequestService
 
     public async Task<List<RequestDto>> GetFinishedReqeustsForExpert(int expertId, CancellationToken cancellationToken)
          => await _requestRepository.GetFinishedReqeustsForExpert(expertId, cancellationToken);
+
+    public async Task<int> GetRequestsCount(CancellationToken cancellationToken)
+        => await _requestRepository.GetRequestsCount(cancellationToken);
+
+    public async Task SetExpert(int requestId, int expertId, CancellationToken cancellationToken)
+        => await _requestRepository.SetExpert(requestId, expertId, cancellationToken);
+
+    public async Task<List<CustomerRequestDto>> GetFinishedRequestsForCustomer(int customerId, CancellationToken cancellationToken)
+        => await _requestRepository.GetFinishedRequestsForCustomer(customerId, cancellationToken);
+
+    public async Task SetComment(int requestId, int commentId, CancellationToken cancellationToken)
+        => await _requestRepository.SetComment(requestId, commentId, cancellationToken);
     #endregion
 }

@@ -1,0 +1,54 @@
+﻿@using App.Domain.Core.RequestEntity.DTOs
+@using App.Domain.Core._0_BaseEntities.Enums
+@using Framework
+@model List<CustomerRequestDto>
+@{
+    Layout = "_CustomerProfileLayout";
+    TempData["Title"] = "درخواست های فعال";
+}
+
+
+<div class="col-xl-12 col-lg-12">
+    <div class="dashboard-list-wraps bg-white rounded mb-4">
+        <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
+            <div class="dashboard-list-wraps-flx">
+                <h4 class="mb-0 ft-medium fs-md"><i class="fa fa-file-alt ms-2 theme-cl fs-sm"></i>سفارش های انجام شده</h4>
+            </div>
+        </div>
+
+        <div class="dashboard-list-wraps-body py-3 px-3">
+            <div class="dashboard-listing-wraps">
+
+                @foreach (var request in Model)
+                {
+                    <div class="dsd-single-listing-wraps mb-5">
+                        <div class="dsd-single-lst-thumb"><img src="~/assetsHomePage/img/c-4.jpg" class="img-fluid" alt=""></div>
+                        <div class="dsd-single-lst-caption">
+                            <div class="dsd-single-lst-title"><h5>@request.ServiceTitle</h5></div>
+                            <div class="ico-content">
+                                <div class="Goodup-ft-first">
+                                    <div class="Goodup-price-range">
+                                        <span>@request.CreateDateFa</span>
+                                    </div>
+                                </div>
+                                <div class="Goodup-price-range">
+                                    <span>@request.Status.GetEnumDisplayName()</span>
+                                </div>
+                            </div>
+                            <div>
+                                @if (request.Comment == null)
+                                {
+                                    <a class="btn btn-sm btn-warning rounded mt-1" asp-action="WriteCommentForExpert" asp-route-requestId="@request.RequestId" asp-route-expertId="@request.ExpertId">ثبت دیدگاه</a>
+                                }
+                                else
+                                {
+                                    <div class="col-lg-2 px-2 py-1 medium bg-light-info rounded text-info text-center">دیدگاه شما ثبت شد</div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

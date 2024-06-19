@@ -10,10 +10,8 @@ namespace App.Domain.Core._0_BaseEntities.Enums
         WaitingForChoosingExpert,
         [Display(Name = "کارشناس انتخاب شد")]
         AcceptExpert,
-        [Display(Name = "به درخواست شما پاسخ داده شد")]
+        [Display(Name = "اتمام درخواست")]
         RequestResponsed,
-        [Display(Name = "نظر شما ثبت شد")]
-        CommentSubmited,
         [Display(Name = "درخواست شما توسط ادمین سایت رد شد")]
         RequestRejected
     }

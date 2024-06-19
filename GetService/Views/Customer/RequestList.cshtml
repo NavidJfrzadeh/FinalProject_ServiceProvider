@@ -4,6 +4,7 @@
 @model List<CustomerRequestDto>
 @{
     Layout = "_CustomerProfileLayout";
+    TempData["Title"] = "درخواست های فعال";
 }
 
 
@@ -11,7 +12,7 @@
     <div class="dashboard-list-wraps bg-white rounded mb-4">
         <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
             <div class="dashboard-list-wraps-flx">
-                <h4 class="mb-0 ft-medium fs-md"><i class="fa fa-file-alt ms-2 theme-cl fs-sm"></i>آگهی های من</h4>
+                <h4 class="mb-0 ft-medium fs-md"><i class="fa fa-file-alt ms-2 theme-cl fs-sm"></i>درخواست های من</h4>
             </div>
         </div>
 
@@ -35,7 +36,6 @@
                                 </div>
                             </div>
                             <div class="dsd-single-lst-footer">
-                                @* <a asp-action="GetRequestBids" asp-route-requestId="@request.RequestId" class="btn btn-view">مشاهده پیشنهاد ها</a> *@
                                 <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse" data-bs-target="#@("collapse-" + request.RequestId)" aria-expanded="false" aria-controls="@("collapse-" + request.RequestId)">پیشنهاد ها</button>
                                 <div class="collapse" id="@("collapse-" + request.RequestId)">
                                     <div class="d-grid d-sm-flex p-3 border">
@@ -64,19 +64,19 @@
                                                             <td>@bid.FinishedAtFa</td>
                                                             <td>@bid.Price</td>
                                                             <td>
-                                                                <a class="btn btn-sm btn-primary" asp-action="GetExpertComments" asp-route-expertId="@bid.ExpertId">امتیاز کارشناس</a>
+                                                                <a class="btn btn-sm btn-primary" asp-action="GetExpertComments" asp-route-expertId="@bid.ExpertId">دیدن امتیاز کارشناس</a>
                                                                 @if (request.Status == Status.WaitingForChoosingExpert)
                                                                 {
-@*                                                                     <a class="btn btn-sm btn-success" asp-action="AccesptBid" asp-route-bidId="@bid.BidId">تایید پیشنهاد</a>
- *@                                                                    @Html.ActionLink("تایید پیشنهاد", "AcceptBid", new { bidId = bid.BidId, requestId = request.RequestId })
+                                                                    <a class="btn btn-sm btn-success" asp-action="AcceptBid" asp-route-bidId="@bid.BidId" asp-route-requestId="@request.RequestId" asp-route-expertId="@bid.ExpertId">تایید پیشنهاد</a>
+                                                                    @* @Html.ActionLink("تایید پیشنهاد", "AcceptBid", new { bidId = bid.BidId, requestId = request.RequestId }) *@
                                                                 }
                                                                 @if (bid.IsAccepted)
                                                                 {
                                                                     <button class="btn btn-secondary disabled">تایید شده</button>
                                                                 }
-                                                                @if (request.Status == Status.RequestResponsed)
+                                                                @if (request.Status == Status.RequestResponsed && request.Comment == null && bid.IsAccepted)
                                                                 {
-                                                                    <a class="btn btn-sm btn-warning" asp-action="WriteCommentForExpert" asp-route-expertId="@bid.ExpertId">ثب نظر برای کارشناس</a>
+                                                                    <a class="btn btn-sm btn-warning mt-1" asp-action="WriteCommentForExpert" asp-route-requestId="@request.RequestId" asp-route-expertId="@bid.ExpertId">ثبت دیدگاه</a>
                                                                 }
                                                             </td>
                                                         </tr>

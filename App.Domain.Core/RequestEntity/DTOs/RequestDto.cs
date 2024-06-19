@@ -10,6 +10,6 @@ namespace App.Domain.Core.RequestEntity.DTOs
         public Status Status { get; set; }
         public bool IsAccepted { get; set; }
         public bool? HasExpertBid { get; set; } // check if current expert  already written a suggestion for request.
-        public bool? IsAcceptedBid { get; set; } // if there is any suggestions check that suggestion was accepted by Customer.
+        public bool? IsAcceptedBid { get; set; } // if there is any suggestions, check that suggestion was accepted by Customer.
     }
 }

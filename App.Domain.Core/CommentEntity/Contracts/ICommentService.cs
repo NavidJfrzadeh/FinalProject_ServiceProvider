@@ -4,7 +4,7 @@ namespace App.Domain.Core.CommentEntity.Contracts
 {
     public interface ICommentService
     {
-        public Task<bool> Create(CreateCommentDto newCommentDto, CancellationToken cancellationToken);
+        public Task<int> Create(CreateCommentDto newCommentDto, CancellationToken cancellationToken);
         public Task<List<ExpertCommentDto>> GetForExpert(int expertId, CancellationToken cancellationToken);
         public Task<List<CommentDto>> GetUnAcceptedComments(CancellationToken cancellationToken);
         public Task<int> GetUnAcceptedCommentsCount(CancellationToken cancellationToken);

@@ -18,7 +18,7 @@ public class ExpertService : IExpertService
     #endregion
 
     #region Implementaions
-    public async Task<List<Expert>> GetAll(CancellationToken cancellationToken)
+    public async Task<List<ExpertListDto>> GetAll(CancellationToken cancellationToken)
         => await _expertRepository.GetAll(cancellationToken);
 
     public async Task<List<int>> GetExpertCategories(int expertId, CancellationToken cancellationToken)

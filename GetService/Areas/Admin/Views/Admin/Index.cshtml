@@ -3,6 +3,7 @@
     ViewData["Title"] = "صفحه اصلی";
     Layout = "_AdminLayout";
     int UnAcceptedCommentsCount = (int)TempData["UnAccesptedCommentsCount"];
+    int RequestCount = (int)TempData["RequestCount"];
 }
 
 <div class="col-md-12">
@@ -37,7 +38,7 @@
             <div class="stat-box use-green shadow">
                 <a asp-action="RequestsList">
                     <div class="stat">
-                        <div class="counter-down" data-value="4"></div>
+                        <div class="counter-down" data-value="@RequestCount"></div>
                         <div class="h3">درخواست‌ ها</div>
                     </div><!-- /.stat -->
                     <div class="visual">

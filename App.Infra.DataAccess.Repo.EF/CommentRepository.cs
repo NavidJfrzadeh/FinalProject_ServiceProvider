@@ -24,19 +24,21 @@ namespace App.Infra.DataAccess.Repo.EF
         #endregion
 
         #region Implementations
-        public async Task<bool> Create(CreateCommentDto newCommentDto, CancellationToken cancellationToken)
+        public async Task<int> Create(CreateCommentDto newCommentDto, CancellationToken cancellationToken)
         {
             var newComment = new Comment()
             {
                 Title = newCommentDto.Title,
                 CustomerId = newCommentDto.CustomerId,
                 ExpertId = newCommentDto.ExpertId,
+                RequestId = newCommentDto.RequestId,
                 Score = newCommentDto.Score,
                 Description = newCommentDto.Description
             };
             await _context.Comments.AddAsync(newComment, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
-            return true;
+
+            return newComment.Id;
         }
 
         public async Task Delete(int id, CancellationToken cancellationToken)
@@ -117,10 +119,10 @@ namespace App.Infra.DataAccess.Repo.EF
         }
         #endregion
 
-        #region Private Methods\
+        #region Private Methods
         private async Task<Comment> FindById(int id, CancellationToken cancellationToken)
         {
-            var comment = await _context.Comments.FindAsync(id, cancellationToken);
+            var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
             return comment ?? throw new Exception($"Comment with Id {id} not found");
         }
         #endregion

@@ -34,10 +34,10 @@
                     }
                     @if (item.IsAccepted == true)
                     {
-                        <td style="color:green">تایید شده</td>
+                        <td style="color:green">تایید شد</td>
                     }
                     <td>
-                        <a asp-action="RequestDetails" asp-route-id="@item.RequestId" class="btn btn-info">مشاهده بیشتر</a>
+                        <a asp-action="RequestDetails" asp-route-requestId="@item.RequestId" class="btn btn-sm btn-info rounded">مشاهده بیشتر</a>
                     </td>
                 </tr>
             }

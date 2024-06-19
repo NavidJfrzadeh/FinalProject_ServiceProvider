@@ -20,7 +20,7 @@ public class ExpertAppService : IExpertAppService
     }
     #endregion
 
-    public async Task<List<Expert>> GetAll(CancellationToken cancellationToken)
+    public async Task<List<ExpertListDto>> GetAll(CancellationToken cancellationToken)
         => await _expertService.GetAll(cancellationToken);
 
     public async Task<List<int>> GetExpertCategories(int expertId, CancellationToken cancellationToken)

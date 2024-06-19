@@ -18,14 +18,14 @@ namespace App.Domain.Service
         #endregion
 
         #region Implementations
-        public async Task<bool> Create(CreateCommentDto newCommentDto, CancellationToken cancellationToken)
+        public async Task<int> Create(CreateCommentDto newCommentDto, CancellationToken cancellationToken)
             => await _commentRepository.Create(newCommentDto, cancellationToken);
 
-        public Task Delete(int id, CancellationToken cancellationToken)
-            => _commentRepository.Delete(id, cancellationToken);
+        public async Task Delete(int id, CancellationToken cancellationToken)
+            => await _commentRepository.Delete(id, cancellationToken);
 
-        public Task Accept(int id, CancellationToken cancellationToken)
-            => _commentRepository.Accept(id, cancellationToken);
+        public async Task Accept(int id, CancellationToken cancellationToken)
+            => await _commentRepository.Accept(id, cancellationToken);
 
         public async Task<List<ExpertCommentDto>> GetForExpert(int expertId, CancellationToken cancellationToken)
             => await _commentRepository.GetForExpert(expertId, cancellationToken);
@@ -36,8 +36,8 @@ namespace App.Domain.Service
         public async Task<int> GetUnAcceptedCommentsCount(CancellationToken cancellationToken)
             => await _commentRepository.GetUnAcceptedCommentsCount(cancellationToken);
 
-        public Task<CommentDto> GetById(int id, CancellationToken cancellationToken)
-            => _commentRepository.GetById(id, cancellationToken);
+        public async Task<CommentDto> GetById(int id, CancellationToken cancellationToken)
+            => await _commentRepository.GetById(id, cancellationToken);
         #endregion
     }
 }

@@ -17,9 +17,9 @@ namespace GetService.Areas.Account.Pages
         public class LoginViewModel
         {
             [Display(Name = "ایمیل")]
-            [Required]
+            [Required(ErrorMessage ="ایمیل خود را وارد کنید!")]
             public string Email { get; set; }
-            [Required]
+            [Required(ErrorMessage ="رمز عبور خود را وارد کنید!")]
             [Display(Name = "رمز عبور")]
             public string password { get; set; }
         }

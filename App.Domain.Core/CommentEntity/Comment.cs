@@ -28,6 +28,7 @@ namespace App.Domain.Core.CommentEntity
         public decimal Score { get; set; } = 0;
         public int ExpertId { get; set; }
         public Expert Expert { get; set; }
+        public int? RequestId { get; set; }
         public Request? Request { get; set; }
         [MaxLength(500)]
         public string Description { get; set; }

@@ -1,0 +1,45 @@
+﻿@using App.Domain.Core.CustomerEntity.DTOs
+@model List<CustomerListDto>
+@{
+    ViewData["Title"] = "مشتریان";
+    Layout = "_AdminLayout";
+}
+
+<table class="table table-bordered table-hover table-striped" id="data-table">
+    <thead>
+        <tr>
+            <th><input type="checkbox" id="btn-check-all-toggle"></th>
+            <th>آیدی</th>
+            <th>پروفایل</th>
+            <th>نام مشتری</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>@item.CustomerId</td>
+                <td>@item.ProfileImage</td>
+                <td>@item.FullName</td>
+                <td>
+                    <div class="dropdown">
+                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                            <i class=" fas fa-align-justify"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="btn btn-sm btn-info my-1">
+                                <i class="bx bx-edit-alt me-1"></i>
+                                مدیریت
+                            </a>
+                            <br />
+                            <a class="btn btn-sm btn-danger my-1" onclick="return confirm('مطمئنی؟')">
+                                <i class="bx bx-trash me-1"></i> غیر فعال سازی
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

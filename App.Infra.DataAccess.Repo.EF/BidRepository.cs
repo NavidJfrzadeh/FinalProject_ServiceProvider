@@ -42,23 +42,6 @@ namespace App.Infra.DataAccess.Repo.EF
             return bid ?? new Bid();
         }
 
-        public async Task<List<CustomerRequestBidsDto>> GetForRequest(int RequestId, CancellationToken cancellationToken)
-        {
-            var bids = await context.Bids.Where(b => b.RequestId == RequestId)
-                .Select(b => new CustomerRequestBidsDto
-                {
-                    BidId = b.Id,
-                    Description = b.Description,
-                    Price = b.Price,
-                    ExpertFullName = b.Expert.FullName,
-                    ExpertId = b.ExpertId,
-                    FinishedAtFa = b.FinishedAt.ToPersianString("dddd, dd MMMM, yyyy"),
-                    IsAccepted = b.IsAccepted
-                }).ToListAsync(cancellationToken);
-
-            return bids;
-        }
-
         public async Task<bool> AcceptBid(int bidId, CancellationToken cancellationToken)
         {
             var targetBid = await FindBid(bidId, cancellationToken);

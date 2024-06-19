@@ -35,6 +35,18 @@ namespace App.Infra.DataAccess.Repo.EF
             return false;
         }
 
+        public async Task<bool> Reject(int requestId, CancellationToken cancellationToken)
+        {
+            var targetRequest = await FindById(requestId, cancellationToken);
+            if (targetRequest != null)
+            {
+                targetRequest.IsAccepted = false;
+                await _context.SaveChangesAsync(cancellationToken);
+                return true;
+            }
+            return false;
+        }
+
         public async Task<bool> Create(CreateRequestDto newRequestDto, CancellationToken cancellationToken)
         {
             var newRequest = new Request
@@ -76,10 +88,26 @@ namespace App.Infra.DataAccess.Repo.EF
             return requests;
         }
 
-        public async Task<Request> GetById(int id, CancellationToken cancellationToken)
+        public async Task<int> GetRequestsCount(CancellationToken cancellationToken)
         {
-            var request = await _context.Requests.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
-            return request ?? throw new Exception($"Request with Id {id} not found");
+            var requestCount = await _context.Requests.CountAsync();
+            return requestCount;
+        }
+
+        public async Task<RequestDetailsDto> GetById(int requestId, CancellationToken cancellationToken)
+        {
+            var request = await _context.Requests.Where(r => r.Id == requestId)
+                .Select(r => new RequestDetailsDto
+                {
+                    RequestId = r.Id,
+                    Description = r.Description,
+                    ImageSrc = r.ImageSrc,
+                    CustomerFullName = r.Customer.FullName,
+                    RequestStatus = r.Status,
+                    IsAccepted = r.IsAccepted
+                }).FirstOrDefaultAsync(cancellationToken);
+
+            return request ?? throw new Exception($"Request with Id {requestId} not found");
         }
 
         public async Task<List<CustomerRequestDto>> GetCustomerRequests(int customerId, CancellationToken cancellationToken)
@@ -92,6 +120,7 @@ namespace App.Infra.DataAccess.Repo.EF
                     RequestImage = r.ImageSrc,
                     CreateDateFa = r.CreatedAt.ToPersianString("dddd, dd MMMM,yyyy"),
                     Status = r.Status,
+                    Comment = r.Comment,
                     Bids = r.Bids.Select(b => new CustomerRequestBidsDto
                     {
                         BidId = b.Id,
@@ -102,7 +131,7 @@ namespace App.Infra.DataAccess.Repo.EF
                         FinishedAtFa = b.FinishedAt.ToPersianString("dddd, dd MMMM,yyyy"),
                         IsAccepted = b.IsAccepted
                     }).ToList()
-                }).ToListAsync(cancellationToken);
+                }).OrderByDescending(r => r.RequestId).ToListAsync(cancellationToken);
 
             return requests;
         }
@@ -137,6 +166,23 @@ namespace App.Infra.DataAccess.Repo.EF
             return reqeusts ?? new List<RequestDto>();
         }
 
+        public async Task<List<CustomerRequestDto>> GetFinishedRequestsForCustomer(int customerId, CancellationToken cancellationToken)
+        {
+            var requests = await _context.Requests.Where(r => r.CustomerId == customerId && r.Status == Status.RequestResponsed)
+                .Select(r => new CustomerRequestDto
+                {
+                    RequestId = r.Id,
+                    ExpertId = r.AcceptedExpertId,
+                    RequestImage = r.ImageSrc,
+                    ServiceTitle = r.Service.Title,
+                    CreateDateFa = r.CreatedAt.ToPersianString("dddd, dd MMMM,yyyy"),
+                    Status = r.Status,
+                    Comment = r.Comment,
+                }).ToListAsync(cancellationToken);
+
+            return requests ?? new List<CustomerRequestDto>();
+        }
+
         public async Task<List<Request>> GetForService(int serviceId, CancellationToken cancellationToken)
         {
             var requests = await _context.Requests.AsNoTracking().Where(r => r.ServiceId == serviceId).ToListAsync(cancellationToken);
@@ -147,6 +193,20 @@ namespace App.Infra.DataAccess.Repo.EF
         {
             var request = await FindById(requestId, cancellationToken);
             request.Status = status;
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task SetExpert(int requestId, int expertId, CancellationToken cancellationToken)
+        {
+            var request = await FindById(requestId, cancellationToken);
+            request.AcceptedExpertId = expertId;
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task SetComment(int requestId, int commentId, CancellationToken cancellationToken)
+        {
+            var request = await FindById(requestId, cancellationToken);
+            request.CommentId = commentId;
             await _context.SaveChangesAsync(cancellationToken);
         }
         #endregion

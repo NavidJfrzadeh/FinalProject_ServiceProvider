@@ -18,7 +18,7 @@ public class CustomerAppService : ICustomerAppService
     #endregion
 
     #region Implementations
-    public async Task<List<Customer>> GetAll(CancellationToken cancellationToken)
+    public async Task<List<CustomerListDto>> GetAll(CancellationToken cancellationToken)
         => await _customerService.GetAll(cancellationToken);
 
     public async Task<Customer> GetById(int id, CancellationToken cancellationToken)

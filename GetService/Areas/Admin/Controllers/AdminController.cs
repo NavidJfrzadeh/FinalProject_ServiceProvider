@@ -1,6 +1,8 @@
 ﻿using App.Domain.Core._0_BaseEntities.Enums;
 using App.Domain.Core.CategoryEntity.Contracts;
 using App.Domain.Core.CommentEntity.Contracts;
+using App.Domain.Core.CustomerEntity.Contracts;
+using App.Domain.Core.ExpertEntity.Contracts;
 using App.Domain.Core.RequestEntity.Contracts;
 using App.Domain.Core.ServiceEntity.Contracts;
 using App.Domain.Core.ServiceEntity.DTOs;
@@ -18,22 +20,31 @@ namespace GetService.Areas.Admin.Controllers
         private readonly IServicesAppService _servicesAppService;
         private readonly ICommentAppService _commentAppService;
         private readonly IRequestAppService _requestAppService;
+        private readonly ICustomerAppService _customerAppService;
+        private readonly IExpertAppService _expertAppService;
         #endregion
 
+        #region Ctors
         public AdminController(ICategoryAppService categoryAppService,
             IServicesAppService servicesAppService,
             ICommentAppService commentAppService,
-            IRequestAppService requestAppService)
+            IRequestAppService requestAppService,
+            ICustomerAppService customerAppService,
+            IExpertAppService expertAppService)
         {
             _categoryAppService = categoryAppService;
             _servicesAppService = servicesAppService;
             _commentAppService = commentAppService;
             _requestAppService = requestAppService;
+            _customerAppService = customerAppService;
+            _expertAppService = expertAppService;
         }
+        #endregion
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
             TempData["UnAccesptedCommentsCount"] = await _commentAppService.GetUnAcceptedCommentsCount(cancellationToken);
+            TempData["RequestCount"] = await _requestAppService.GetRequestsCount(cancellationToken);
             return View();
         }
 
@@ -167,21 +178,50 @@ namespace GetService.Areas.Admin.Controllers
             return View(requests);
         }
 
-        public async Task<IActionResult> RequestDetails(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> RequestDetails(int requestId, CancellationToken cancellationToken)
         {
-            var request = await _requestAppService.GetById(id, cancellationToken);
+            var request = await _requestAppService.GetById(requestId, cancellationToken);
             return View(request);
         }
 
         [HttpPost]
-        public async Task<IActionResult> RequestSetStatus(int id, Status status, CancellationToken cancellationToken)
+        public async Task<IActionResult> RequestSetStatus(int requestId, Status status, CancellationToken cancellationToken)
         {
-            await _requestAppService.SetRequestStatus(id, status, cancellationToken);
+            if (status == Status.WaitingForChoosingExpert)
+            {
+                await _requestAppService.Accept(requestId, status, cancellationToken);
+                return RedirectToAction("RequestsList");
+            }
+
+            if (status == Status.RequestRejected || status == Status.WaitingForAcceptRequest)
+            {
+                await _requestAppService.Reject(requestId, status, cancellationToken);
+                return RedirectToAction("RequestsList");
+            }
+
+            await _requestAppService.SetRequestStatus(requestId, status, cancellationToken);
             return RedirectToAction("RequestsList");
         }
-        public async Task<IActionResult> CustomerList(CancellationToken cancellationToken)
+
+        [HttpGet]
+        public async Task<IActionResult> AcceptRequest(int requestId, CancellationToken cancellationToken)
         {
-            return View();
+            await _requestAppService.Accept(requestId, Status.WaitingForChoosingExpert, cancellationToken);
+            return RedirectToAction("RequestsList");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCustomerList(CancellationToken cancellationToken)
+        {
+            var customers = await _customerAppService.GetAll(cancellationToken);
+            return View(customers);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetExpertList(CancellationToken cancellationToken)
+        {
+            var experts = await _expertAppService.GetAll(cancellationToken);
+            return View(experts);
         }
     }
 }

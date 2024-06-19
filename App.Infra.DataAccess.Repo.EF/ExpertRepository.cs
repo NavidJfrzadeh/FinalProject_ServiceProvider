@@ -22,14 +22,17 @@ namespace App.Infra.DataAccess.Repo.EF
         #endregion
 
         #region Implementations
-        public async Task<List<Expert>> GetAll(CancellationToken cancellationToken)
+        public async Task<List<ExpertListDto>> GetAll(CancellationToken cancellationToken)
         {
-            var Experts = await _context.Experts.AsNoTracking().ToListAsync(cancellationToken);
-            if (Experts.Any())
+            var Experts = await _context.Experts.AsNoTracking().Select(e => new ExpertListDto
             {
-                return Experts;
-            }
-            return new List<Expert>();
+                ExpertId = e.Id,
+                ExpertFullName = e.FullName,
+                ExpertScore = e.Score,
+                ProfileImage = e.ProfileImageUrl
+            }).ToListAsync(cancellationToken);
+
+            return Experts ?? new List<ExpertListDto>();
         }
 
         public async Task<List<int>> GetExpertCategories(int expertId, CancellationToken cancellationToken)
@@ -61,7 +64,7 @@ namespace App.Infra.DataAccess.Repo.EF
         public async Task Update(ExpertSummaryDto expertSummaryDto, CancellationToken cancellationToken)
         {
             //var expert = await FindById(expertSummaryDto.ExpertId, cancellationToken);
-            var expert = await _context.Experts.Include(e => e.ApplicationUser).Include(e =>e.Categories)
+            var expert = await _context.Experts.Include(e => e.ApplicationUser).Include(e => e.Categories)
                 .FirstOrDefaultAsync(e => e.Id == expertSummaryDto.ExpertId);
 
             if (expert != null)

@@ -25,8 +25,25 @@ public class RequestAppService : IRequestAppService
     #endregion
 
     #region Implementations
-    public async Task<bool> Accept(int id, CancellationToken cancellationToken)
-        => await _requestService.Accept(id, cancellationToken);
+    public async Task<bool> Accept(int requestId, Status status, CancellationToken cancellationToken)
+    {
+        var result = await _requestService.Accept(requestId, cancellationToken);
+        if (result)
+        {
+            await _requestService.SetRequestStatus(requestId, status, cancellationToken);
+            return true;
+        }
+        return false;
+    }
+
+    public async Task Reject(int requestId, Status status, CancellationToken cancellationToken)
+    {
+        var result = await _requestService.Reject(requestId, cancellationToken);
+        if (result)
+        {
+            await _requestService.SetRequestStatus(requestId, status, cancellationToken);
+        }
+    }
 
     public async Task<bool> Create(CreateRequestDto newRequestDto, CancellationToken cancellationToken)
     {
@@ -44,7 +61,7 @@ public class RequestAppService : IRequestAppService
     public async Task<List<RequestDto>> GetAll(CancellationToken cancellationToken)
         => await _requestService.GetAll(cancellationToken);
 
-    public async Task<Request> GetById(int id, CancellationToken cancellationToken)
+    public async Task<RequestDetailsDto> GetById(int id, CancellationToken cancellationToken)
         => await _requestService.GetById(id, cancellationToken);
 
     public async Task<List<CustomerRequestDto>> GetCustomerRequests(int customerId, CancellationToken cancellationToken)
@@ -64,5 +81,11 @@ public class RequestAppService : IRequestAppService
 
     public async Task<List<RequestDto>> GetFinishedReqeustsForExpert(int expertId, CancellationToken cancellationToken)
         => await _requestService.GetFinishedReqeustsForExpert(expertId, cancellationToken);
+
+    public async Task<int> GetRequestsCount(CancellationToken cancellationToken)
+        => await _requestService.GetRequestsCount(cancellationToken);
+
+    public async Task<List<CustomerRequestDto>> GetFinishedRequestsForCustomer(int customerId, CancellationToken cancellationToken)
+        => await _requestService.GetFinishedRequestsForCustomer(customerId, cancellationToken);
     #endregion
 }

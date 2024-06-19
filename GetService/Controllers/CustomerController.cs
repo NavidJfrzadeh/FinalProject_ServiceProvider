@@ -18,13 +18,15 @@ namespace GetService.Controllers
     {
         [TempData]
         public string ActiveLink { get; set; }
-
+        #region Fields
         private readonly IRequestAppService _requestAppService;
         private readonly IBidAppService _bidAppService;
         private readonly ICommentAppService _commentAppSerivce;
         private readonly ICustomerAppService _customerAppSerivce;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        #endregion
 
+        #region Ctors
         public CustomerController(IRequestAppService requestAppService,
             IBidAppService bidAppService,
             ICommentAppService commentAppService,
@@ -38,6 +40,7 @@ namespace GetService.Controllers
             _customerAppSerivce = customerAppService;
             _signInManager = signInManager;
         }
+        #endregion
 
         public async Task<IActionResult> Dashboard(CancellationToken cancellationToken)
         {
@@ -103,21 +106,10 @@ namespace GetService.Controllers
             return View(CustomerRequests);
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> GetRequestBids(int requestId, CancellationToken cancellationToken)
+        public async Task<IActionResult> AcceptBid(int bidId, int requestId, int expertId, CancellationToken cancellationToken)
         {
-            TempData["requestId"] = requestId;
-
-            var bids = await _bidAppService.GetForRequest(requestId, cancellationToken);
-            return View(bids);
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> AcceptBid(int bidId, int requestId, CancellationToken cancellationToken)
-        {
-            var result = await _bidAppService.AcceptBid(bidId, cancellationToken);
+            var result = await _bidAppService.AssignBid(bidId, requestId, expertId, cancellationToken);
 
             if (result)
             {
@@ -134,12 +126,21 @@ namespace GetService.Controllers
         }
 
         [HttpGet]
-        public IActionResult WriteCommentForExpert(int expertId)
+        public async Task<IActionResult> GetFinishedRequests(CancellationToken cancellationToken)
+        {
+            var customerId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userCustomerId").Value);
+            var requests = await _requestAppService.GetFinishedRequestsForCustomer(customerId, cancellationToken);
+            return View(requests);
+        }
+
+        [HttpGet]
+        public IActionResult WriteCommentForExpert(int requestId, int expertId)
         {
             var newCommentDto = new CreateCommentDto
             {
                 CustomerId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "userCustomerId").Value),
-                ExpertId = expertId
+                ExpertId = expertId,
+                RequestId = requestId
             };
             return View(newCommentDto);
         }
@@ -147,15 +148,11 @@ namespace GetService.Controllers
         [HttpPost]
         public async Task<IActionResult> WriteCommentForExpert(CreateCommentDto newCommentDto, CancellationToken cancellationToken)
         {
-            var requestId = (int)TempData["requestId"];
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return View(newCommentDto);
 
-            var result = await _commentAppSerivce.Create(newCommentDto, cancellationToken);
-            if (result)
-                await _requestAppService.SetRequestStatus(requestId, Status.CommentSubmited, cancellationToken);
-
-            return RedirectToAction("RequestList");
+            await _commentAppSerivce.Create(newCommentDto, cancellationToken);
+            return RedirectToAction("GetFinishedRequests");
         }
 
         [HttpGet]

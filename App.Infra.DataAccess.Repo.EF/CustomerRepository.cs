@@ -20,14 +20,16 @@ namespace App.Infra.DataAccess.Repo.EF
         #endregion
 
         #region Implementations
-        public async Task<List<Customer>> GetAll(CancellationToken cancellationToken)
+        public async Task<List<CustomerListDto>> GetAll(CancellationToken cancellationToken)
         {
-            var customers = await _context.Customers.AsNoTracking().ToListAsync(cancellationToken);
-            if (customers.Any())
+            var customers = await _context.Customers.AsNoTracking().Select(c => new CustomerListDto
             {
-                return customers;
-            }
-            return new List<Customer>();
+                CustomerId = c.Id,
+                FullName = c.FullName,
+                ProfileImage = c.ProfileImageUrl
+            }).ToListAsync(cancellationToken);
+
+            return customers ?? new List<CustomerListDto>();
         }
 
         public async Task<Customer> GetById(int id, CancellationToken cancellationToken)
