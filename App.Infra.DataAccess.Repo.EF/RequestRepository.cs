@@ -112,7 +112,7 @@ namespace App.Infra.DataAccess.Repo.EF
 
         public async Task<List<CustomerRequestDto>> GetCustomerRequests(int customerId, CancellationToken cancellationToken)
         {
-            var requests = await _context.Requests.Where(r => r.CustomerId == customerId)
+            var requests = await _context.Requests.Where(r => r.CustomerId == customerId && r.Status != Status.RequestResponsed)
                 .Select(r => new CustomerRequestDto
                 {
                     RequestId = r.Id,
@@ -120,7 +120,6 @@ namespace App.Infra.DataAccess.Repo.EF
                     RequestImage = r.ImageSrc,
                     CreateDateFa = r.CreatedAt.ToPersianString("dddd, dd MMMM,yyyy"),
                     Status = r.Status,
-                    Comment = r.Comment,
                     Bids = r.Bids.Select(b => new CustomerRequestBidsDto
                     {
                         BidId = b.Id,

@@ -74,10 +74,10 @@
                                                                 {
                                                                     <button class="btn btn-secondary disabled">تایید شده</button>
                                                                 }
-                                                                @if (request.Status == Status.RequestResponsed && request.Comment == null && bid.IsAccepted)
+                                                                @* @if (request.Status == Status.RequestResponsed && request.Comment == null && bid.IsAccepted)
                                                                 {
                                                                     <a class="btn btn-sm btn-warning mt-1" asp-action="WriteCommentForExpert" asp-route-requestId="@request.RequestId" asp-route-expertId="@bid.ExpertId">ثبت دیدگاه</a>
-                                                                }
+                                                                } *@
                                                             </td>
                                                         </tr>
                                                     }

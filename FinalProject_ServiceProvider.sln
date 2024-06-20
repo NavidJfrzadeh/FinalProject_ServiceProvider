@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework", "Framework\Fram
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "Web Api\WebApi.csproj", "{7D26F72B-D414-41E8-889D-547CB426CC1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Infra.Db.SqlServer.Dapper", "App.Infra.Db.SqlServer.Dapper\App.Infra.Db.SqlServer.Dapper.csproj", "{616276C2-2E7A-48ED-B6E2-57488E00EAF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{7D26F72B-D414-41E8-889D-547CB426CC1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D26F72B-D414-41E8-889D-547CB426CC1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D26F72B-D414-41E8-889D-547CB426CC1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{616276C2-2E7A-48ED-B6E2-57488E00EAF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{616276C2-2E7A-48ED-B6E2-57488E00EAF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{616276C2-2E7A-48ED-B6E2-57488E00EAF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{616276C2-2E7A-48ED-B6E2-57488E00EAF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,6 +102,7 @@ Global
 		{6B716BF7-41BF-409F-87CF-1098282544D2} = {0B004D9E-F546-4A2A-BBF9-458346FFF72F}
 		{F50C96C4-65E8-4413-B054-FF493DDD4B3C} = {6B716BF7-41BF-409F-87CF-1098282544D2}
 		{7D26F72B-D414-41E8-889D-547CB426CC1F} = {8B93A0ED-1672-442A-BBD5-3681E73B3DDE}
+		{616276C2-2E7A-48ED-B6E2-57488E00EAF7} = {4C2C1DA9-6DF5-46BF-849E-DF71FAC55BDA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1350410-987D-4A5B-BF26-1A2DAFA26D8F}

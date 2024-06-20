@@ -42,7 +42,7 @@
                                         <p>پیشنهاد شما ثبت شد</p>
                                     }
                                 }
-                                @if (request.Status == Status.AcceptExpert)
+                                @if ((request.Status == Status.AcceptExpert || request.Status == Status.RequestResponsed) && request.IsAcceptedBid != null)
                                 {
                                     @if (request.IsAcceptedBid == true)
                                     {

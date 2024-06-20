@@ -141,6 +141,7 @@ namespace App.Infra.DataAccess.Repo.EF
                     Id = s.Id,
                     Title = s.Title,
                     CategoryTitle = s.Category.Title,
+                    PictureLocation = s.ImageSrc
                 }).ToListAsync(cancellationToken);
 
             return services ?? throw new Exception("خدماتی یافت نشد");

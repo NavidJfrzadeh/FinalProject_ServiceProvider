@@ -38,6 +38,7 @@ namespace App.Infra.DataAccess.Repo.EF
                     {
                         Id = c.Id,
                         Title = c.Title,
+                        CategoryPicture = c.PictureLocation,
                         CountService = c.Services.Count()
                     }).ToListAsync(cancellationToken);
                     _memoryCache.Set("Categories", Categories, new MemoryCacheEntryOptions()

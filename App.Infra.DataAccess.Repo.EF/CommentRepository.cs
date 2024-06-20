@@ -57,7 +57,7 @@ namespace App.Infra.DataAccess.Repo.EF
 
         public async Task<List<ExpertCommentDto>> GetForExpert(int expertId, CancellationToken cancellationToken)
         {
-            var comments = await _context.Comments.AsNoTracking().Where(c => c.ExpertId == expertId)
+            var comments = await _context.Comments.AsNoTracking().Where(c => c.ExpertId == expertId && c.IsAccepted == true)
                 .Select(c => new ExpertCommentDto
                 {
                     Id = c.Id,
