@@ -23,14 +23,13 @@ namespace App.Domain.Core.ServiceEntity
         public string? ImageSrc { get; set; }
         [Required]
         [DisplayName("قیمت پایه")]
-        public int BasePrice {  get; set; }
+        public int BasePrice { get; set; }
         [MaxLength(2000)]
         [DisplayName("توضیحات")]
         public string Description { get; set; }
         [DisplayName("دسته‌بندی")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public List<Expert>? Experts { get; set; } = new List<Expert>();
         public List<Request>? Requests { get; set; } = new List<Request>();
     }
 }

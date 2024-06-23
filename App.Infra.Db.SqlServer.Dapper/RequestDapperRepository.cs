@@ -6,7 +6,6 @@ using App.Domain.Core.RequestEntity.DTOs;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Data;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace App.Infra.Db.SqlServer.Dapper
 {
@@ -51,7 +50,7 @@ namespace App.Infra.Db.SqlServer.Dapper
             using var connectionString = new SqlConnection(_siteSettings.SqlConfigurations.ConnectionString);
 
             string querySql = "Select * From Reqeusts as R " +
-                "Left Join Customers As C On R.CustomerId = C.CustomerId" +
+                "Left Join Customers as C On R.CustomerId = C.CustomerId" +
                 "Left Join Services as S On R.ServiceId = S.ServiceId";
 
             var cmd = new CommandDefinition(querySql);

@@ -132,7 +132,7 @@ namespace App.Infra.DataAccess.Repo.EF
                 CategoryId = c.Id,
                 Title = c.Title,
                 PictureLocation = c.PictureLocation,
-                Services = c.Services.Select(s => new ServicesInCategory
+                Services = c.Services.Select(s => new ServiceListDto
                 {
                     Id = s.Id,
                     Title = s.Title,
@@ -145,10 +145,10 @@ namespace App.Infra.DataAccess.Repo.EF
         #endregion
 
         #region Private Methods
-        private async Task<Category> FindCategory(int id, CancellationToken cancellationToken)
+        private async Task<Category> FindCategory(int categoryId, CancellationToken cancellationToken)
         {
-            var Category = await _context.Categories.FindAsync(id, cancellationToken);
-            return Category ?? throw new Exception($"دسته بندی با آیدی {id} یاف نشد!");
+            var Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == categoryId, cancellationToken);
+            return Category ?? throw new Exception($"دسته بندی با آیدی {categoryId} یاف نشد!");
         }
         #endregion
     }

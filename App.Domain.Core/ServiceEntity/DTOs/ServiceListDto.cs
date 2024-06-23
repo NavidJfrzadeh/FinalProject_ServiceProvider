@@ -4,8 +4,8 @@
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Category { get; set; }
-        public int ExpertCount { get; set; }
-        public int RequestCount { get; set; }
+        public string? PictureLocation { get; set; }
+        public string CategoryTitle { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -14,17 +14,17 @@
                     <p class="fs-md ft-medium">مکان فوق العاده ای را برای پیدا کردن نیاز هات.</p>
                 </div>
 
-                <form class="main-search-wrap fl-wrap half-column">
+                <form asp-action="Search" class="main-search-wrap fl-wrap half-column">
                     <div class="main-search-item">
-                        <span class="search-tag">سرویس</span>
-                        <input type="text" class="form-control radius" placeholder="مثلا برقکاری، خانه تکانی">
+                        <span class="search-tag">خدمات</span>
+                        <input asp-for="@Model.Name" type="text" class="form-control radius" placeholder="مثلا برقکاری، خانه تکانی">
                     </div>
-                    <div class="main-search-item">
-                        <span class="search-tag">موقعیت</span>
-                        <input type="text" class="form-control" placeholder="مثلا تهران">
-                    </div>
+                    @* <div class="main-search-item">
+                    <span class="search-tag">موقعیت</span>
+                    <input type="text" class="form-control" placeholder="مثلا تهران">
+                    </div> *@
                     <div class="main-search-button">
-                        <button class="btn full-width theme-bg text-white" type="button">جستجو<i class="fas fa-search"></i></button>
+                        <button type="submit" class="btn full-width theme-bg text-white" type="button">جستجو<i class="fas fa-search"></i></button>
                     </div>
                 </form>
                 @* <form class="main-search-wrap fl-wrap">

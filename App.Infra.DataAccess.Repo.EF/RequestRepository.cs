@@ -211,10 +211,10 @@ namespace App.Infra.DataAccess.Repo.EF
         #endregion
 
         #region Private Methods
-        private async Task<Request> FindById(int id, CancellationToken cancellationToken)
+        private async Task<Request> FindById(int requestId, CancellationToken cancellationToken)
         {
-            var request = await _context.Requests.FindAsync(id, cancellationToken);
-            return request ?? throw new Exception($"Request with Id {id} not found");
+            var request = await _context.Requests.FirstOrDefaultAsync(r => r.Id == requestId, cancellationToken);
+            return request ?? throw new Exception($"Request with Id {requestId} not found");
         }
         #endregion
     }

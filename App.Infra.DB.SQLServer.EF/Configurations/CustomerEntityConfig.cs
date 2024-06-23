@@ -29,9 +29,9 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
             builder.HasOne(c => c.ApplicationUser)
                 .WithOne(ap => ap.Customer);
 
-            builder.HasData(
-                new Customer { Id = 4, FirstName = "Maryam", LastName = "Asadi", FullName = "Maryam Asadi", Gender = Gender.Female, ApplicationUserId = 4 }
-                );
+            //builder.HasData(
+            //    new Customer { Id = 4, FirstName = "Maryam", LastName = "Asadi", FullName = "Maryam Asadi", Gender = Gender.Female, ApplicationUserId = 4 }
+            //    );
 
         }
     }

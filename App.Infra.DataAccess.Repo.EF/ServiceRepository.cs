@@ -50,17 +50,16 @@ namespace App.Infra.DataAccess.Repo.EF
             return false;
         }
 
-        public async Task<List<ServiceListDto>> GetServiceList(CancellationToken cancellationToken)
+        public async Task<List<ServiceListForAdminDto>> GetServiceList(CancellationToken cancellationToken)
         {
-            var services = _memorycache.Get<List<ServiceListDto>>("ServiceList");
+            var services = _memorycache.Get<List<ServiceListForAdminDto>>("ServiceList");
             if (services == null)
             {
-                services = await _context.Services.AsNoTracking().Select(s => new ServiceListDto
+                services = await _context.Services.AsNoTracking().Select(s => new ServiceListForAdminDto
                 {
                     Id = s.Id,
                     Title = s.Title,
                     Category = s.Category.Title,
-                    ExpertCount = s.Experts.Count(),
                     RequestCount = s.Requests.Count()
                 }).ToListAsync(cancellationToken);
                 _memorycache.Set("ServiceList", services, new MemoryCacheEntryOptions
@@ -117,26 +116,25 @@ namespace App.Infra.DataAccess.Repo.EF
             return service ?? throw new Exception($"خدمت با آیدی{id} پیدا نشد");
         }
 
-        public async Task<List<ServiceListDto>> GetCategoryServices(int id, CancellationToken cancellationToken)
+        public async Task<List<ServiceListForAdminDto>> GetCategoryServices(int id, CancellationToken cancellationToken)
         {
 
             var services = await _context.Services.AsNoTracking().Where(s => s.CategoryId == id)
-            .Select(s => new ServiceListDto
+            .Select(s => new ServiceListForAdminDto
             {
                 Id = s.Id,
                 Title = s.Title,
                 Category = s.Category.Title,
-                ExpertCount = s.Experts.Count(),
                 RequestCount = s.Requests.Count()
             }).ToListAsync(cancellationToken);
 
             return services ?? throw new Exception("سرویسی یافت نشد");
         }
 
-        public async Task<List<ServicesInCategory>> GetServicesInCategory(int CategoryId, CancellationToken cancellationToken)
+        public async Task<List<ServiceListDto>> GetServicesInCategory(int CategoryId, CancellationToken cancellationToken)
         {
             var services = await _context.Services.AsNoTracking().Where(s => s.CategoryId == CategoryId)
-                .Select(s => new ServicesInCategory
+                .Select(s => new ServiceListDto
                 {
                     Id = s.Id,
                     Title = s.Title,
@@ -165,13 +163,28 @@ namespace App.Infra.DataAccess.Repo.EF
             }
             return false;
         }
+
+        public async Task<List<ServiceListDto>> Search(string name, CancellationToken cancellationToken)
+        {
+            var services = await _context.Services.Where(s => s.Title.Contains(name))
+                .Select(s => new ServiceListDto
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    CategoryTitle = s.Category.Title,
+                    Description = s.Description,
+                    PictureLocation = s.ImageSrc
+                }).ToListAsync(cancellationToken);
+
+            return services;
+        }
         #endregion
 
         #region Private Methods
-        private async Task<Service> FindById(int id, CancellationToken cancellationToken)
+        private async Task<Service> FindById(int serviceId, CancellationToken cancellationToken)
         {
-            var service = await _context.Services.FindAsync(id, cancellationToken);
-            return service ?? throw new Exception($"Service with Id {id} not found");
+            var service = await _context.Services.FirstOrDefaultAsync(s => s.Id == serviceId, cancellationToken);
+            return service ?? throw new Exception($"Service with Id {serviceId} not found");
         }
         #endregion
     }

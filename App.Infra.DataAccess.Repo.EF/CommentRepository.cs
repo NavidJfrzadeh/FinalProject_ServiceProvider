@@ -120,10 +120,10 @@ namespace App.Infra.DataAccess.Repo.EF
         #endregion
 
         #region Private Methods
-        private async Task<Comment> FindById(int id, CancellationToken cancellationToken)
+        private async Task<Comment> FindById(int commentId, CancellationToken cancellationToken)
         {
-            var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
-            return comment ?? throw new Exception($"Comment with Id {id} not found");
+            var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == commentId, cancellationToken);
+            return comment ?? throw new Exception($"Comment with Id {commentId} not found");
         }
         #endregion
     }

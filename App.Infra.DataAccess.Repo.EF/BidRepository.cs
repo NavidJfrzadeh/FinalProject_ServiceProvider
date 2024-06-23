@@ -56,10 +56,10 @@ namespace App.Infra.DataAccess.Repo.EF
         #endregion
 
         #region Private Methods
-        private async Task<Bid> FindBid(int id, CancellationToken cancellationToken)
+        private async Task<Bid> FindBid(int bidId, CancellationToken cancellationToken)
         {
-            var bid = await context.Bids.FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
-            return bid ?? throw new Exception($"Suggestion with Id {id} not found");
+            var bid = await context.Bids.FirstOrDefaultAsync(b => b.Id == bidId, cancellationToken);
+            return bid ?? throw new Exception($"Suggestion with Id {bidId} not found");
         }
         #endregion
     }

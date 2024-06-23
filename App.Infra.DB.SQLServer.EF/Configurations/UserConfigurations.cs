@@ -25,42 +25,42 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
                     PhoneNumber = "1234567890",
                     SecurityStamp = Guid.NewGuid().ToString()
                 },
-                new ApplicationUser()
-                {
-                    Id = 2,
-                    FullName = "Ali Karimi",
-                    UserName = "Ali@gmail.com",
-                    NormalizedUserName = "ALI@GMAIL.COM",
-                    Email = "Ali@gmail.com",
-                    NormalizedEmail = "ALI@GMAIL.COM",
-                    LockoutEnabled = false,
-                    PhoneNumber = "09377507920",
-                    SecurityStamp = Guid.NewGuid().ToString()
-                },
-                new ApplicationUser()
-                {
-                    Id = 3,
-                    FullName = "Sahar Akbari",
-                    UserName = "Sahar@gmail.com",
-                    NormalizedUserName = "SAHAR@GMAIL.COM",
-                    Email = "Sahar@gmail.com",
-                    NormalizedEmail = "SAHAR@GMAIL.COM",
-                    LockoutEnabled = false,
-                    PhoneNumber = "09377507920",
-                    SecurityStamp = Guid.NewGuid().ToString()
-                },
-                new ApplicationUser()
-                {
-                    Id = 4,
-                    FullName = "Maryam Asadi",
-                    UserName = "Maryam@gmail.com",
-                    NormalizedUserName = "MARYAM@GMAIL.COM",
-                    Email = "Maryam@gmail.com",
-                    NormalizedEmail = "MARYAM@GMAIL.COM",
-                    LockoutEnabled = false,
-                    PhoneNumber = "09377507920",
-                    SecurityStamp = Guid.NewGuid().ToString()
-                }
+                //new ApplicationUser()
+                //{
+                //    Id = 2,
+                //    FullName = "Ali Karimi",
+                //    UserName = "Ali@gmail.com",
+                //    NormalizedUserName = "ALI@GMAIL.COM",
+                //    Email = "Ali@gmail.com",
+                //    NormalizedEmail = "ALI@GMAIL.COM",
+                //    LockoutEnabled = false,
+                //    PhoneNumber = "09377507920",
+                //    SecurityStamp = Guid.NewGuid().ToString()
+                //},
+                //new ApplicationUser()
+                //{
+                //    Id = 3,
+                //    FullName = "Sahar Akbari",
+                //    UserName = "Sahar@gmail.com",
+                //    NormalizedUserName = "SAHAR@GMAIL.COM",
+                //    Email = "Sahar@gmail.com",
+                //    NormalizedEmail = "SAHAR@GMAIL.COM",
+                //    LockoutEnabled = false,
+                //    PhoneNumber = "09377507920",
+                //    SecurityStamp = Guid.NewGuid().ToString()
+                //},
+                //new ApplicationUser()
+                //{
+                //    Id = 4,
+                //    FullName = "Maryam Asadi",
+                //    UserName = "Maryam@gmail.com",
+                //    NormalizedUserName = "MARYAM@GMAIL.COM",
+                //    Email = "Maryam@gmail.com",
+                //    NormalizedEmail = "MARYAM@GMAIL.COM",
+                //    LockoutEnabled = false,
+                //    PhoneNumber = "09377507920",
+                //    SecurityStamp = Guid.NewGuid().ToString()
+                //}
             };
 
             foreach (var user in users)
@@ -80,10 +80,10 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
 
             //Seed Role for Users
             modelBuilder.Entity<IdentityUserRole<int>>().HasData(
-                new IdentityUserRole<int> { RoleId = 1, UserId = 1 },
-                new IdentityUserRole<int> { RoleId = 2, UserId = 2 },
-                new IdentityUserRole<int> { RoleId = 2, UserId = 3 },
-                new IdentityUserRole<int> { RoleId = 3, UserId = 4 }
+                new IdentityUserRole<int> { RoleId = 1, UserId = 1 }
+                //new IdentityUserRole<int> { RoleId = 2, UserId = 2 },
+                //new IdentityUserRole<int> { RoleId = 2, UserId = 3 },
+                //new IdentityUserRole<int> { RoleId = 3, UserId = 4 }
                 );
         }
     }

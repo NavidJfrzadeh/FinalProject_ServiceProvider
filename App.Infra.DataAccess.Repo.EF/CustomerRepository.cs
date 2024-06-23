@@ -79,11 +79,11 @@ namespace App.Infra.DataAccess.Repo.EF
         #endregion
 
         #region Private Fields
-        public async Task<Customer> FindById(int id, CancellationToken cancellationToken)
+        public async Task<Customer> FindById(int customerId, CancellationToken cancellationToken)
         {
-            var customer = await _context.Customers.FindAsync(id, cancellationToken);
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Id == customerId, cancellationToken);
 
-            return customer ?? throw new Exception($"Customer with Id {id} not found");
+            return customer ?? throw new Exception($"Customer with Id {customerId} not found");
         }
         #endregion
     }

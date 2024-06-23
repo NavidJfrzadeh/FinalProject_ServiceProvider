@@ -17,9 +17,6 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
                 .HasForeignKey(c => c.ExpertId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(e => e.Services)
-                .WithMany(s => s.Experts);
-
             builder.HasMany(e => e.Bids)
                 .WithOne(b => b.Expert)
                 .HasForeignKey(b => b.ExpertId)
@@ -28,10 +25,10 @@ namespace App.Infra.DB.SQLServer.EF.Configurations
             builder.HasOne(e => e.ApplicationUser)
                 .WithOne(ap => ap.Expert);
 
-            builder.HasData(
-                new Expert { Id = 2, FirstName = "Ali", LastName = "Karimi", FullName = "Ali Karimi", Gender = Gender.Male, ApplicationUserId = 2 },
-                new Expert { Id = 3, FirstName = "Sahar", LastName = "Akbari", FullName = "Sahar Akbari", Gender = Gender.Female, ApplicationUserId = 3 }
-                );
+            //builder.HasData(
+            //    new Expert { Id = 2, FirstName = "Ali", LastName = "Karimi", FullName = "Ali Karimi", Gender = Gender.Male, ApplicationUserId = 2 },
+            //    new Expert { Id = 3, FirstName = "Sahar", LastName = "Akbari", FullName = "Sahar Akbari", Gender = Gender.Female, ApplicationUserId = 3 }
+            //    );
         }
     }
 }
